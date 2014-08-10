@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>521</width>
+    <height>479</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Drill Interface</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>1</horstretch>
+     <verstretch>1</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="connectArduinoButton">
+        <property name="text">
+         <string>Connect</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="arduinoConnected">
+        <property name="text">
+         <string>Arduino connected</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QPushButton" name="motorEnableButton">
+          <property name="text">
+           <string>Enable</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="motorDisableButton">
+          <property name="text">
+           <string>Disable</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="QCheckBox" name="motorEnable">
+          <property name="text">
+           <string>Enabled</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="motorStallingCheckBox">
+          <property name="text">
+           <string>Intermitent</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>Reference reciprocating frequency</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLineEdit" name="refReciproFreqlineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="refCWReciproFreqcheckBox">
+        <property name="text">
+         <string>CW</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Reference RPM</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="referenceRpm">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="referenceRpmCW">
+        <property name="text">
+         <string>CW</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Output reciprocating frequency</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QLineEdit" name="outputReciproFreqlineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="outputCWReciproFreqcheckBox">
+        <property name="text">
+         <string>CW</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Output RPM</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLineEdit" name="outputRpm">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="outputRpmCW">
+        <property name="text">
+         <string>CW</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Output Current</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="motorOutputCurrentLineEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="inputRpm">
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="inputRpmButton">
+          <property name="text">
+           <string>send</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>input RPM</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Input Reciprocating Frequency</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLineEdit" name="inputReciproFreqlineEdit"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="inputReciproFreqpushButton">
+          <property name="text">
+           <string>send</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>521</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuRecord">
+    <property name="title">
+     <string>Record</string>
+    </property>
+    <widget class="QMenu" name="menuSample_Number">
+     <property name="title">
+      <string>Sample Number</string>
+     </property>
+     <addaction name="action50"/>
+     <addaction name="action100"/>
+     <addaction name="action200"/>
+     <addaction name="action500"/>
+     <addaction name="action100_2"/>
+    </widget>
+    <addaction name="actionError"/>
+    <addaction name="actionOutput_Rpm"/>
+    <addaction name="actionOutput_Current"/>
+    <addaction name="actionOutput_Frequency"/>
+    <addaction name="separator"/>
+    <addaction name="menuSample_Number"/>
+   </widget>
+   <widget class="QMenu" name="menuTuning">
+    <property name="title">
+     <string>Tuning</string>
+    </property>
+    <widget class="QMenu" name="menuAuto_self_tune">
+     <property name="title">
+      <string>Auto self tune</string>
+     </property>
+     <addaction name="actionNear_178_CCW_rpm"/>
+     <addaction name="actionNear_0_rpm"/>
+     <addaction name="actionNear_178_CW_rpm"/>
+    </widget>
+    <addaction name="actionAdd_current_value_pair"/>
+    <addaction name="separator"/>
+    <addaction name="menuAuto_self_tune"/>
+   </widget>
+   <addaction name="menuRecord"/>
+   <addaction name="menuTuning"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionError">
+   <property name="text">
+    <string>Error</string>
+   </property>
+  </action>
+  <action name="actionOutput_Rpm">
+   <property name="text">
+    <string>Output Rpm</string>
+   </property>
+  </action>
+  <action name="actionOutput_Current">
+   <property name="text">
+    <string>Output Current</string>
+   </property>
+  </action>
+  <action name="action50">
+   <property name="text">
+    <string>50</string>
+   </property>
+  </action>
+  <action name="action100">
+   <property name="text">
+    <string>100</string>
+   </property>
+  </action>
+  <action name="action200">
+   <property name="text">
+    <string>200</string>
+   </property>
+  </action>
+  <action name="actionOutput_Frequency">
+   <property name="text">
+    <string>Output Frequency</string>
+   </property>
+  </action>
+  <action name="action500">
+   <property name="text">
+    <string>500</string>
+   </property>
+  </action>
+  <action name="action100_2">
+   <property name="text">
+    <string>1000</string>
+   </property>
+  </action>
+  <action name="actionAdd_current_value_pair">
+   <property name="text">
+    <string>Add current value pair</string>
+   </property>
+  </action>
+  <action name="actionNear_178_CCW_rpm">
+   <property name="text">
+    <string>near 178 CCW rpm</string>
+   </property>
+  </action>
+  <action name="actionNear_0_rpm">
+   <property name="text">
+    <string>near 0 rpm</string>
+   </property>
+  </action>
+  <action name="actionNear_178_CW_rpm">
+   <property name="text">
+    <string>near 178 CW rpm</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
