@@ -144,27 +144,27 @@ void MainWindow::serialRecieved()
                     if(arduino_input_list[2][0] == '-')
                     {
                         emit motorReferenceCW(true);
-                        emit motorReferenceRPM(arduino_input_list[1].remove(0,1));
-                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].remove(0,1).toDouble()*0.5/M_PI));
+                        emit motorReferenceRPM(arduino_input_list[2].remove(0,1));
+                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].remove(0,1).toDouble()/60));
                     }
                     else
                     {
                         emit motorReferenceCW(false);
-                        emit motorReferenceRPM(arduino_input_list[1]);
-                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].toDouble()*0.5/M_PI));
+                        emit motorReferenceRPM(arduino_input_list[2]);
+                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].toDouble()/60));
                     }
                     //what is the output RPM?
                     if(arduino_input_list[3][0] == '-')
                     {
                         emit motorOutputCW(true);
-                        emit motorOutputRPM(arduino_input_list[2].remove(0,1));
-                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].remove(0,1).toDouble()*0.5/M_PI));
+                        emit motorOutputRPM(arduino_input_list[3].remove(0,1));
+                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].remove(0,1).toDouble()/60));
                     }
                     else
                     {
                         emit motorOutputCW(false);
-                        emit motorOutputRPM(arduino_input_list[2]);
-                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].toDouble()*0.5/M_PI));
+                        emit motorOutputRPM(arduino_input_list[3]);
+                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].toDouble()/60));
                     }
                     //what is the current?
                     emit motorOutputCurrent(arduino_input_list[4]);
@@ -262,7 +262,7 @@ void MainWindow::on_inputReciproFreqpushButton_clicked()
 {
     if(!self_tuning_mode)
     {
-        emit sendArduino(QString::number((int)ui->inputReciproFreqlineEdit->text().toDouble()*2*M_PI));
+        emit sendArduino(QString::number(int(ui->inputReciproFreqlineEdit->text().toDouble()*60)));
         ui->inputReciproFreqlineEdit->setText("");
     }
 }
@@ -301,6 +301,7 @@ void MainWindow::on_actionNear_178_CCW_rpm_triggered()
     self_tuning_args[0] = -178;
     self_tuning_args[1] = 20;
     self_tuning_args[2] = 2;
+    emit sendArduino("178");
     QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
 }
 
@@ -316,17 +317,18 @@ void MainWindow::selfTuneArduino()
         self_tuning_args[0]+=self_tuning_args[2];
         emit sendArduino(QString::number(self_tuning_args[0]));
         self_tuning_args[1]+=-1;
-        QTimer::singleShot(1000,this,SLOT(selfTuneArduino()));
+        QTimer::singleShot(5000,this,SLOT(selfTuneArduino()));
     }
 }
 
 void MainWindow::on_actionNear_0_rpm_triggered()
 {
-    emit statusMessage("self-tuning. Please wait.");
     self_tuning_mode = true;
     self_tuning_args[0] = -20;
     self_tuning_args[1] = 20;
     self_tuning_args[2] = 2;
+    emit sendArduino("-20");
+    emit statusMessage("self-tuning. Please wait.");
     QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
 }
 
@@ -337,5 +339,6 @@ void MainWindow::on_actionNear_178_CW_rpm_triggered()
     self_tuning_args[0] = 178;
     self_tuning_args[1] = 20;
     self_tuning_args[2] = -2;
+    emit sendArduino("-178");
     QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
 }

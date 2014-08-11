@@ -5,7 +5,6 @@
 #include <QLineEdit>
 #include <QtSerialPort/QtSerialPort>
 #include <QByteArray>
-#include <qmath.h>
 #include <QTimer>
 #include <QVector>
 
