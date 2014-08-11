@@ -13,9 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     sampling_size = 50;
     serial = new QSerialPort(this);
     self_tuning_mode = false;
-    self_tuning_args.append(0);
-    self_tuning_args.append(0);
-    self_tuning_args.append(0);
+    self_tuning_args.fill(0,3);
     QObject::connect(this,SIGNAL(sendArduino(QString)),this,SLOT(sendArduinoData(QString)));
     QObject::connect(this,SIGNAL(sendArduino()),this,SLOT(sendArduinoData()));
     QObject::connect(this,SIGNAL(statusMessage(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
