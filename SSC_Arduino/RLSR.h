@@ -1,6 +1,6 @@
 typedef struct RLSR
 {
-  unsigned long n;
+  unsigned int n;
   double D1;
   double D2;
   double sx;

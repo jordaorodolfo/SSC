@@ -18,6 +18,7 @@ RLSR_t* initRLSR()
   newRLSR->D2 = 0;
   newRLSR->trend = 0;
   newRLSR->constant = 0;
+  newRLSR->n = 0;
   return newRLSR;
 }
 
@@ -36,7 +37,7 @@ void addValuePairRLSR(RLSR_t *target, double x, double y)
     target->sy += y;
     target->sxx += x*x;
     target->sxy += x*y;
-    target->D1 = 2*target->sxx - target->sx*target->sx;
+    target->D1 = 2.0*target->sxx - target->sx*target->sx;
     target->trend = (2*target->sxy - target->sx*target->sx)/target->D1;
     target->constant = (target->sy*target->sxx - target->sx*target->sxy)/target->D1;
     break;

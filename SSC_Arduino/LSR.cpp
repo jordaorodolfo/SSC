@@ -11,37 +11,42 @@ LSR_t* initLSR(unsigned long cut_index_)
 {
   LSR_t * newLSR = (LSR_t*)malloc(sizeof(LSR_t));
   newLSR->n = 0;
-  newLSR->he = 0;
-  newLSR->se = 0;
+  newLSR->sx = 0;
+  newLSR->sy = 0;
+  newLSR->sxy = 0;
+  newLSR->sxx = 0;
   newLSR->trend = 0;
+  newLSR->constant = 0;
+  newLSR->Den = 0;
   newLSR->cut_index = cut_index_;
   return newLSR;
 }
 
-void addErrorLSR(LSR_t *target, double e)
+void addValuePairLSR(LSR_t *target, double x, double y)
 {
   if(target->n >= target->cut_index)
   {
-    double den = denominatorLSR(target);
-    target->trend = double(target->n)*target->he-target->se*double(target->n*(target->n+1)/2)/den;
+    target->Den = target->sxx*double(target->n)-target->sx*target->sx;
+    target->trend = (target->sx*target->sxy-target->sx*target->sx)/target->Den;
+    target->constant = (target->sy*target->sxx - target->sx*target->sxy)/target->Den;
   }
   else
   {
-    target->se += e;
-    target->he += e*double(target->n);
+    target->sx += x;
+    target->sy += y;
+    target->sxx += x*x;
+    target->sxy += y*x;
     target->n++;
   }
+}
+
+void addValueLSR(LSR_t *target, double y)
+{
+  addValuePairLSR(target,double(target->n+1),y);
 }
 
 double getTrendLSR(LSR_t *target)
 {
   return target->trend;
-}
-
-double denominatorLSR(LSR_t * target)
-{
-  unsigned long square_power = target->n*target->n;
-  unsigned long fourth_power = square_power*square_power;
-  return 1.0/12.0*(double(fourth_power-square_power));
 }
 

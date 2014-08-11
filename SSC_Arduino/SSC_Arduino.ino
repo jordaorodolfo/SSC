@@ -26,9 +26,9 @@
 #include "utils.h"
 #define H_UTILS
 #endif
-#ifndef H_RLSR
-#include "RLSR.h"
-#define H_RLSR
+#ifndef H_LSR
+#include "LSR.h"
+#define H_LSR
 #endif
 #ifndef H_SWITCH
 #include "Switch.h"
@@ -55,9 +55,9 @@ unsigned int error_timer;
 #endif
 //------------------------------------------------------------
 //------------------------------------------------------------
-// self_tuning detection algorithm
+// self_tuning algorithm
 //------------------------------------------------------------
-RLSR_t * self_tuning_estimator;
+LSR_t * self_tuning_estimator;
 //------------------------------------------------------------
 //------------------------------------------------------------
 
@@ -120,15 +120,23 @@ inline void sendData()
     Serial.print(";");
     Serial.print(motor->current_rpm);
     Serial.print(';');
-    Serial.print(motor_speed_sensor->reading);
-    Serial.print(';');
     printDouble(sensorGetReading(motor_speed_sensor),4);
     Serial.print(';');
     printDouble(sensorGetReading(motor_current_sensor),4);
-    Serial.print(';');
-    printDouble(motor_speed_sensor->voltage_drift_linear,4);
-    Serial.print(';');
-    printDouble(motor_speed_sensor->voltage_drift_const,4);
+//    Serial.print(';');
+//    printDouble(self_tuning_estimator->trend,3);
+//    Serial.print(';');
+//    printDouble(self_tuning_estimator->constant,3);
+//    Serial.print(';');
+//    Serial.print(self_tuning_estimator->n*self_tuning_estimator->sxx-self_tuning_estimator->sx*self_tuning_estimator->sx);
+//    Serial.print(';');
+//    printDouble(self_tuning_estimator->sx,3);
+//    Serial.print(';');
+//    Serial.print(self_tuning_estimator->sxx);
+//    Serial.print(';');
+//    Serial.print(self_tuning_estimator->sy);
+//    Serial.print(';');
+//    Serial.print(self_tuning_estimator->sxy);
     break;
   case false:
     Serial.print('0');
@@ -149,11 +157,11 @@ void setup(void)
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
-  motor_speed_sensor->voltage_drift_linear = 0.7766;//((36.828-47.0)-(781.572-806.0))/(806.0-47.0);
-  motor_speed_sensor->voltage_drift_const = 5.2255777766;//(806.0*(36.828-47.0)-47.0*(781.572-806.0))/(806.0-47.0);
+  motor_speed_sensor->voltage_drift_linear = -0.01;
+  motor_speed_sensor->voltage_drift_const = 5;
   motor_current_sensor->voltage_drift_const = 8;
   motor_current_sensor->voltage_drift_linear = 8/1023;
-  self_tuning_estimator = initRLSR();
+  self_tuning_estimator = initLSR(4);
   //----------
 #ifdef FLAG_CHECK_FOR_ERROR
   error_timer = 0;
@@ -219,20 +227,14 @@ void serialEvent()
       Serial.read();
       break;
     case 'T':
-      addValuePairRLSR(self_tuning_estimator,doubleMap(motor->current_rpm,motor->min_rpm,motor->max_rpm,0.180*1023*0.2,3.82*1023*0.2)
+      addValuePairLSR(self_tuning_estimator,motor_speed_sensor->reading
         ,doubleMap(motor->current_rpm,motor->min_rpm,motor->max_rpm,0.180*1023*0.2,3.82*1023*0.2)-motor_speed_sensor->reading);
       if(self_tuning_estimator->n > 2)
       {
         motor_speed_sensor->voltage_drift_linear = self_tuning_estimator->trend;
         motor_speed_sensor->voltage_drift_const = self_tuning_estimator->constant;  
       }
-    case 'c':
       Serial.read();
-      motor_speed_sensor->min_voltage = Serial.parseInt();
-      break;
-    case 'C':
-      Serial.read();
-      motor_speed_sensor->max_voltage = Serial.parseInt();
       break;
     default:
       motor->current_rpm = Serial.parseInt();
