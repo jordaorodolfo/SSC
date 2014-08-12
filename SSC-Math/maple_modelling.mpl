@@ -114,12 +114,12 @@ data := [L[1]=0.127,
 				L[3]=0.265,
 				a[1]=0.006,
 				a[2]=0.006,
-				d[x]=0.0116,
-				d[y]=0.0033,
-				c[x]=0.0116,
-				c[y]=0.0033,
-				d[1]=0.005,
-				d[2]=0.035,
+				d[x]=0.116,
+				d[y]=0.033,
+				c[x]=0.116,
+				c[y]=0.033,
+				d[1]=0.0055,
+				d[2]=0.036,
 				d[3]=0.027,
 				d[4]=0.027,
 				m[L,1]=0.15,
@@ -148,9 +148,9 @@ data := [L[1]=0.127,
 				I[P,4]=0,
 				I[P,5]=0,
 				I[P,6]=0,
-				I[L,1]=0.15*(0.0.016)^2,
-				I[L,2]=0.20*(0.0.016)^2,
-				I[L,3]=0.20*(0.0.016)^2,
+				I[L,1]=0.15*(0.016)^2,
+				I[L,2]=0.20*(0.016)^2,
+				I[L,3]=0.20*(0.016)^2,
 				I[C,1]=0.8*(0.4)^2,
 				I[C,2]=1.0*(0.6)^2,
 				G=9.8665
@@ -171,9 +171,9 @@ data := [L[1]=0.127,
 # print(subs(data,eq_point)):
 eq_point := 0:
 #-------------------------
-lin_a := 2*subs(theta_1=eq_point,diff(V(theta_1),theta_1)):
+lin_a := 2*subs(data,subs(theta_1=eq_point,diff(V(theta_1),theta_1))):
 lin_b := 0:
-lin_c := subs(theta_1=eq_point,diff(diff(U(theta_1),theta_1),theta_1)):
+lin_c := subs(data,subs(theta_1=eq_point,diff(diff(U(theta_1),theta_1),theta_1))):
 lin_d := -c1*eq_point:
 #------------------------------------------------------
 
@@ -183,11 +183,17 @@ lin_d := -c1*eq_point:
 #-------------------------
 # data
 #-------------------------
-N:=51;
+N:=51:
+k_t:=24.3/1000:
+k_f:=0;
+k_e:=1/393:
+Lind:=0.143/1000:
+R:=1.27:
+J:=21.9/1000/100/100:
 #-------------------------
 model_matrix := Matrix([
 [-R/Lind,k_e/Lind,0],
-[N**2*k_t/J/(N**2-lin_a),((lin_b-N**2*k_e)/(N**2-lin_a))/J,lin_c/J/(N**2-lin_a)],
+[N**2*k_t/J/(N**2-lin_a),((lin_b-N**2*k_f)/(N**2-lin_a))/J,lin_c/J/(N**2-lin_a)],
 [0,1,0]
 ]):
 input_matrix := matrix([[1/Lind],[0],[0]]):
@@ -200,14 +206,10 @@ C(s) := K_p(1+1/T_i/s):
 G(s) := (input_matrix[1,1]*s(s-model_matrix[1,1]))/
 	(s^3-(model_matrix[1,1]+model_matrix[2,2])*s^2+(model_matrix[1,1]*model_matrix[2,2]-model_matrix[1,2]-model_matrix[2,3])*s+(model_matrix[1,1]*model_matrix[2,3])):
 T(s) := C(s)*G(s)/(1+C(s)*G(s)):
+print(simplify(T(s))):
 #------------------------------------------------------
 
 #------------------------------------------------------
 # output
 #------------------------------------------------------
-print(simplify(subs(data,coef_sin(eq_point)^2+coef_cos(eq_point)^2-K(eq_point)^2))):
-print(simplify(subs(data,lin_a))):
-print(simplify(subs(data,lin_b))):
-print(simplify(subs(data,lin_c))):
-print(simplify(subs(data,lin_d))):
 #------------------------------------------------------
