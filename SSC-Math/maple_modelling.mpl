@@ -38,9 +38,9 @@ end do:
 #------------------------------------------------------
 
 K := theta_1->(L[1]^2-(d[x]^2+d[y]^2+d[1]^2+d[2]^2+2*d[x]*d[1]*cos(theta_1)+2*d[y]*d[1]*sin(theta_1)))/2:
-b := theta_1->d[y]*d[1]+d[1]*d[2]*sin(theta_1):
-a := theta_1->-(d[x]*d[2]+d[1]*d[2]*cos(theta_1)):
-theta_2 := theta_1->arccos((a(theta_1)*K(theta_1)+b(theta_1)*sqrt(a(theta_1)^2+b(theta_1)^2-K(theta_1)^2))/(a(theta_1)^2+b(theta_1)^2)):
+coef_sin := theta_1->d[y]*d[1]+d[1]*d[2]*sin(theta_1):
+coef_cos := theta_1->-(d[x]*d[2]+d[1]*d[2]*cos(theta_1)):
+theta_2 := theta_1->arccos((coef_sin(theta_1)*K(theta_1)+coef_cos(theta_1)*sqrt(coef_sin(theta_1)^2+coef_cos(theta_1)^2-K(theta_1)^2))/(coef_sin(theta_1)^2+coef_cos(theta_1)^2)):
 y_1 := theta_1->d[3]*sin(theta_2(theta_1))+sqrt(L[2]^2-(a[1]-d[3]*cos(theta_2(theta_1))^2)):
 y_2 := theta_1->d[4]*sin(theta_2(theta_1))+sqrt(L[2]^2-(a[2]-d[4]*cos(theta_2(theta_1)))^2):
 #------------------------------------------------------
@@ -55,8 +55,8 @@ cmP[1] := <d[1]*sin(theta_2(theta_1)),d[1]*cos(theta_2(theta_1))>:
 cmP[2] := cmC[2]+<d[1]*cos(theta_1),d[2]*sin(theta_1)>:
 cmP[3] := <d[3]*cos(theta_2(theta_1)),d[3]*sin(theta_2(theta_1))>:
 cmP[4] := <-d[4]*cos(theta_2(theta_1)),-d[4]*sin(theta_2(theta_1))>:
-cmP[5] := Vector([a[1],-y_1(theta_2)],2):
-cmP[6] := Vector([a[2],-y_2(theta_2)],2):
+cmP[5] := Vector([a[1],-y_1(theta_1)],2):
+cmP[6] := Vector([a[2],-y_2(theta_1)],2):
 cmL[1] := 1/2*(cmP[1]+cmP[2]):
 cmL[2] := 1/2*(cmP[4]+cmP[6]):
 cmL[3] := 1/2*(cmP[3]+cmP[5]):
@@ -90,9 +90,9 @@ U :=theta_1->add(-m[P,i]*DotProduct(cmP[i],g),i=1..numelems(cmP)) +
 #------------------------------------------------------
 #equation of motion
 #------------------------------------------------------
-eqm:=-diff(diff(theta_1(t),t),t)*2*V(theta_1)
-	-diff(theta_1(t),t)^2*diff(V(theta_1),theta_1)
-	-diff(U(theta_1),theta_1);
+# eqm:=-diff(diff(theta_1(t),t),t)*2*V(theta_1)
+# 	-diff(theta_1(t),t)^2*diff(V(theta_1),theta_1)
+# 	-diff(U(theta_1),theta_1);
 #------------------------------------------------------
 
 #------------------------------------------------------
@@ -163,39 +163,51 @@ data := [L[1]=0.127,
 #-------------------------
 # equilbrium point
 #-------------------------
-W := (L[1]^2-(d[x]^2+d[y]^2+d[1]^2+d[2]^2))/2+d[y]*d[2]:
-z1 := d[x]*d[1]:
-z2 := d[1]*(d[y]-d[2]):
-print(simplify(z2^2+z1^2<W^2)):
-eq_point := arccos((z1*W+z2*sqrt(z2^2+z1^2-W^2))/(z2^2+z1^2)):
-print(subs(data,eq_point)):
+# W := (L[1]^2-(d[x]^2+d[y]^2+d[1]^2+d[2]^2))/2+d[y]*d[2]:
+# z1 := d[x]*d[1]:
+# z2 := d[1]*(d[y]-d[2]):
+# print(simplify(z2^2+z1^2<W^2)):
+# eq_point := arccos((z1*W+z2*sqrt(z2^2+z1^2-W^2))/(z2^2+z1^2)):
+# print(subs(data,eq_point)):
+eq_point := 0:
 #-------------------------
-a1 :=-(V(theta_1)*diff(diff(U(theta_1),theta_1),theta_1)-diff(V(theta_1),theta_1)*diff(U(theta_1),theta_1))/(2*V(theta_1)):
-a1 := evalf(subs(data,subs(theta_1=eq_point,a1)));
-b1 := 0:
-c1 := evalf(-a1*subs(data,eq_point)):
-d1 := a1+b1:
+lin_a := 2*subs(theta_1=eq_point,diff(V(theta_1),theta_1)):
+lin_b := 0:
+lin_c := subs(theta_1=eq_point,diff(diff(U(theta_1),theta_1),theta_1)):
+lin_d := -c1*eq_point:
 #------------------------------------------------------
 
 #------------------------------------------------------
-# simplify
+# lumped parameter model and motor data
 #------------------------------------------------------
-if C_SIMPLIFY then
-	eqm := simplify(eqm):
-end if:
+#-------------------------
+# data
+#-------------------------
+N:=51;
+#-------------------------
+model_matrix := Matrix([
+[-R/Lind,k_e/Lind,0],
+[N**2*k_t/J/(N**2-lin_a),((lin_b-N**2*k_e)/(N**2-lin_a))/J,lin_c/J/(N**2-lin_a)],
+[0,1,0]
+]):
+input_matrix := matrix([[1/Lind],[0],[0]]):
+#------------------------------------------------------
+
+#------------------------------------------------------
+# transfer functions
+#------------------------------------------------------
+C(s) := K_p(1+1/T_i/s):
+G(s) := (input_matrix[1,1]*s(s-model_matrix[1,1]))/
+	(s^3-(model_matrix[1,1]+model_matrix[2,2])*s^2+(model_matrix[1,1]*model_matrix[2,2]-model_matrix[1,2]-model_matrix[2,3])*s+(model_matrix[1,1]*model_matrix[2,3])):
+T(s) := C(s)*G(s)/(1+C(s)*G(s)):
 #------------------------------------------------------
 
 #------------------------------------------------------
 # output
 #------------------------------------------------------
-FileTools[Remove]("./Log_Report/dyn_eqm_latex.tex"):
-latex(eval(subs(data,eqm)),"./Log_Report/dyn_eqm_latex.tex"):
-FileTools[Remove]("./Log_Report/dyn_a1_latex.tex"):
-latex(eval(subs(data,a1)),"./Log_Report/dyn_a1_latex.tex"):
-FileTools[Remove]("./Log_Report/dyn_b1_latex.tex"):
-latex(eval(subs(data,b1)),"./Log_Report/dyn_b1_latex.tex"):
-FileTools[Remove]("./Log_Report/dyn_c1_latex.tex"):
-latex(eval(subs(data,c1)),"./Log_Report/dyn_c1_latex.tex"):
-FileTools[Remove]("./Log_Report/dyn_d1_latex.tex"):
-latex(eval(subs(data,d1)),"./Log_Report/dyn_d1_latex.tex"):
+print(simplify(subs(data,coef_sin(eq_point)^2+coef_cos(eq_point)^2-K(eq_point)^2))):
+print(simplify(subs(data,lin_a))):
+print(simplify(subs(data,lin_b))):
+print(simplify(subs(data,lin_c))):
+print(simplify(subs(data,lin_d))):
 #------------------------------------------------------
