@@ -37,10 +37,10 @@ end do:
 # relational equations
 #------------------------------------------------------
 
-K := theta_1->(L[1]^2-(d[x]^2+d[y]^2+d[1]^2+d[2]^2+2*d[x]*d[1]*cos(theta_1)+2*d[y]*d[1]*sin(theta_1)))/2:
+const := theta_1->(L[1]^2-(d[x]^2+d[y]^2+d[1]^2+d[2]^2+2*d[x]*d[1]*cos(theta_1)+2*d[y]*d[1]*sin(theta_1)))/2:
 coef_sin := theta_1->d[y]*d[1]+d[1]*d[2]*sin(theta_1):
 coef_cos := theta_1->-(d[x]*d[2]+d[1]*d[2]*cos(theta_1)):
-theta_2 := theta_1->arccos((coef_sin(theta_1)*K(theta_1)+coef_cos(theta_1)*sqrt(coef_sin(theta_1)^2+coef_cos(theta_1)^2-K(theta_1)^2))/(coef_sin(theta_1)^2+coef_cos(theta_1)^2)):
+theta_2 := theta_1->arccos((coef_sin(theta_1)*const(theta_1)+coef_cos(theta_1)*sqrt(coef_sin(theta_1)^2+coef_cos(theta_1)^2-const(theta_1)^2))/(coef_sin(theta_1)^2+coef_cos(theta_1)^2)):
 y_1 := theta_1->d[3]*sin(theta_2(theta_1))+sqrt(L[2]^2-(a[1]-d[3]*cos(theta_2(theta_1))^2)):
 y_2 := theta_1->d[4]*sin(theta_2(theta_1))+sqrt(L[2]^2-(a[2]-d[4]*cos(theta_2(theta_1)))^2):
 #------------------------------------------------------
@@ -92,7 +92,7 @@ U :=theta_1->add(-m[P,i]*DotProduct(cmP[i],g),i=1..numelems(cmP)) +
 #------------------------------------------------------
 # eqm:=-diff(diff(theta_1(t),t),t)*2*V(theta_1)
 # 	-diff(theta_1(t),t)^2*diff(V(theta_1),theta_1)
-# 	-diff(U(theta_1),theta_1);
+# 	-diff(U(theta_1),theta_1):
 #------------------------------------------------------
 
 #------------------------------------------------------
@@ -184,12 +184,12 @@ lin_d := -c1*eq_point:
 # data
 #-------------------------
 N:=51:
-k_t:=24.3/1000:
+k_t:=243/10000:
 k_f:=0;
 k_e:=1/393:
-Lind:=0.143/1000:
-R:=1.27:
-J:=21.9/1000/100/100:
+Lind:=143/1000/1000:
+R:=127/100:
+J:=219/10000/100/100:
 #-------------------------
 model_matrix := Matrix([
 [-R/Lind,k_e/Lind,0],
@@ -202,14 +202,27 @@ input_matrix := matrix([[1/Lind],[0],[0]]):
 #------------------------------------------------------
 # transfer functions
 #------------------------------------------------------
-C(s) := K_p(1+1/T_i/s):
-G(s) := (input_matrix[1,1]*s(s-model_matrix[1,1]))/
+C := s->K[p]*(1+1/T['i']/s):
+G := s->(input_matrix[1,1]*s(s-model_matrix[1,1]))/
 	(s^3-(model_matrix[1,1]+model_matrix[2,2])*s^2+(model_matrix[1,1]*model_matrix[2,2]-model_matrix[1,2]-model_matrix[2,3])*s+(model_matrix[1,1]*model_matrix[2,3])):
-T(s) := C(s)*G(s)/(1+C(s)*G(s)):
-print(simplify(T(s))):
+H :=s->simplify(C(s)*G(s)/(1+C(s)*G(s))):
 #------------------------------------------------------
 
 #------------------------------------------------------
 # output
 #------------------------------------------------------
+FileTools[Remove]("lin_a.txt"):
+latex(lin_a,"lin_a.txt"):
+FileTools[Remove]("lin_b.txt"):
+latex(lin_b,"lin_b.txt"):
+FileTools[Remove]("lin_c.txt"):
+latex(lin_c,"lin_c.txt"):
+FileTools[Remove]("lin_d.txt"):
+latex(lin_d,"lin_d.txt"):
+FileTools[Remove]("Transfer_function_system.txt"):
+latex(G(s),"Transfer_function_system.txt"):
+FileTools[Remove]("Transfer_function_total.txt"):
+latex(H(s),"Transfer_function_total.txt"):
+FileTools[Remove]("ISE.txt"):
+latex(Obj(s),"ISE.txt"):
 #------------------------------------------------------
