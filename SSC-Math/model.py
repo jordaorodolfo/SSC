@@ -45,6 +45,49 @@ replacements = {'D[0]\\left(\\theta_{1}\\right)\\left(t\\right)':'\\dot\\theta_1
                'y_{1}\\left(\\theta_{1}\\left(t\\right)\\right)':'y_1'}
 #------------------------------------------------------
 
+#------------------------------------------------------
+# Measurements
+#------------------------------------------------------
+if C_USE_DATA:
+    if verbose:
+        print('----------inputing data----------')
+    data = {L[Integer(1)]:RealNumber('0.127'),
+            L[Integer(2)]:RealNumber('0.265'),
+            L[Integer(3)]:RealNumber('0.265'),
+            a[Integer(1)]:RealNumber('0.006'),
+            a[Integer(2)]:RealNumber('0.006'),
+            d['x']:RealNumber('0.116'),
+            d['y']:RealNumber('0.033'),
+            c['x']:RealNumber('0.116'),
+            c['y']:RealNumber('0.033'),
+            d[Integer(1)]:RealNumber('0.005'),
+            d[Integer(2)]:RealNumber('0.035'),
+            d[Integer(3)]:RealNumber('0.027'),
+            d[Integer(4)]:RealNumber('0.027'),
+            mL[Integer(1)]:RealNumber('0.15'),
+            mL[Integer(2)]:RealNumber('0.20'),
+            mL[Integer(3)]:RealNumber('0.20'),
+            mP[Integer(1)]:Integer(0),
+            mP[Integer(2)]:Integer(0),
+            mP[Integer(3)]:Integer(0),
+            mP[Integer(4)]:Integer(0),
+            mP[Integer(5)]:Integer(0),
+            mP[Integer(6)]:Integer(0),
+            rL[Integer(1)]:RealNumber('0.016'),
+            rL[Integer(2)]:RealNumber('0.016'),
+            rL[Integer(3)]:RealNumber('0.016'),
+            rP[Integer(1)]:Integer(0),
+            rP[Integer(2)]:Integer(0),
+            rP[Integer(3)]:Integer(0),
+            rP[Integer(4)]:Integer(0),
+            rP[Integer(5)]:Integer(0),
+            rP[Integer(6)]:Integer(0),
+            rC[Integer(1)]:RealNumber('0.40'),
+            rC[Integer(2)]:RealNumber('0.60'),
+            mC[Integer(1)]:RealNumber('0.8'),
+            mC[Integer(2)]:RealNumber('1.0'),
+            g_0:RealNumber('9.8665')}
+#------------------------------------------------------
 
 
 #------------------------------------------------------
@@ -166,19 +209,24 @@ lin_a = Integer(2)*diff(V(theta_1),theta_1).subs(theta_1=eq_point)
 lin_c = Integer(2)*diff(diff(U(theta_1),theta_1),theta_1).subs(theta_1=eq_point)
 lin_b = Integer(0)
 lin_d = -Integer(2)*diff(diff(U(theta_1),theta_1),theta_1).subs(theta_1=eq_point)*eq_point
+lin_a = lin_a.subs(data)
+lin_b = lin_b.subs(data)
+lin_c = lin_c.subs(data)
+lin_d = lin_d.subs(data)
 #------------------------------------------------------
 
 #------------------------------------------------------
 # ARE
 #------------------------------------------------------
 if verbose:
-  print('----------computing ARE----------')
-k_e = var('k_e')
-k_t = var('k_t')
-N = var('N')
-R = var('R')
-Lind = var('Lind',latex_name="L")
-J = var('J')
+  print('----------computing system model----------')
+N = Integer(51)
+k_t = Integer(243)/Integer(10000)
+k_f = Integer(0)
+k_e = Integer(1)/Integer(393)
+Lind = Integer(143)/Integer(1000)/Integer(1000)
+R = Integer(127)/Integer(100)
+J = Integer(219)/Integer(10000)/Integer(100)/Integer(100)
 model_matrix = matrix([
 [-R/Lind,k_e/Lind,Integer(0)],
 [N**Integer(2)*k_t/J/(N**Integer(2)-lin_a),((lin_b-N**Integer(2)*k_e)/(N**Integer(2)-lin_a))/J,lin_c/J/(N**Integer(2)-lin_a)],
@@ -197,57 +245,30 @@ exeogenous_matrix = matrix([
 #------------------------------------------------------
 
 #------------------------------------------------------
-# Measurements
+# transfer functions
 #------------------------------------------------------
-if C_USE_DATA:
-    if verbose:
-        print('----------inputing data----------')
-    data = {L[Integer(1)]:RealNumber('0.127'),
-            L[Integer(2)]:RealNumber('0.265'),
-            L[Integer(3)]:RealNumber('0.265'),
-            a[Integer(1)]:RealNumber('0.006'),
-            a[Integer(2)]:RealNumber('0.006'),
-            d['x']:RealNumber('0.116'),
-            d['y']:RealNumber('0.033'),
-            c['x']:RealNumber('0.116'),
-            c['y']:RealNumber('0.033'),
-            d[Integer(1)]:RealNumber('0.005'),
-            d[Integer(2)]:RealNumber('0.035'),
-            d[Integer(3)]:RealNumber('0.027'),
-            d[Integer(4)]:RealNumber('0.027'),
-            mL[Integer(1)]:RealNumber('0.15'),
-            mL[Integer(2)]:RealNumber('0.20'),
-            mL[Integer(3)]:RealNumber('0.20'),
-            mP[Integer(1)]:Integer(0),
-            mP[Integer(2)]:Integer(0),
-            mP[Integer(3)]:Integer(0),
-            mP[Integer(4)]:Integer(0),
-            mP[Integer(5)]:Integer(0),
-            mP[Integer(6)]:Integer(0),
-            rL[Integer(1)]:RealNumber('0.016'),
-            rL[Integer(2)]:RealNumber('0.016'),
-            rL[Integer(3)]:RealNumber('0.016'),
-            rP[Integer(1)]:Integer(0),
-            rP[Integer(2)]:Integer(0),
-            rP[Integer(3)]:Integer(0),
-            rP[Integer(4)]:Integer(0),
-            rP[Integer(5)]:Integer(0),
-            rP[Integer(6)]:Integer(0),
-            rC[Integer(1)]:RealNumber('0.40'),
-            rC[Integer(2)]:RealNumber('0.60'),
-            mC[Integer(1)]:RealNumber('0.8'),
-            mC[Integer(2)]:RealNumber('1.0'),
-            g_0:RealNumber('9.8665')}
-    for i in range(Integer(1),len(cmP)+Integer(1)):
-        data[IP[i]]=data[mP[i]]*data[rP[i]]**Integer(2)/Integer(2)
-    for i in range(Integer(1),len(cmL)+Integer(1)):
-        data[IL[i]]=data[mL[i]]*data[rL[i]]**Integer(2)/Integer(2)
-    for i in range(Integer(1),len(cmC)+Integer(1)):
-        data[IC[i]]=data[mC[i]]*data[rC[i]]**Integer(2)/Integer(2)
-    lin_a = N(lin_a.subs(data))
-    lin_c = N(lin_c.subs(data))
-    lin_d = N(lin_d.subs(data))
+if verbose:
+  print('----------computing transfer functions----------')
+s = var('s')
+K_p, T_i = var('K_p, T_i')
+__tmp__=var("s"); C = symbolic_expression(K_p*(Integer(1)+Integer(1)/T_i/s)).function(s)
+__tmp__=var("s"); G = symbolic_expression((input_matrix[Integer(0),Integer(0)]*s*(s-model_matrix[Integer(0),Integer(0)]))/(s**Integer(3)-(model_matrix[Integer(0),Integer(0)]+model_matrix[Integer(1),Integer(1)])*s**Integer(2)+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(1)]-model_matrix[Integer(0),Integer(1)]-model_matrix[Integer(1),Integer(2)])*s+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(2)]))).function(s)
+__tmp__=var("s"); H = symbolic_expression(simplify(C(s)*G(s)/(Integer(1)+C(s)*G(s)))).function(s)
 #------------------------------------------------------
+
+#------------------------------------------------------
+# Gain calculation
+#------------------------------------------------------
+if verbose:
+  print('----------computing optimal gain----------')
+sigma = var('sigma')
+__tmp__=var("s"); E_t = symbolic_expression(-Integer(1)/s**Integer(2)*((Integer(1)-H(s))*(Integer(1)-H(-s))+sigma**Integer(2)*C(s)*C(-s))).function(s)
+# integrate(E_t(s),(s,-i*infinity,i*infinity))
+#--------------------------
+# construct linear system for optimization
+#--------------------------
+
+
 
 #------------------------------------------------------
 # simplification
