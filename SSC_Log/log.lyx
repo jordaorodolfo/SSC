@@ -1,0 +1,3860 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass report
+\begin_preamble
+%-------------------------------------
+% tikz
+%-------------------------------------
+\usepackage[acronym]{glossaries}
+\newacronym{LSR}{LSR}{least squares regression}
+\newacronym{SISO}{SISO}{Single-input-single-output}
+\newacronym{LTI}{LTI}{Linear time-invariant}
+\newacronym{ISE}{ISE}{Integral Square error}
+\newacronym[longplural=ordinary differential equations]{ODE}{ODE}{ordinary differential equation}
+\newacronym[longplural=Algebraic Ricatti Equations]{ARE}{ARE}{Algebraic Ricatti equation}
+%-------------------------------------
+
+%-------------------------------------
+% tikz
+%-------------------------------------
+\usepackage{tikz}
+%-------------------------------------
+
+%-------------------------------------
+% breqn
+%-------------------------------------
+\usepackage{breqn}
+% Add support for automatic equation breaking
+\gdef\wrap@breqn@environ#1#2{
+    \expandafter\let\csname breqn@oldbegin@#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\let\csname breqn@oldend@#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\gdef\csname breqn@begin@#1\endcsname{%
+        \expandafter\let\csname #1\expandafter\endcsname\csname breqn@oldbegin@#1\endcsname%
+        \begin{#2}%
+    }
+    \expandafter\gdef\csname breqn@end@#1\endcsname{%
+        \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@oldend@#1\endcsname%
+        \end{#2}%
+        \expandafter\let\csname #1\expandafter\endcsname\csname breqn@begin@#1\endcsname%
+        \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@end@#1\endcsname%
+    }
+    \expandafter\let\csname #1\expandafter\endcsname\csname breqn@begin@#1\endcsname
+    \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@end@#1\endcsname
+}
+\wrap@breqn@environ{equation}{dmath}
+\wrap@breqn@environ{equation*}{dmath*}
+%-------------------------------------
+
+\usepackage{algpseudocode}
+\end_preamble
+\options a4
+\use_default_options false
+\begin_modules
+theorems-ams-bytype
+algorithm2e
+multicol
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding utf8
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\R}{\mathbb{R}}
+\end_inset
+
+ 
+\begin_inset FormulaMacro
+\newcommand{\N}{\mathbb{N}}
+\end_inset
+
+ 
+\begin_inset FormulaMacro
+\newcommand{\Z}{\mathbb{Z}}
+\end_inset
+
+ 
+\begin_inset FormulaMacro
+\newcommand{\Q}{\mathbb{Q}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Activity Log
+\end_layout
+
+\begin_layout Author
+Rodolfo Jordao
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+listofalgorithms
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+printglossaries
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Modelling
+\end_layout
+
+\begin_layout Section
+Kinematics
+\end_layout
+
+\begin_layout Subsection
+Angles and Positions dependence:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=2]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0,0) circle (1cm) node (C1) {$C_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw +(2,1) circle (0.8cm) node (C2) {$C_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (C1) -- ++(150:0.7cm) node (P1) {} node[below left,midway] {$d_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (C2) -- ++(110:0.5cm) node (P2) {} node[left,pos=0.4] {$d_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (P2) -- (P1) node[midway,above] {$L_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (C2) |- (C1) node[pos=0.25,right] {$d_y$} node[pos=0.7,below]
+ {$d_x$};
+\end_layout
+
+\begin_layout Plain Layout
+
+%theta2
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (60:-0.7cm) -- (C1) -- (60:0.7cm);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (60:0.6cm) arc (60:0:0.6cm) node[midway,right] {$
+\backslash
+theta_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+%theta1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (C2) -- +(0.6cm,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (C2) -- ++(110:0.4cm) arc (110:0:0.4cm) node[midway,right] {$
+\backslash
+theta_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+First sketch.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:first:sketch."
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:first:sketch."
+
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{align*}
+L_{1}c_{3}-d_{2}s_{2}-d_{1}c_{1} & =d_{x}\\
+L_{1}s_{3}+d_{2}c_{2}-d_{1}s_{1} & =d_{y}
+\end{align*}
+
+\end_inset
+
+rearrange to isolate the pseudo angle, 
+\begin_inset Formula 
+\begin{align*}
+L_{1}c_{3} & =d_{x}+d_{2}s_{2}+d_{1}c_{1}\\
+L_{1}s_{3} & =d_{y}-d_{2}c_{2}+d_{1}s_{1}
+\end{align*}
+
+\end_inset
+
+square both equations and sum them, 
+\begin_inset Formula 
+\[
+L_{1}^{2}=d_{x}^{2}+d_{y}^{2}+d_{1}^{2}+d_{2}^{2}+2\left(d_{x}d_{2}s_{2}+d_{x}d_{1}c_{1}+d_{1}d_{2}c_{1}s_{2}-d_{y}d_{2}c_{2}+d_{y}d_{1}s_{1}-d_{1}d_{2}s_{1}c_{2}\right)
+\]
+
+\end_inset
+
+for simplicity, let, 
+\begin_inset Formula 
+\begin{align*}
+K & =\frac{L_{1}^{2}-\left(d_{x}^{2}+d_{y}^{2}+d_{1}^{2}+d_{2}^{2}+2d_{x}d_{1}c_{1}+2d_{y}d_{1}s_{1}\right)}{2}\\
+a & =d_{x}d_{1}+d_{1}d_{2}c_{1}\\
+b & =-(d_{y}d_{2}+d_{1}d_{2}s_{1})
+\end{align*}
+
+\end_inset
+
+giving, 
+\begin_inset Formula 
+\[
+K=as_{2}+bc_{2}
+\]
+
+\end_inset
+
+then, 
+\begin_inset Formula 
+\begin{align*}
+c_{2} & =\frac{bK+\sqrt{b^{2}K^{2}-\left(a^{2}+b^{2}\right)\left(K^{2}-a^{2}\right)}}{a^{2}+b^{2}}\\
+ & =\frac{bK+a\sqrt{a^{2}+b^{2}-K^{2}}}{a^{2}+b^{2}}
+\end{align*}
+
+\end_inset
+
+finally, 
+\begin_inset Formula 
+\[
+\theta_{2}=Atan2\left(\sqrt{1-c_{2}^{2}},c_{2}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=2.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node (C) at (0,0) {$C_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+coordinate (P) at (0.3cm,-1.5cm);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (0,0) circle (1cm);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw (C) -- +(30:0.6cm) node[midway,above] {$d_3$} -- (P) node[midway,right]
+ {$L_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] ++(30:0.6cm) -- ++(30:0.1cm) arc (30:0:0.7cm) node[midway,right]
+ {$
+\backslash
+theta_2$} --+(-0.1,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (C) |- (P) node[pos=0.25,left] {$y_1$} node[pos=0.8,below] {$a_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (C) -- (P) ;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (P) -- ++(82:0.4cm) arc (82:0:0.4cm) node[midway,right] {$
+\backslash
+theta_3$} --cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Second Sketch.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+a_{1}+L_{2}\cos\theta_{3} & =d_{3}\cos\theta_{2}\\
+d_{3}\sin\theta_{2}+y_{1} & =L_{2}\sin\theta_{3}
+\end{align*}
+
+\end_inset
+
+rearranging these equations: 
+\begin_inset Formula 
+\begin{align*}
+L_{2}\cos\theta_{3} & =d_{3}\cos\theta_{2}-a_{1}\\
+L_{2}\sin\theta_{3} & =y_{1}+d_{3}\sin\theta_{2}
+\end{align*}
+
+\end_inset
+
+these can be squared and summed to give: 
+\begin_inset Formula 
+\[
+y_{1}^{2}+2y_{1}d_{3}s_{2}+s_{2}^{2}d_{3}^{2}-L_{2}^{2}+\left(d_{3}c_{2}-a_{1}\right)^{2}=0
+\]
+
+\end_inset
+
+getting the roots: 
+\begin_inset Formula 
+\[
+y_{1}=-d_{3}s_{2}+\sqrt{L_{2}^{2}-(a_{1}-d_{3}c_{2})^{2}}
+\]
+
+\end_inset
+
+the same reasoning can be applied to get 
+\begin_inset Formula $y_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Best linearization candidate
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:best:lin:candidate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since most of the operational routine the system will oscillate about 
+\begin_inset Formula $\theta_{2}=0$
+\end_inset
+
+, a good candidate for linearization of the system should be the values
+ of 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+ which results in this condition.
+ For this, it is possible to use all equations developed in direct Kinematics.
+ So the starting equation to solve for 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+ is: 
+\begin_inset Formula 
+\[
+L_{1}^{2}=d_{x}^{2}+d_{y}^{2}+d_{1}^{2}+d_{2}^{2}+2\left(d_{x}d_{1}c_{1}-d_{y}d_{2}+d_{y}d_{1}s_{1}-d_{1}d_{2}s_{1}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\therefore\frac{L_{1}^{2}-\left(d_{x}^{2}+d_{y}^{2}+d_{1}^{2}+d_{2}^{2}\right)}{2}+d_{y}d_{2}=d_{x}d_{1}c_{1}+d_{1}\left(d_{y}-d_{2}\right)s_{1}
+\]
+
+\end_inset
+
+making the following simplifications, 
+\begin_inset Formula 
+\begin{align*}
+W & =\frac{L_{1}^{2}-\left(d_{x}^{2}+d_{y}^{2}+d_{1}^{2}+d_{2}^{2}\right)}{2}+d_{y}d_{2}\\
+h & =d_{x}d_{1}\\
+g & =d_{1}\left(d_{y}-d_{2}\right)
+\end{align*}
+
+\end_inset
+
+the solution for 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+ is acquired, 
+\begin_inset Formula 
+\[
+c_{1}=\frac{hW+g\sqrt{g^{2}+h^{2}-W^{2}}}{g^{2}+h^{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+s_{1}=\frac{gW-h\sqrt{g^{2}+h^{2}-W^{2}}}{g^{2}+h^{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\theta_{0}=Atan2\left(\sqrt{1-c_{1}^{2}},c_{1}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\theta_{0}$
+\end_inset
+
+ is the angle chosen to lienarize the whole system about.
+\end_layout
+
+\begin_layout Subsection
+Localization of all points of interest
+\end_layout
+
+\begin_layout Standard
+Looking at Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:photo"
+
+\end_inset
+
+ and assuming that everything has homogeneous distribution, which can safely
+ be switched later on (even more assuming that most or all links have axial
+ homogeneity):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename snapshot.png
+	width 35text%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Photo of test rig indicating points.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:photo"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Multiple Columns
+status open
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{C_{1}}=\left(0,0\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{C_{2}}=\left(c_{x},c_{y}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{1}}=\mathbf{r}_{C_{2}}+\left(d_{1}\cos\theta_{1},d_{1}\sin\theta_{1}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{2}}=\left(d_{2}\sin\theta_{2},d_{2}\cos\theta_{2}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{3}}=\frac{1}{2}\left(d_{3}\cos\theta_{2},d_{3}\sin\theta_{2}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{4}}=-\frac{1}{2}\left(d_{4}\cos\theta_{2},d_{4}\sin\theta_{2}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{5}}=\left(a_{1},-y_{1}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{P_{6}}=\left(a_{2},-y_{2}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{L_{1}}=\frac{1}{2}\left(\mathbf{r}_{P_{1}}+\mathbf{r}_{p_{2}}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{L_{2}}=\frac{1}{2}\left(\mathbf{r}_{P_{4}}+\mathbf{r}_{P_{6}}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{L_{3}}=\frac{1}{2}\left(\mathbf{r}_{P_{3}}+\mathbf{r}_{P_{5}}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{L_{4}}=\mathbf{r}_{P_{5}}+\frac{1}{2}\left(0,-L_{4}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{r}_{L_{5}}=\mathbf{r}_{P_{6}}+\frac{1}{2}\left(0,-L_{5}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Velocities of all points of interest
+\end_layout
+
+\begin_layout Standard
+This is necessary for dynamical formulation.
+ Actually it is enough to differentiate every point localization with respect
+ to time, the only another requirement is the angular velocity of every
+ body, which are: 
+\begin_inset Flex Multiple Columns
+status open
+
+\begin_layout Enumerate
+\begin_inset Formula $\omega_{C_{1}}=\omega_{P_{1}}=\dot{\theta}_{1}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\omega_{C_{2}}=\omega_{P_{2}}=\omega_{P_{3}}=\omega_{P_{4}}=\dot{\theta}_{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\omega_{L_{1}}={\displaystyle -\frac{\frac{d_{1}s_{2}\dot{\theta}_{1}\dot{\theta}_{2}-d_{2}c_{1}\dot{\theta}_{1}}{d_{1}c_{1}+d_{1}s_{2}+c_{x}}+\frac{{\left(d_{1}c_{2}\dot{\theta}_{1}\dot{\theta}_{2}-d_{1}s_{1}\dot{\theta}_{1}\right)}{\left(d_{1}c_{2}+d_{2}s_{1}+c_{y}\right)}}{{\left(d_{1}c_{1}+d_{1}s_{2}+c_{x}\right)}^{2}}}{\frac{{\left(d_{1}c_{2}+d_{2}s_{1}+c_{y}\right)}^{2}}{{\left(d_{1}c_{1}+d_{1}s_{2}+c_{x}\right)}^{2}}+1}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\omega_{L_{2}}={\displaystyle \frac{\frac{{\left(d_{4}s_{2}-y_{2}\left(\theta_{1}\left(t\right)\right)\right)}d_{4}s_{2}\dot{\theta}_{1}\dot{\theta}_{2}}{{\left(d_{4}c_{2}+a_{2}\right)}^{2}}+\frac{d_{4}c_{2}\dot{\theta}_{1}\dot{\theta}_{2}-\dot{\theta}_{1}\dot{y_{2}}}{d_{4}c_{2}+a_{2}}}{\frac{{\left(d_{4}s_{2}-y_{2}\left(\theta_{1}\left(t\right)\right)\right)}^{2}}{{\left(d_{4}c_{2}+a_{2}\right)}^{2}}+1}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\omega_{L_{3}}={\displaystyle \frac{\frac{{\left(d_{3}s_{2}-y_{1}\left(\theta_{1}\left(t\right)\right)\right)}d_{3}s_{2}\dot{\theta}_{1}\dot{\theta}_{2}}{{\left(d_{3}c_{2}+a_{1}\right)}^{2}}+\frac{d_{3}c_{2}\dot{\theta}_{1}\dot{\theta}_{2}-\dot{\theta}_{1}\dot{y_{1}}}{d_{3}c_{2}+a_{1}}}{\frac{{\left(d_{3}s_{2}-y_{1}\left(\theta_{1}\left(t\right)\right)\right)}^{2}}{{\left(d_{3}c_{2}+a_{1}\right)}^{2}}+1}}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also, the rotation of the screws (Every 
+\begin_inset Formula $P$
+\end_inset
+
+) can possibly be ignored as it 
+\emph on
+may
+\emph default
+ cuase little contribution to the overall system dynamics if neglected as
+ rigid bodies.
+\end_layout
+
+\begin_layout Section
+Dynamics
+\end_layout
+
+\begin_layout Standard
+The symbolic calculations are just too gigantic to fill in one paper.
+ I made many assumptions that simplified the model but that still did not
+ make it small enough, I'll try other things.
+ The sagemath code in Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:sagemath"
+
+\end_inset
+
+ basically does that.
+\end_layout
+
+\begin_layout Subsection
+plant model
+\end_layout
+
+\begin_layout Standard
+the Lagrangian has the form: 
+\begin_inset Formula 
+\[
+L=\sum\frac{m_{i}}{2}\left(\dot{r}_{i}(\theta_{1})\right)^{2}+\frac{I_{i}}{2}(\omega_{i}(\theta_{1},\dot{\theta}_{1}))^{2}-m_{i}r_{i}(\theta_{1})g
+\]
+
+\end_inset
+
+seeing that 
+\begin_inset Formula $\forall i,\omega_{i}(\theta_{1},\dot{\theta}_{1})=\Omega(\theta_{1})\dot{\theta_{1}}$
+\end_inset
+
+, then: 
+\begin_inset Formula 
+\begin{align*}
+L & =\sum\frac{m_{i}}{2}\left(\frac{r_{i}(\theta_{1})}{d\theta_{1}}\right)^{2}\dot{\theta}_{1}^{2}+\frac{I_{i}}{2}(\Omega_{i}(\theta_{1}))^{2}\dot{\theta_{1}}^{2}-m_{i}r_{i}(\theta_{1})g\\
+ & =\dot{\theta_{1}}^{2}\left[\sum\frac{m_{i}}{2}\left(\frac{r_{i}(\theta_{1})}{d\theta_{1}}\right)^{2}+\frac{I_{i}}{2}(\Omega_{i}(\theta_{1}))^{2}\right]-\sum m_{i}r_{i}(\theta_{1})g
+\end{align*}
+
+\end_inset
+
+if the element enclosed in brackets is denominated 
+\begin_inset Formula $V$
+\end_inset
+
+ while the sum 
+\begin_inset Formula $U$
+\end_inset
+
+, then: 
+\begin_inset Formula 
+\[
+L=\dot{\theta_{1}}^{2}V(\theta_{1})-U(\theta_{1})
+\]
+
+\end_inset
+
+where the equation of motion, disregarding for now outside influence and
+ friction, can be derived: 
+\begin_inset Formula 
+\begin{align*}
+\tau & =\frac{d}{dt}\left(\frac{\partial L}{\partial\dot{\theta}_{1}}\right)-\frac{\partial L}{\partial\theta_{1}}\\
+ & =\ddot{\theta_{1}}(2V(\theta_{1}))+\dot{\theta}_{1}^{2}\frac{dV(\theta_{1})}{d\theta_{1}}+\frac{dU(\theta_{1})}{d\theta_{1}}
+\end{align*}
+
+\end_inset
+
+or written more compactly: 
+\begin_inset Formula 
+\begin{equation}
+\tau=2\ddot{\theta}_{1}V(\theta_{1})+\dot{\theta}_{1}^{2}V'(\theta_{1})+U'(\theta_{1})\label{eq:sys:eq:motion}
+\end{equation}
+
+\end_inset
+
+finally giving it into more familiar form: 
+\begin_inset Formula 
+\begin{align}
+\begin{split}\dot{\theta}_{1} & =\omega_{1}\\
+\dot{\omega}_{1} & =-\omega_{1}^{2}\frac{V'(\theta_{1})}{2V(\theta_{1})}-\frac{U'(\theta_{1})}{2V(\theta_{1})}+\frac{\tau}{2V(\theta_{1})}
+\end{split}
+\label{eq:dyn:sys}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+linearised plant model
+\end_layout
+
+\begin_layout Standard
+the linear model basically consists into the jacobian of Sys.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dyn:sys"
+
+\end_inset
+
+ evaluated about equilibrium point discussed in Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:best:lin:candidate"
+
+\end_inset
+
+.
+ First define: 
+\begin_inset Formula 
+\begin{align*}
+g(\omega_{1},\theta_{1}) & =-\omega_{1}^{2}\frac{V'(\theta_{1})}{2V(\theta_{1})}-\frac{U'(\theta_{1})}{2V(\theta_{1})}\\
+f(\omega_{1},\theta_{1},\tau) & =\frac{\tau}{2V(\theta_{1})}
+\end{align*}
+
+\end_inset
+
+then clearly, the linearisation will be given by: 
+\begin_inset Formula 
+\begin{align*}
+\dot{\theta}_{1} & =\frac{\partial\omega_{1}}{\partial\theta_{1}}\theta_{1}+\frac{\partial\omega_{1}}{\partial\omega_{1}}\omega_{1}\\
+\dot{\omega}_{1} & =\left[\frac{\partial g}{\partial(\theta_{1},\omega_{1})}(\theta_{0})\right]\left[\begin{array}{c}
+\theta_{1}-\theta_{0}\\
+\omega_{1}
+\end{array}\right]+\left[\frac{\partial f}{\partial(\theta_{1},\omega_{1})}(\theta_{0})\right]\left[\begin{array}{c}
+\tau\\
+\tau
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+where the partial is in fact a gradient.
+ These in turn can be written as, 
+\begin_inset Formula 
+\begin{align}
+\begin{split}\dot{\theta}_{1} & =\omega_{1}\\
+\dot{\omega}_{1} & =a_{1}\theta_{1}+b_{1}\omega_{1}+c_{1}+d_{1}\tau
+\end{split}
+\label{eq:lin:dyn:sys}
+\end{align}
+
+\end_inset
+
+where the coefficients are, symbolically: 
+\begin_inset Formula 
+\begin{align*}
+a_{1} & =\left[-\omega_{1}^{2}\left(\frac{V(\theta_{1})V''(\theta_{1})-\left(V'(\theta_{1})\right)^{2}}{2V(\theta_{1})}\right)-\left(\frac{V(\theta_{1})U''(\theta_{1})-V'(\theta_{1})U'(\theta_{1})}{2V(\theta_{1})}\right)\right]_{\theta_{1}=\theta_{0},\omega_{1}=0}\\
+b_{1} & =\left[-\omega_{1}\frac{V'(\theta_{1})}{V(\theta_{1})}\right]_{\theta_{1}=\theta_{0},\omega_{1}=0}\\
+c_{1} & =-a_{1}\theta_{0}\\
+d_{1} & =a_{1}+b_{1}
+\end{align*}
+
+\end_inset
+
+by the chosen equilibrium point, some simplifications can be made: 
+\begin_inset Formula 
+\begin{align*}
+a_{1} & =-\left(\frac{V(\theta_{0})U''(\theta_{0})-V'(\theta_{0})U'(\theta_{0})}{2V(\theta_{0})}\right)\\
+b_{1} & =0\\
+c_{1} & =-a_{1}\theta_{0}\\
+d_{1} & =a_{1}+b_{1}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An even better way to linearise this sytem is to look into Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sys:eq:motion"
+
+\end_inset
+
+, and make this the starting equation, since this can easily then give the
+ linearised torque the motor should generate.
+ First, see that the torque is function of three independent variables:
+ 
+\begin_inset Formula $\theta,\omega,\dot{\omega}$
+\end_inset
+
+, thus: 
+\begin_inset Formula 
+\[
+\nabla\tau=\left(\frac{\partial\tau}{\partial\theta},\frac{\partial\tau}{\partial\omega},\frac{\partial\tau}{\partial\dot{\omega}}\right)
+\]
+
+\end_inset
+
+seeing that 
+\begin_inset Formula $x_{0}=(\theta_{0},0,0)$
+\end_inset
+
+ is the equilibrium point, the sought equation for along the torque will
+ be: 
+\begin_inset Formula 
+\[
+\tau=\left.\nabla\tau\right|_{x=x_{0}}\left[\begin{array}{c}
+\theta-\theta_{0}\\
+\omega\\
+\dot{\omega}
+\end{array}\right]
+\]
+
+\end_inset
+
+or expanded in explicit form, 
+\begin_inset Formula 
+\begin{align}
+\tau & =\left(2V'(\theta_{0})\right)\dot{\omega}+\left(2\omega_{0}V'(\theta_{0})\right)\omega+\left(2\dot{\omega}_{0}V'(\theta_{0})+\omega_{0}^{2}V''(\theta_{0})+U''(\theta_{0})\right)(\theta-\theta_{0})\nonumber \\
+\therefore\tau & =2V'(\theta_{0})\dot{\omega}+U''(\theta_{0})(\theta-\theta_{0})\label{eq:sys:lin:eq:motion}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+overall model
+\end_layout
+
+\begin_layout Standard
+It can be found easily in the internet or elsewhere that the coupled 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+glspl
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ODE
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ modelling the motor's behaviour are given by: 
+\begin_inset Formula 
+\begin{align*}
+\dot{i} & =-\frac{R}{L}i-\frac{k_{e}}{L}\omega_{m}+\frac{1}{L}V_{s}\\
+\dot{\omega}_{m} & =\frac{k_{t}}{J}i-\frac{k_{e}}{J}+\frac{1}{J}\tau_{m}
+\end{align*}
+
+\end_inset
+
+these can be combined with the previous equation of motion developed for
+ the drill rig: 
+\begin_inset Formula 
+\begin{align*}
+\dot{i} & =-\frac{R}{L}i-\frac{k_{e}}{L}\omega_{m}+\frac{1}{L}V_{s}\\
+\dot{\omega}_{m} & =\frac{k_{t}}{J}i-\frac{k_{e}}{J}\omega_{m}+\frac{1}{J}\frac{1}{N}\left(a\dot{\omega}_{o}+b\omega_{o}+c\theta_{o}+d\right)\\
+\dot{\theta}_{m} & =\omega_{m}
+\end{align*}
+
+\end_inset
+
+finally noting that 
+\begin_inset Formula $N\theta_{0}=\theta_{m}$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\dot{\omega}_{m}=\frac{k_{t}}{J}i-\frac{k_{e}}{J}\omega_{m}+\frac{1}{J}\frac{1}{N^{2}}\left(a\dot{\omega}_{m}+b\omega_{m}+c\theta_{m}+d\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left(1-\frac{a}{N^{2}}\right)\dot{\omega}_{m}=\frac{k_{t}}{J}i+\left(\frac{b}{JN^{2}}-\frac{k_{e}}{J}\right)\omega_{m}+\frac{c}{JN^{2}}\theta_{m}+\frac{d}{JN^{2}}
+\]
+
+\end_inset
+
+finally, the overall linearized system coupled 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+glspl
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ODE
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ can be written: 
+\begin_inset Formula 
+\begin{align}
+\begin{split}\dot{i} & =-\frac{R}{L}i-\frac{k_{e}}{L}\omega_{m}+\frac{1}{L}V_{s}\\
+\dot{\omega}_{m} & =\frac{N^{2}k_{t}}{J(N^{2}-a)}i+\frac{1}{J}\left(\frac{b-N^{2}k_{e}}{N^{2}-a}\right)\omega+\frac{c}{J(N^{2}-a)}\theta+\frac{d}{J(N^{2}-a)}\\
+\dot{\theta}_{m} & =\omega_{m}
+\end{split}
+\label{eq:sys:lumped:lti}
+\end{align}
+
+\end_inset
+
+using 
+\begin_inset Formula $x=(i,\omega,\theta)$
+\end_inset
+
+, the standard form for dynamical systems: 
+\begin_inset Formula 
+\[
+x=Ax+BV_{s}+Ex_{o}
+\]
+
+\end_inset
+
+where: 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+-\frac{R}{L} & \frac{k_{e}}{L} & 0\\
+\frac{N^{2}k_{t}}{J(N^{2}-a)} & \frac{1}{J}\left(\frac{b-N^{2}k_{e}}{N^{2}-a}\right) & \frac{c}{J(N^{2}-a)}\\
+0 & 1 & 0
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+B=\left[\begin{array}{c}
+\frac{1}{L}\\
+0\\
+0
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+E=\left[\begin{array}{c}
+0\\
+\frac{d}{J(N^{2}-a)}\\
+0
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Control Measures
+\end_layout
+
+\begin_layout Subsection
+Inicial considerations
+\end_layout
+
+\begin_layout Standard
+The main goal is to control the reciprocating frequency, which can make
+ use of the efficient internal loop of the controller into the system.
+ the IxR methodology to account for voltage drop is given in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overall:diag"
+
+\end_inset
+
+.
+ 
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset include
+LatexCommand input
+filename "control_diagram.tex"
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overall diagram showing internal voltage drop control 
+\begin_inset Quotes eld
+\end_inset
+
+IxR methodology
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Every summation point is positive unless noted otherwise.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overall:diag"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The reciprocating motion is dictated by the equation: 
+\begin_inset Formula 
+\[
+y(t)=f(\theta_{2}(\theta_{1}(t)))
+\]
+
+\end_inset
+
+the period of 
+\begin_inset Formula $y(t)$
+\end_inset
+
+ is then given by the time elapsed between two equal values of 
+\begin_inset Formula $y$
+\end_inset
+
+ for different time.
+ Since this is true for the period of 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+, it comes that the period 
+\begin_inset Formula $p$
+\end_inset
+
+ of reciprocation is the same as the period of rotation: 
+\begin_inset Formula 
+\[
+y(t+p)=f(\theta_{2}(\theta_{1}(t+p)))=f(\theta_{2}(\theta_{1}(t)))=y(t)
+\]
+
+\end_inset
+
+Thus the reciprocating frequency is given by: 
+\begin_inset Formula 
+\[
+\frac{f_{y}}{2\pi}=\omega_{1}
+\]
+
+\end_inset
+
+If the values for the maximum and minimum heights in each stroke is required,
+ their deduction follows: 
+\begin_inset Formula 
+\[
+\dot{y}=0=\frac{df}{d\theta_{2}}\frac{d\theta_{2}}{d\theta_{1}}\omega_{1}
+\]
+
+\end_inset
+
+since the maxima of 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{2}$
+\end_inset
+
+ occur at the same points for their respective variables, it is enough to
+ solve for: 
+\begin_inset Formula 
+\[
+\frac{df(\theta_{2})}{d\theta_{2}}=0
+\]
+
+\end_inset
+
+this is given by: 
+\begin_inset Formula 
+\[
+-d_{{3}}\cos\left(\theta_{2}\right)+{\frac{\left(d_{{3}}\cos\left(\theta_{2}\right)-a_{{1}}\right)d_{{3}}\sin\left(\theta_{2}\right)}{\sqrt{{L_{{2}}}^{2}-\left(d_{{3}}\cos\left(\theta_{2}\right)-a_{{1}}\right)^{2}}}}=0
+\]
+
+\end_inset
+
+which has solutions (along two more): 
+\begin_inset Formula 
+\[
+c_{2}=\pm\frac{a_{1}}{L_{2}+d_{3}}
+\]
+
+\end_inset
+
+which can be substituted back onto 
+\begin_inset Formula $y(\theta_{2})$
+\end_inset
+
+ to give its maxima and minima: 
+\begin_inset Formula 
+\begin{align*}
+y_{m} & =\frac{L_{2}-d_{3}}{L_{2}+d_{3}}\sqrt{\left(L_{2}^{2}+d_{3}^{2}\right)-a_{1}^{2}}\\
+y_{m}^{*} & =-d_{{3}}\sqrt{1-{\frac{{a_{{1}}}^{2}}{\left(L_{{2}}+d_{{3}}\right)^{2}}}}+\sqrt{{L_{{2}}}^{2}-\left(-{\frac{d_{{3}}a_{{1}}}{L_{{2}}+d_{{3}}}}-a_{{1}}\right)^{2}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Optimal gain calculation
+\end_layout
+
+\begin_layout Standard
+The system, although being defined in three dimensional state space is 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+SISO
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ Moreover the applied linearization rendered the lumped parameter model
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sys:lumped:lti"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+LTI
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, thus the classical approach via frequency analysis is readily avaiable
+ for use.
+\end_layout
+
+\begin_layout Standard
+In Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sys:lumped:lti"
+
+\end_inset
+
+, its laplace transform is given by: 
+\begin_inset Formula 
+\begin{align*}
+si & =a_{11}i+a_{12}\omega+bV_{s}\\
+s\omega & =a_{21}+a_{22}\omega+a_{23}\theta+D\\
+s\theta & =\omega
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $a_{ij}=\left[A\right]_{ij}$
+\end_inset
+
+, for simplicty of notation.
+ Manipulating the first and third of these and substituting into the second:
+ 
+\begin_inset Formula 
+\[
+s\omega=\frac{a_{12}\omega+bV_{s}}{s-a_{11}}+a_{22}\omega+\frac{a_{23}}{s}\omega+D
+\]
+
+\end_inset
+
+which gives: 
+\begin_inset Formula 
+\[
+\left(s-\frac{a_{12}}{s-a_{11}}-a_{22}-\frac{a_{23}}{s}\right)\omega=bV_{s}+D
+\]
+
+\end_inset
+
+or, into a rational form: 
+\begin_inset Formula 
+\[
+\left(\frac{s^{3}-(a_{11}+a_{22})s^{2}+(a_{11}a_{22}-a_{12}-a_{23})s+a_{11}a_{23}}{s(s-a_{11})}\right)\omega=bV_{s}+D
+\]
+
+\end_inset
+
+As 
+\begin_inset Formula $D$
+\end_inset
+
+ depends upon the choice of initial conditions, and since any of them make
+ the physical system stable, it can be assumed that 
+\begin_inset Formula $D=0$
+\end_inset
+
+.
+ Then the transfer function of the overall system: 
+\begin_inset Formula 
+\begin{equation}
+G(s)=\frac{\omega}{V_{s}}=\left(\frac{bs(s-a_{11})}{s^{3}-(a_{11}+a_{22})s^{2}+(a_{11}a_{22}-a_{12}-a_{23})s+a_{11}a_{23}}\right)\label{eq:sys:trans:func}
+\end{equation}
+
+\end_inset
+
+The controller in question is a PI-like controller, hence its equation can
+ be assumed to be: 
+\begin_inset Formula 
+\begin{equation}
+C(s)=K_{p}\left(1+\frac{1}{T_{i}s}\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $K$
+\end_inset
+
+ and 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ are constants well defined in literature.
+ The overall closed-loop transfer function changes to: 
+\begin_inset Formula 
+\[
+H(s)=\frac{C(s)G(s)}{1+C(s)G(s)}
+\]
+
+\end_inset
+
+If a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ISE
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ is defined as: 
+\begin_inset Formula 
+\begin{equation}
+I_{c}=\int_{0}^{\infty}(x_{r}(t)-y(t))^{2}+\sigma^{2}u^{2}dt\label{eq:ise}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $u$
+\end_inset
+
+ is the control variable, then Parseval's theorem can be used to calculate
+ this integral by knowing the transfer functions if each variable.
+ Therefore, it is necessary to minimize: 
+\begin_inset Formula 
+\[
+I_{c}=\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(V_{s}(i\xi)-\omega(i\xi)\right)\left(V_{s}(-i\xi)-\omega(-i\xi)\right)+\sigma^{2}U(i\xi)U(-i\xi)d\xi
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ is the imaginary unit.
+ It is desirable to manipulate the integrand before hand of computing the
+ integral, as to minimize the effort required: 
+\begin_inset Formula 
+\[
+\left[V_{s}(s)-H(s)V_{s}(s)\right]\left[V_{s}(-s)-H(-s)V_{s}(-s)\right]+\sigma^{2}V_{s}(s)C(s)C(-s)V_{s}(-s)
+\]
+
+\end_inset
+
+assuming that the voltage is an unity step input 
+\begin_inset Formula $1/s$
+\end_inset
+
+ to prioritize reducing errors in the system, 
+\begin_inset Formula 
+\[
+E_{2}(s)=-\frac{1}{s^{2}}\left[1-H(s)\right]\left[1-H(-s)\right]-\sigma^{2}\frac{1}{s^{2}}C(s)C(-s)
+\]
+
+\end_inset
+
+as it is expected from the linearizations performed and computed transfer
+ functions, 
+\begin_inset Formula $H(s)=N_{h}(s)/D_{h}(s)$
+\end_inset
+
+ while 
+\begin_inset Formula $C(s)=N_{c}(s)/D_{c}(s)$
+\end_inset
+
+, therefore: 
+\begin_inset Formula 
+\begin{align*}
+E_{2}(s) & =\frac{1}{s}\left[1-\frac{N_{h}(s)}{D_{h}(s)}\right]\left[1-\frac{N_{h}(-s)}{D_{h}(-s)}\right]\frac{1}{-s}+\sigma^{2}\frac{1}{s}\frac{N_{c}(s)}{D_{c}(s)}\frac{N_{c}(-s)}{D_{c}(-s)}\frac{1}{-s}\\
+ & =\frac{1}{s}\left[\frac{D_{h}(s)-N_{h}(s)}{D_{h}(s)}\right]\left[\frac{D_{h}(-s)-N_{h}(-s)}{D_{h}(-s)}\right]\frac{1}{-s}+\sigma^{2}\frac{1}{s}\frac{N_{c}(s)}{D_{c}(s)}\frac{N_{c}(-s)}{D_{c}(-s)}\frac{1}{-s}
+\end{align*}
+
+\end_inset
+
+These can be simplified by the use of a partial fraction expansion.
+ First, 
+\begin_inset Formula $D_{h}$
+\end_inset
+
+ is a third order polynomial, evident from the order of the system and it's
+ characteristic equation (alongside preliminary computational results),
+ hence, the element
+\begin_inset Formula 
+\[
+\frac{1}{s}\left[\frac{D_{h}(s)-N_{h}(s)}{D_{h}(s)}\right]
+\]
+
+\end_inset
+
+can be expanded unto:
+\begin_inset Formula 
+\[
+\frac{N_{1}(s)}{s}+\frac{N_{2}(s)}{D_{h}(s)}
+\]
+
+\end_inset
+
+this in turn, gives the linear system which solution corresponds to the
+ correct polynomial coefficients.
+ Thus,
+\begin_inset Formula 
+\[
+N_{1}(s)D_{h}+sN_{2}(s)=D_{h}(s)-N_{h}(s)
+\]
+
+\end_inset
+
+note that 
+\begin_inset Formula $N_{1}$
+\end_inset
+
+ must be a constant whereas 
+\begin_inset Formula $N_{2}$
+\end_inset
+
+ must be a second-order polynomial, since the degree of both sides of equality
+ must match.
+ solving the resulting linear system:
+\begin_inset Formula 
+\begin{align*}
+N_{1}d_{3}+a_{2} & =d_{3}\\
+N_{1}d_{2}+a_{1} & =d_{2}-n_{2}\\
+N_{1}d_{1}+a_{0} & =d_{1}-n_{1}\\
+N_{1}d_{0}+0 & =d_{0}-n_{0}
+\end{align*}
+
+\end_inset
+
+hence, 
+\begin_inset Formula $N_{1}=1-\frac{n_{0}}{d_{0}}$
+\end_inset
+
+, while the coefficients of 
+\begin_inset Formula $N_{2}$
+\end_inset
+
+ are given by each 
+\begin_inset Formula $a_{i}$
+\end_inset
+
+, being the 
+\begin_inset Formula $i$
+\end_inset
+
+-th coordinate representing the coefficient of the 
+\begin_inset Formula $i$
+\end_inset
+
+-th power of 
+\begin_inset Formula $s$
+\end_inset
+
+.
+ The new formula for 
+\begin_inset Formula $E_{2}(s)$
+\end_inset
+
+ is:
+\begin_inset Formula 
+\[
+\left[\frac{N_{1}(s)}{s}+\frac{N_{2}(s)}{D_{h}(s)}\right]\left[1-\frac{N_{h}(-s)}{D_{h}(-s)}\right]\frac{1}{-s}+\sigma^{2}\frac{1}{s}\frac{N_{c}(s)}{D_{c}(s)}\frac{N_{c}(-s)}{D_{c}(-s)}\frac{1}{-s}
+\]
+
+\end_inset
+
+doing the same for the remaining parenthesis and for the controller contribution
+:
+\end_layout
+
+\begin_layout Section
+Algorithms for Tuning
+\end_layout
+
+\begin_layout Subsection
+Theory and Deductions
+\end_layout
+
+\begin_layout Standard
+After trying the implemented a stall detection algorithm which tried to
+ exhaust some sequence properties and test them in the Arduino, they showed
+ no promise.
+ It has become clear that something a little more sophisticated, however
+ possible of on-line implementation; emulating maybe a short-term memory
+ was necessary.
+ Certainly the current flowing through the motor can give good hints upon
+ stalling, but no before prior knowledge of the system the motor will effectivel
+y drive; thus focus at the feedback speed is the most general option.
+ Using the same fundamental definitions as before: 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Stall
+\end_layout
+
+\end_inset
+
+The positive definite error function 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is said to be 
+\emph on
+stalling about 
+\begin_inset Formula $L$
+\end_inset
+
+
+\emph default
+ if there is 
+\begin_inset Formula $\epsilon,t_{o}\in\R$
+\end_inset
+
+ such that 
+\begin_inset Formula $\forall t>t_{0},\left|e(t)-L\right|<\epsilon$
+\end_inset
+
+.
+ In words, the error 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is 
+\emph on
+stalling
+\emph default
+ if it oscillates (ou stabilizates) about some value 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ The discrete version is similar.
+ 
+\end_layout
+
+\begin_layout Standard
+Once again, the same fundamental fact that connect a mathematical test to
+ the physical problem is stated: 
+\end_layout
+
+\begin_layout Fact
+if the error function 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is not strictly monotonic decreasing, it is either stalling on some value
+ or increasing.
+ 
+\end_layout
+
+\begin_layout Standard
+This can be proved without too much difficulty.
+ Now, the test that can be used is that of linear 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+LSR
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ of a certain amount of values.
+ If 
+\begin_inset Formula $n$
+\end_inset
+
+ error values are sampled giving the vector 
+\begin_inset Formula $\mathbf{e}=\left\{ e_{1},\dots,e_{n}\right\} $
+\end_inset
+
+ for the following time vector 
+\begin_inset Formula $\mathbf{t}=\left\{ T,\dots,nT\right\} $
+\end_inset
+
+.
+ But since the check is for a non-strictly decreasing function, the vector
+ 
+\begin_inset Formula $\mathbf{t}$
+\end_inset
+
+ can be simplified to 
+\begin_inset Formula $\mathbf{t}_{c}=\left\{ 1,\dots,n\right\} $
+\end_inset
+
+.
+ The reason for so is given by the following: 
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $a,b\in\R$
+\end_inset
+
+ be such that, 
+\begin_inset Formula 
+\[
+e(t)=at+b
+\]
+
+\end_inset
+
+is the best approximation of the sampled data 
+\begin_inset Formula $\mathbf{e}=\left\{ e_{1},\dots,e_{n}\right\} $
+\end_inset
+
+ upon time vector 
+\begin_inset Formula $\mathbf{t}=\left\{ t_{1},\dots,t_{n}\right\} $
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $a$
+\end_inset
+
+ is denominated 
+\emph on
+trend
+\emph default
+ of the data and 
+\begin_inset Formula $b$
+\end_inset
+
+ 
+\emph on
+start
+\emph default
+ of the data.
+ Moreover, these are given by: 
+\begin_inset Formula 
+\begin{align*}
+a & =\frac{n\left(\sum_{i=1}^{n}e_{i}t_{i}\right)-\left(\sum_{i=1}^{n}e_{i}\right)\left(\sum_{i=1}^{n}t_{n}\right)}{n\left(\sum_{i=1}^{n}t_{i}^{2}\right)-\left(\sum_{i=1}^{n}t_{i}\right)^{2}}\\
+b & =\frac{\left(\sum_{i=1}^{n}t_{i}^{2}\right)\left(\sum_{i=1}^{n}e_{i}\right)-\left(\sum_{i=1}^{n}e_{i}t_{i}\right)\left(\sum_{i=1}^{n}t_{n}\right)}{n\left(\sum_{i=1}^{n}t_{i}^{2}\right)-\left(\sum_{i=1}^{n}t_{i}\right)^{2}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the micro controller samples at approximately a constant interval,
+ the time vector can be considered 
+\begin_inset Formula $\mathbf{t}=\left\{ T,\dots,nT\right\} $
+\end_inset
+
+, and the test for non strictly decreasing function follow: 
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+LSR
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ test
+\end_layout
+
+\end_inset
+
+Let the error function 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ be sampled with time vector 
+\begin_inset Formula $\mathbf{t}=\left\{ T,\dots,nT\right\} $
+\end_inset
+
+.
+ If the trend obtained by using as a time vector 
+\begin_inset Formula $\mathbf{t}_{c}=\left\{ 1,\dots,n\right\} $
+\end_inset
+
+ is non-negative, then 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ cannot be monotonic decreasing.
+\end_layout
+
+\begin_layout Proof
+First, a connection between both time vectors is established; let 
+\begin_inset Formula $a_{1}$
+\end_inset
+
+ be the trend with 
+\begin_inset Formula $\mathbf{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $a_{2}$
+\end_inset
+
+ be the trend with 
+\begin_inset Formula $\mathbf{t}_{c}$
+\end_inset
+
+.
+ Then, 
+\begin_inset Formula 
+\[
+a_{1}=\frac{n\left(\sum_{i=1}^{n}e_{i}iT\right)-\left(\sum_{i=1}^{n}e_{i}\right)\left(\sum_{i=1}^{n}iT\right)}{n\left(\sum_{i=1}^{n}iT^{2}\right)-\left(\sum_{i=1}^{n}iT\right)^{2}}=\frac{1}{T}\left[\frac{n\left(\sum_{i=1}^{n}e_{i}i\right)-\left(\sum_{i=1}^{n}e_{i}\right)\left(\sum_{i=1}^{n}i\right)}{n\left(\sum_{i=1}^{n}i^{2}\right)-\left(\sum_{i=1}^{n}i\right)^{2}}\right]=\frac{1}{T}a_{2}
+\]
+
+\end_inset
+
+that is, both trends are related by a constant, nominally 
+\begin_inset Formula $1/T$
+\end_inset
+
+.
+ To prove the incompatibility between strictly monotonic decreasing and
+ the trend non-negativity, let 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ be a strictly monotonic decreasing function; then its trend with time 
+\begin_inset Formula $\mathbf{t}_{c}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{align*}
+a & =\frac{n\left(\sum_{i=1}^{n}e_{i}i\right)-\left(\sum_{i=1}^{n}e_{i}\right)\left(\sum_{i=1}^{n}i\right)}{n\left(\sum_{i=1}^{n}i{}^{2}\right)-\left(\sum_{i=1}^{n}i\right)^{2}}\\
+ & =\frac{n\left(\sum_{i=1}^{n}e_{i}i\right)-\left(\sum_{i=1}^{n}e_{i}\right)\frac{n}{2}\left(n+1\right)}{n\left(\sum_{i=1}^{n}i{}^{2}\right)-\left(\sum_{i=1}^{n}i\right)^{2}}\\
+ & =\frac{\sum_{i=1}^{n}e_{i}\left(ni-n\frac{\left(n+1\right)}{2}\right)}{n\left(\sum_{i=1}^{n}i{}^{2}\right)-\left(\sum_{i=1}^{n}i\right)^{2}}
+\end{align*}
+
+\end_inset
+
+since the denominator is a constant, focus is given to the numerator.
+ By assumption, 
+\begin_inset Formula 
+\begin{align*}
+\sum_{i=1}^{n}e_{i}\left(ni-n\frac{\left(n+1\right)}{2}\right) & <e_{1}\sum_{i=1}^{n}\left(ni-n\frac{\left(n+1\right)}{2}\right)\\
+ & =e_{1}\left(\sum_{i=1}^{n}ni-n^{2}\frac{\left(n+1\right)}{2}\right)\\
+ & =e_{1}\left(n\left(n\frac{(n+1)}{2}\right)-n^{2}\frac{\left(n+1\right)}{2}\right)\\
+ & =0
+\end{align*}
+
+\end_inset
+
+while the denominator is positive by using the cauchy-schwarz inequality
+ with sequences 
+\begin_inset Formula $\left\{ i\right\} _{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\{ 1\right\} _{i}$
+\end_inset
+
+.
+ Since trends with both time vectors are multiple, it is true that sampling
+ with 
+\begin_inset Formula $\mathbf{t}$
+\end_inset
+
+ must also give a negative trend.
+ This completes the proof.
+ 
+\end_layout
+
+\begin_layout Standard
+All formalities aside, a regression test for data is useful as to determine
+ the possibility of stalling.
+ The implementation is given in Secs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:arduino:source"
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:stall:detection"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Online update improvement
+\end_layout
+
+\begin_layout Standard
+After some more familiarization with these topics, I've improved all formulas
+ to the point in making its implementation real-time; that is, tweaking
+ these estimations to make it recursive.
+ For the sake of understandability, Define a placeholder for multiplicative
+ sums as follows: 
+\begin_inset Formula 
+\[
+s_{x_{1}x_{2}\dots x_{m}}(n)=\sum_{i=1}^{n}\left(\prod_{j=1}^{m}x_{ij}\right)
+\]
+
+\end_inset
+
+then, it is possible to generate an updating factor for the linear regression
+ parameters as follows.
+ let 
+\begin_inset Formula $D(n)=ns_{xx}(n)-\left(s_{x}(n)\right)^{2}$
+\end_inset
+
+, and: 
+\begin_inset Formula 
+\begin{align*}
+D(n+1)a_{n+1} & =(n+1)s_{xy}(n+1)-s_{x}(n+1)s_{y}(n+1)\\
+ & =ns_{xy}(n)+s_{xy}(n)+(n+1)x_{n+1}y_{n+1}-(s_{x}(n)+x_{n+1})(s_{y}(n)+y_{n+1})\\
+ & =D(n)a_{n}+s_{xy}(n)+(n+1)x_{n+1}y_{n+1}-s_{x}(n)y_{n+1}-s_{y}(n)x_{n+1}-x_{n+1}y_{n+1}\\
+ & =D(n)a_{n}+s_{xy}(n)+nx_{n+1}y_{n+1}-s_{x}(n)y_{n+1}-s_{y}(n)x_{n+1}\\
+\end{align*}
+
+\end_inset
+
+The updating law for the denominator is also easy to derive and is much
+ related to what has just been done: 
+\begin_inset Formula 
+\begin{align*}
+D(n+1) & =(n+1)s_{xx}(n+1)-s_{x}(n+1)s_{x}(n+1)\\
+ & =ns_{xx}(n)+s_{xx}(n)+(n+1)x_{n+1}x_{n+1}-(s_{x}(n)+x_{n+1})(s_{x}(n)+x_{n+1})\\
+ & =D(n)+s_{xx}(n)+(n+1)x_{n+1}x_{n+1}-s_{x}(n)x_{n+1}-s_{x}(n)x_{n+1}-x_{n+1}x_{n+1}\\
+ & =D(n)+s_{xx}(n)+nx_{n+1}^{2}-2s_{x}(n)x_{n+1}\\
+\end{align*}
+
+\end_inset
+
+this completes the characterization of all the updating laws for the trend.
+ To achieve same results for the linear constant, a similiar deduction can
+ be employed: 
+\begin_inset Formula 
+\begin{align*}
+D(n+1)b_{n+1} & =s_{y}(n+1)s_{xx}(n+1)-s_{x}(n+1)s_{xy}(n+1)\\
+ & =s_{y}(n)s_{xx}(n)+s_{y}(n)x_{n+1}^{2}+y_{n+1}(s_{xx}(n)+x_{n+1}^{2})-s_{x}(n)s_{xy}(n)-s_{x}(n)y_{n+1}-x_{n+1}(s_{xy}(n)+x_{n+1}y_{n+1})\\
+ & =D(n)b_{n}+s_{y}(n)x_{n+1}^{2}+y_{n+1}(s_{xx}(n)+x_{n+1}^{2})-s_{x}(n)y_{n+1}-x_{n+1}(s_{xy}(n)+x_{n+1}y_{n+1})\\
+ & =D(n)b_{n}+s_{y}(n)x_{n+1}^{2}+y_{n+1}s_{xx}(n)-s_{x}(n)y_{n+1}-x_{n+1}s_{xy}(n)\\
+\end{align*}
+
+\end_inset
+
+these can all be brought together to form a online estimation of the linear
+ trend and constant.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Such algorithm is given in Alg.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:recursive:est"
+
+\end_inset
+
+.
+ 
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $x_{1},x_{2},y_{1},y_{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $D_{1}\gets2(x_{1}^{2}+x_{2}^{2})-(x_{1}+x_{2})^{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{x}\gets x_{1}+x_{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{y}\gets y_{1}+y_{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{xx}\gets x_{1}^{2}+x_{2}^{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{xy}\gets x_{1}y_{1}+x_{2}y_{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $n\gets2$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $a\gets\frac{2s_{xy}-s_{x}^{2}}{D_{1}}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $b\gets\frac{s_{y}s_{xx}-s_{x}s_{xy}}{D_{1}}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+While
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+System is working
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ read 
+\begin_inset Formula $x,y$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $D_{2}\gets D_{1}+s_{xx}+nx^{2}-2xs_{x}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $a\gets\frac{D_{1}a+s_{xy}+nxy-ys_{x}-xs_{y}}{D_{2}}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $b\gets\frac{D_{1}b+s_{y}x^{2}+ys_{xx}-ys_{x}-xs_{xy}}{D_{2}}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{x}\gets s_{x}+x$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{y}\gets s_{y}+y$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{x}y\gets s_{x}y+xy$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $s_{x}x\gets s_{x}x+x^{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $n\gets n+1$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $D_{1}\gets D_{2}$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Recursive estimation of linear relationship between data.
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:recursive:est"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The downside is that at least to values are required in order to start the
+ algorithm correctly and attain the same estimation as the non-recursive
+ version of 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+LSR
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ Another downside would be the eventual digital saturation of the microcontrolle
+r.
+ This algorithm is equivalent to re-running a full regression after every
+ smapling is done; thus, the possiblity exists.
+ Although it would require that a operation would remain stable and sane
+ for a extended period of time.
+ 
+\end_layout
+
+\begin_layout Chapter
+Implementation
+\end_layout
+
+\begin_layout Section
+Motor attachments
+\end_layout
+
+\begin_layout Standard
+Since the motor to be tested do not fit right away in in the test rig, two
+ parts have been designed to fulfill the purpose of fixing it in place.
+ These are an axis attachment to expand the final gear ratio as seen in
+ Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:axis:draw"
+
+\end_inset
+
+ and an outer ring to secure it in place as seen in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ring:draw"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+includegraphics[width=0.9
+\backslash
+textwidth]{../CAD/axis}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Motor axis coupling drawing.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:axis:draw"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+includegraphics[width=0.9
+\backslash
+columnwidth]{../CAD/ring}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Motor ring coupling drawing.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ring:draw"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Stall detection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:stall:detection"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The implementation is based by the LRS test and will make a check upon the
+ error of the system is the trend is equilibrium or rising.
+ The pseudo code is give in Alg.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:stall:detection"
+
+\end_inset
+
+ while the implentation is given in Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:arduino:source"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Pascal"
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+Program Stall_detection
+\end_layout
+
+\begin_layout Plain Layout
+
+Var error_memory[1..n] : double
+\end_layout
+
+\begin_layout Plain Layout
+
+If trend of error_memory > 0 Then
+\end_layout
+
+\begin_layout Plain Layout
+
+	If average of error_memory > error_tolerance Then
+\end_layout
+
+\begin_layout Plain Layout
+
+		stop motor
+\end_layout
+
+\begin_layout Plain Layout
+
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+	Rerun Stall_detection after sampling
+\end_layout
+
+\begin_layout Plain Layout
+
+End
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Error Algorithm.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:stall:detection"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+care must also be taken to re-initialize the error memory whenever a new
+ command is issued or a the motor is disabled/enabled.
+ If not, any test may give wrong predictions.
+\end_layout
+
+\begin_layout Section
+Computer Interface
+\end_layout
+
+\begin_layout Standard
+The Graphical Interface is build upon the Qt framework for easy deployment.
+ A quick picture if it can be seen in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:interface"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+includegraphics[width=0.6
+\backslash
+columnwidth]{../implementation/Interface/screenshot}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Controller Prototype interface.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:interface"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "log"
+options "default"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+bibliographystyle{plain}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%dummy comment inserted by tex2lyx to ensure that this paragraph is not
+ empty
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+chapter{Sagemath Source Code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+label{sec:sagemath}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+lstinputlisting[language=Python]{/home/rjordao/Dropbox/SSC_Placement/model.sage}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+chapter{Qt Source Code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+section{Header file}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+lstinputlisting[language={C++}]{/home/rjordao/Dropbox/SSC_Placement/implementati
+on/Interface/mainwindow.h}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+section{Source file}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+lstinputlisting[language={C++}]{/home/rjordao/Dropbox/SSC_Placement/implementati
+on/Interface/mainwindow.cpp}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+chapter{Arduino Source Code
+\backslash
+label{chap:arduino:source}}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% 
+\backslash
+lstinputlisting[language={C++}]{../implementation/Arduino/principal/principal.ino}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Deprecated Stuff
+\end_layout
+
+\begin_layout Section
+Stall Detection (Deprecated)
+\end_layout
+
+\begin_layout Standard
+It really depends upon the behavior of the system, but if focus is mode
+ on the speed error, then some things can be asserted about the mathematical
+ model: 
+\end_layout
+
+\begin_layout Definition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Stall
+\end_layout
+
+\end_inset
+
+The positive definite error function 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is said to be 
+\emph on
+stalling about 
+\begin_inset Formula $L$
+\end_inset
+
+
+\emph default
+ if there is 
+\begin_inset Formula $t_{o}\in\R$
+\end_inset
+
+ such that 
+\begin_inset Formula $\forall t>t_{0},\left|e(t)-L\right|<\epsilon$
+\end_inset
+
+ where 
+\begin_inset Formula $\epsilon\in\R$
+\end_inset
+
+.
+ In words, the error 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is 
+\emph on
+stalling
+\emph default
+ if it oscillates (ou stabilizates) about some value 
+\begin_inset Formula $L$
+\end_inset
+
+.
+ The discrete version is similar.
+ 
+\end_layout
+
+\begin_layout Standard
+Stalling formally defined, it is easier to analyze and develop any algorithm.
+ In a correct working mechanism, the error will just drop continuously to
+ zero; hence, in an ideal condition the error function should be 
+\emph on
+strictly monotonic deceasing.
+ 
+\emph default
+The data available consists of a sequence of real number 
+\begin_inset Formula $\left\{ e(T),\dots,e(nT)\right\} $
+\end_inset
+
+ sampled approximately at times 
+\begin_inset Formula $kT$
+\end_inset
+
+, where 
+\begin_inset Formula $k\in\Z$
+\end_inset
+
+ and 
+\begin_inset Formula $T\in\R$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+now, the behavior of 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ in respect to time by sampling can be tracked by many different ways, three
+ based in direct measure, sampled derivative and sampled integral, respectively,
+ follows: 
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Straight check
+\end_layout
+
+\end_inset
+
+if 
+\begin_inset Formula $e(nT)\geq e(T)$
+\end_inset
+
+, then 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is not strictly monotonic decreasing in the interval.
+\end_layout
+
+\begin_layout Proof
+Follows straight from definition.
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Ratio integral test
+\end_layout
+
+\end_inset
+
+if 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N}\frac{e_{i+1}}{e_{i}}\geq N
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $e_{i}=e(iT)$
+\end_inset
+
+, then 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is not strictly monotonic decreasing.
+\end_layout
+
+\begin_layout Proof
+Suppose that 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is monotonic decreasing and let 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N}\frac{e_{i+1}}{e_{i}}\geq N
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $N$
+\end_inset
+
+ is the size of the sampled set.
+ Now, since 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is monotonic decreasing, 
+\begin_inset Formula 
+\[
+\frac{e_{k+1}}{e_{k}}\leq1\quad\forall k\in\N
+\]
+
+\end_inset
+
+it follows that,Suppose 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{N}\frac{e_{i+1}}{e_{i}}<vectorN
+\]
+
+\end_inset
+
+which is a contradiction.
+ Thus 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ cannot be strictly monotonic decreasing.
+\end_layout
+
+\begin_layout Proposition
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Meta integral test
+\end_layout
+
+\end_inset
+
+let 
+\begin_inset Formula 
+\[
+I(a,b)=\sum_{i=a+1}^{b}e_{k}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $a,b\in\N$
+\end_inset
+
+.
+ If, 
+\begin_inset Formula 
+\[
+I(0,N)\leq I(N,2N)
+\]
+
+\end_inset
+
+then 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ cannot be strictly monotonic decreasing.
+\end_layout
+
+\begin_layout Proof
+Suppose that 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is strictly monotonic decreasing.
+ From definition it follows that, 
+\begin_inset Formula 
+\[
+e_{k}>e_{k+a}\quad\forall k\in\N
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $a\in\N$
+\end_inset
+
+.
+ Now, summing this inequality with 
+\begin_inset Formula $a=N$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $N$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+I(0,N)=\sum_{i=1}^{N}e_{k}>\sum_{i=1}^{N}e_{k+N}=\sum_{i=N+1}^{2N}e_{k}=I(N,2N)
+\]
+
+\end_inset
+
+henceforth, if 
+\begin_inset Formula 
+\[
+I(0,N)l\leq I(N,2N)
+\]
+
+\end_inset
+
+a contradiction follows.
+ This completes the proof.
+ 
+\end_layout
+
+\begin_layout Standard
+These propositions can be used to test for stalling of the motor, since
+ there is a intimate relationship between stalling and a monotonic decreasing
+ function with error checking.
+ For instance, the error function by definition should stall at the final
+ error value, as being the objective; but it should not stall in values
+ greater than the tolerance for error.
+ 
+\end_layout
+
+\begin_layout Fact
+if the error function 
+\begin_inset Formula $e(t)$
+\end_inset
+
+ is not strictly monotonic decreasing, it is either stalling on some value
+ or increasing.
+ 
+\end_layout
+
+\begin_layout Standard
+From this fact, it becomes clear that the checks for a strictly monotonic
+ decreasing function followed by a check of the total error of the system
+ returns a safe estimate of its stalling.
+ The actual implementation can use the three tests as to increase security.
+ This is done at Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:stall:detecion:deprecated"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Stall detection (deprecated)
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:stall:detecion:deprecated"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The implementation is rather simple and it's based on simultaneous tests
+ pass.
+ If more two out of three tests asserts that the system is possibly stalling,
+ the system is shutdown if the error is above some tolerance.
+ The code is show in Alg.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:stall:detec"
+
+\end_inset
+
+ in pseudo code.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Pascal"
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+	Program Stall_detection
+\end_layout
+
+\begin_layout Plain Layout
+
+	Var error_decision: integer
+\end_layout
+
+\begin_layout Plain Layout
+
+	error_decision := 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	If straight_error_check is true Then
+\end_layout
+
+\begin_layout Plain Layout
+
+	error_decision := error_decision + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	If ratio_integral_check is true Then
+\end_layout
+
+\begin_layout Plain Layout
+
+	error_decision := error_decision + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	If meta_integral_check is true Then
+\end_layout
+
+\begin_layout Plain Layout
+
+	error_decision := error_decision + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	If error_decision > 2 Then
+\end_layout
+
+\begin_layout Plain Layout
+
+	stop motor
+\end_layout
+
+\begin_layout Plain Layout
+
+	Else
+\end_layout
+
+\begin_layout Plain Layout
+
+	error_decision := 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	Rerun Stall_detection after sampling
+\end_layout
+
+\begin_layout Plain Layout
+
+	End
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+center
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+protect
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Error Algorithm.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:stall:detec"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
