@@ -129,19 +129,19 @@ inline void sendData()
 
 void setup(void)
 {
-  motor = motorInit(9,8,-9100/51,9100/51);
-  motor_enable_led = ledInit(5,0,0,true);
-  motor_speed_sensor = sensorInit(2,-9100.0/51.0,9100.0/51.0,0.180,3.820);
+  motor = motorInit(3,4,-9100/51,9100/51);
+  motor_enable_led = ledInit(13,0,0,true);
+  motor_speed_sensor = sensorInit(0,-9100.0/51.0,9100.0/51.0,0.180,3.820);
   motor_current_sensor = sensorInit(1,-2.6659,2.6659,0.180,3.820);
-  motor_above_current_switch = switchInit(3);
-  motor_stall_current_switch = switchInit(4);
+  motor_above_current_switch = switchInit(7);
+  motor_stall_current_switch = switchInit(8);
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
-  motor_speed_sensor->voltage_drift_linear = -0.030014;
-  motor_speed_sensor->voltage_drift_const = 0.312234;
-  motor_current_sensor->voltage_drift_const = 8;
-  motor_current_sensor->voltage_drift_linear = 8/1023;
+  //motor_speed_sensor->voltage_drift_linear = -0.030014;
+  //motor_speed_sensor->voltage_drift_const = 0.312234;
+  //motor_current_sensor->voltage_drift_const = 8;
+  //motor_current_sensor->voltage_drift_linear = 8/1023;
   //----------
 #ifdef FLAG_CHECK_FOR_ERROR
   error_timer = 0;
