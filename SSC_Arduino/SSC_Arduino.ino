@@ -115,9 +115,9 @@ inline void sendData()
     Serial.print(";");
     Serial.print(motor->current_rpm);
     Serial.print(';');
-    printDouble(sensorGetReading(motor_speed_sensor),4);
+    Serial.print(sensorGetReading(motor_speed_sensor));
     Serial.print(';');
-    printDouble(sensorGetReading(motor_current_sensor),4);
+    Serial.print(sensorGetReading(motor_current_sensor));
     break;
   case false:
     Serial.print('0');
@@ -133,13 +133,13 @@ void setup(void)
   motor_enable_led = ledInit(13,0,0,true);
   motor_speed_sensor = sensorInit(0,-9100.0/51.0,9100.0/51.0,0.180,3.820);
   motor_current_sensor = sensorInit(1,-2.6659,2.6659,0.180,3.820);
-  motor_above_current_switch = switchInit(7);
-  motor_stall_current_switch = switchInit(8);
+  motor_above_current_switch = switchInit(8);
+  motor_stall_current_switch = switchInit(7);
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
-  //motor_speed_sensor->voltage_drift_linear = -0.030014;
-  //motor_speed_sensor->voltage_drift_const = 0.312234;
+  motor_speed_sensor->voltage_drift_linear = 0.0016849384;
+  motor_speed_sensor->voltage_drift_const = 2.7551359119;
   //motor_current_sensor->voltage_drift_const = 8;
   //motor_current_sensor->voltage_drift_linear = 8/1023;
   //----------
