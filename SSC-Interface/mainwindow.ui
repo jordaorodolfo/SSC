@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>479</height>
+    <width>619</width>
+    <height>705</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -198,6 +198,27 @@
      </layout>
     </item>
     <item>
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>Height</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <item>
+       <widget class="QLineEdit" name="lineEditHeight"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonHeightTARA">
+        <property name="text">
+         <string>TARA</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Output Current</string>
@@ -261,19 +282,6 @@
       </item>
      </layout>
     </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -281,49 +289,29 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>521</width>
-     <height>19</height>
+     <width>619</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuRecord">
     <property name="title">
      <string>Record</string>
     </property>
-    <widget class="QMenu" name="menuSample_Number">
-     <property name="title">
-      <string>Sample Number</string>
-     </property>
-     <addaction name="action50"/>
-     <addaction name="action100"/>
-     <addaction name="action200"/>
-     <addaction name="action500"/>
-     <addaction name="action100_2"/>
-    </widget>
     <addaction name="actionError"/>
     <addaction name="actionOutput_Rpm"/>
     <addaction name="actionOutput_Current"/>
     <addaction name="actionOutput_Frequency"/>
-    <addaction name="separator"/>
-    <addaction name="menuSample_Number"/>
    </widget>
-   <widget class="QMenu" name="menuTuning">
+   <widget class="QMenu" name="menuVariables">
     <property name="title">
-     <string>Tuning</string>
+     <string>Variables</string>
     </property>
-    <widget class="QMenu" name="menuAuto_self_tune">
-     <property name="title">
-      <string>Auto self tune</string>
-     </property>
-     <addaction name="actionNear_178_CCW_rpm"/>
-     <addaction name="actionNear_0_rpm"/>
-     <addaction name="actionNear_178_CW_rpm"/>
-    </widget>
-    <addaction name="actionAdd_current_value_pair"/>
+    <addaction name="actionEditVariables"/>
     <addaction name="separator"/>
-    <addaction name="menuAuto_self_tune"/>
+    <addaction name="actionDefault_Values"/>
    </widget>
    <addaction name="menuRecord"/>
-   <addaction name="menuTuning"/>
+   <addaction name="menuVariables"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -334,6 +322,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
   <action name="actionError">
    <property name="text">
     <string>Error</string>
@@ -397,6 +396,26 @@
   <action name="actionNear_178_CW_rpm">
    <property name="text">
     <string>near 178 CW rpm</string>
+   </property>
+  </action>
+  <action name="actionEditVariables">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionSampel_size">
+   <property name="text">
+    <string>Sampel size</string>
+   </property>
+  </action>
+  <action name="actionSample_size">
+   <property name="text">
+    <string>Sample size</string>
+   </property>
+  </action>
+  <action name="actionDefault_Values">
+   <property name="text">
+    <string>Default Values</string>
    </property>
   </action>
  </widget>

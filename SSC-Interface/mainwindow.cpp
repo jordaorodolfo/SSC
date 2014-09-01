@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "progressdialog.h"
+#include "variableeditor.h"
 #include <QtSerialPort/QtSerialPort>
 #include <QTimer>
 #include <QVector>
@@ -11,9 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     sampling_size = 50;
+    G_TARA = 0;
     serial = new QSerialPort(this);
-    self_tuning_mode = false;
-    self_tuning_args.fill(0,3);
     QObject::connect(this,SIGNAL(sendArduino(QString)),this,SLOT(sendArduinoData(QString)));
     QObject::connect(this,SIGNAL(sendArduino()),this,SLOT(sendArduinoData()));
     QObject::connect(this,SIGNAL(statusMessage(QString,int)),ui->statusBar,SLOT(showMessage(QString,int)));
@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this,SIGNAL(motorReferenceRPM(QString)),ui->referenceRpm,SLOT(setText(QString)));
     QObject::connect(this,SIGNAL(motorOutputReciproFreq(QString)),ui->outputReciproFreqlineEdit,SLOT(setText(QString)));
     QObject::connect(this,SIGNAL(motorOutputCurrent(QString)),ui->motorOutputCurrentLineEdit,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(systemHeight(QString)),ui->lineEditHeight,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(setTARA(QString)),this,SLOT(actionSetTARA(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -170,6 +172,8 @@ void MainWindow::serialRecieved()
                     emit motorOutputCurrent(arduino_input_list[4]);
                     //what is the error?
                     emit motorRPMError(qAbs(arduino_input_list[3].toDouble()-arduino_input_list[2].toDouble()));
+                    //what is the height?
+                    emit systemHeight(QString::number(arduino_input_list[5].toInt()-G_TARA));
                     break;
                 case '0':
                     emit motorEnable(false);
@@ -200,11 +204,8 @@ void MainWindow::serialRecieved()
 
 void MainWindow::on_inputRpmButton_clicked()
 {
-    if(!self_tuning_mode)
-    {
-        emit sendArduino(ui->inputRpm->text());
-        ui->inputRpm->setText("");
-    }
+    emit sendArduino(ui->inputRpm->text());
+    ui->inputRpm->setText("");
 }
 
 void MainWindow::on_motorEnableButton_clicked()
@@ -243,28 +244,10 @@ void MainWindow::on_actionOutput_Current_triggered()
     currentRecord->show();
 }
 
-void MainWindow::on_action50_triggered()
-{
-    sampling_size = 50;
-}
-
-void MainWindow::on_action100_triggered()
-{
-    sampling_size = 100;
-}
-
-void MainWindow::on_action200_triggered()
-{
-    sampling_size = 200;
-}
-
 void MainWindow::on_inputReciproFreqpushButton_clicked()
 {
-    if(!self_tuning_mode)
-    {
-        emit sendArduino(QString::number(int(ui->inputReciproFreqlineEdit->text().toDouble()*60)));
-        ui->inputReciproFreqlineEdit->setText("");
-    }
+    emit sendArduino(QString::number(int(ui->inputReciproFreqlineEdit->text().toDouble()*60)));
+    ui->inputReciproFreqlineEdit->setText("");
 }
 
 void MainWindow::on_inputReciproFreqlineEdit_returnPressed()
@@ -279,66 +262,24 @@ void MainWindow::on_actionOutput_Frequency_triggered()
     freqRecord->show();
 }
 
-void MainWindow::on_action500_triggered()
+void MainWindow::on_pushButtonHeightTARA_clicked()
 {
-    sampling_size = 500;
+    emit setTARA(ui->lineEditHeight->text());
 }
 
-void MainWindow::on_action100_2_triggered()
+void MainWindow::actionSetTARA(QString value)
 {
-    sampling_size = 1000;
+    G_TARA = value.toInt();
 }
 
-void MainWindow::on_actionAdd_current_value_pair_triggered()
+void MainWindow::actionSetTARA(int value)
 {
-    emit sendArduino("T");
+    G_TARA = value;
 }
 
-void MainWindow::on_actionNear_178_CCW_rpm_triggered()
+void MainWindow::on_actionEditVariables_triggered()
 {
-    emit statusMessage("self-tuning. Please wait.");
-    self_tuning_mode = true;
-    self_tuning_args[0] = -178;
-    self_tuning_args[1] = 20;
-    self_tuning_args[2] = 2;
-    emit sendArduino("178");
-    QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
-}
-
-void MainWindow::selfTuneArduino()
-{
-    if(self_tuning_args[1] <= 0)
-    {
-        self_tuning_mode = false;
-    }
-    else
-    {
-        emit sendArduino("T");
-        self_tuning_args[0]+=self_tuning_args[2];
-        emit sendArduino(QString::number(self_tuning_args[0]));
-        self_tuning_args[1]+=-1;
-        QTimer::singleShot(5000,this,SLOT(selfTuneArduino()));
-    }
-}
-
-void MainWindow::on_actionNear_0_rpm_triggered()
-{
-    self_tuning_mode = true;
-    self_tuning_args[0] = -20;
-    self_tuning_args[1] = 20;
-    self_tuning_args[2] = 2;
-    emit sendArduino("-20");
-    emit statusMessage("self-tuning. Please wait.");
-    QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
-}
-
-void MainWindow::on_actionNear_178_CW_rpm_triggered()
-{
-    emit statusMessage("self-tuning. Please wait.");
-    self_tuning_mode = true;
-    self_tuning_args[0] = 178;
-    self_tuning_args[1] = 20;
-    self_tuning_args[2] = -2;
-    emit sendArduino("-178");
-    QTimer::singleShot(10000,this,SLOT(selfTuneArduino()));
+    VariableEditor * var_edit = new VariableEditor(this,G_TARA);
+    QObject::connect(var_edit,SIGNAL(setTARA(QString)),this,SLOT(actionSetTARA(QString)));
+    var_edit->show();
 }

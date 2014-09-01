@@ -46,31 +46,19 @@ private slots:
 
     void on_actionOutput_Current_triggered();
 
-    void on_action50_triggered();
-
-    void on_action100_triggered();
-
-    void on_action200_triggered();
-
     void on_inputReciproFreqpushButton_clicked();
 
     void on_inputReciproFreqlineEdit_returnPressed();
 
     void on_actionOutput_Frequency_triggered();
 
-    void on_action500_triggered();
+    void on_pushButtonHeightTARA_clicked();
 
-    void on_action100_2_triggered();
+    void actionSetTARA(QString);
 
-    void on_actionAdd_current_value_pair_triggered();
+    void actionSetTARA(int);
 
-    void on_actionNear_178_CCW_rpm_triggered();
-
-    void selfTuneArduino();
-
-    void on_actionNear_0_rpm_triggered();
-
-    void on_actionNear_178_CW_rpm_triggered();
+    void on_actionEditVariables_triggered();
 
 signals:
     void sendArduino(QString);
@@ -101,11 +89,15 @@ signals:
 
     void motorOutputCurrent(QString);
 
+    void systemHeight(QString);
+
     void motorRPMError(double);
 
     void statusMessage(QString,int);
 
     void statusMessage(QString);
+
+    void setTARA(QString);
 
 private:
     Ui::MainWindow *ui;
@@ -126,10 +118,16 @@ private:
     //--------------------------------------
 
     //--------------------------------------
+    // for the height control
+    //--------------------------------------
+    int G_TARA;
+    //--------------------------------------
+
+    //--------------------------------------
     // self tuning of arduino
     //--------------------------------------
-    bool self_tuning_mode;
-    QVector<int> self_tuning_args;
+    //bool self_tuning_mode;
+    //QVector<int> self_tuning_args;
     //--------------------------------------
 };
 

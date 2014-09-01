@@ -23,12 +23,14 @@ private slots:
 public slots:
     void recordValue(double);
     void recordValue(QString);
-    void setProgress(unsigned int);
 
 private:
     Ui::progressDialog *ui;
     int dim;
     QList<double> value_memory;
+
+signals:
+    void setProgress(int);
 
 };
 

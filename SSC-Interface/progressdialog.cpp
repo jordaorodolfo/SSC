@@ -16,6 +16,7 @@ progressDialog::progressDialog(QWidget *parent, int dim_, QString tracked) :
     ui->progressBar->setValue(0);
     ui->sample_size_label->setText("sample size: "+QString::number(dim));
     QObject::connect(ui->buttonBox,SIGNAL(rejected()),this,SLOT(deleteLater()));
+    QObject::connect(this,SIGNAL(setProgress(int)),ui->progressBar,SLOT(setValue(int)));
 }
 
 progressDialog::~progressDialog()
@@ -29,17 +30,12 @@ void progressDialog::recordValue(double value)
         value_memory.append(value);
     else
         emit finished(1);
-    setProgress(value_memory.length());
+    emit setProgress(value_memory.length());
 }
 
 void progressDialog::recordValue(QString value)
 {
     recordValue(value.toDouble());
-}
-
-void progressDialog::setProgress(unsigned int value)
-{
-    ui->progressBar->setValue(value);
 }
 
 void progressDialog::on_progressDialog_finished(int result)

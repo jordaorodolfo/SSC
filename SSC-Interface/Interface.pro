@@ -15,14 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     progressdialog.cpp \
-    csvwriter.cpp
+    csvwriter.cpp \
+    variableeditor.cpp
 
 HEADERS  += mainwindow.h \
     progressdialog.h \
-    csvwriter.h
+    csvwriter.h \
+    variableeditor.h
 
 FORMS    += mainwindow.ui \
-    progressdialog.ui
+    progressdialog.ui \
+    variableeditor.ui
 
 CONFIG += serialport
 
