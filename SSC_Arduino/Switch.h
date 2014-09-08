@@ -7,6 +7,7 @@ typedef struct Switch
 {
   byte pin;
   bool reading;
+  bool pullup;
 } Switch_t;
 
 Switch_t * switchInit(byte pin);

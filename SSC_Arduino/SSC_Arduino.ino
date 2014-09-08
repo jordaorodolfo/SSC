@@ -138,8 +138,7 @@ void setup(void)
   motor_speed_sensor = sensorInit(0,-9100.0/51.0,9100.0/51.0,0.180,3.820);
   motor_current_sensor = sensorInit(1,-2.6659,2.6659,0.180,3.820);
   height_sensor = sensorInit(3,8,2000,0.0,5.0);
-  motor_above_current_switch = switchInit(8);
-  motor_stall_current_switch = switchInit(7);
+  motor_stall_current_switch = switchInitPullUp(7);
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
@@ -221,4 +220,3 @@ void serialEvent()
   }
   //-------------------------------------------------
 }
-
