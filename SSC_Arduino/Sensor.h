@@ -17,6 +17,5 @@ typedef struct Sensor
 Sensor_t;
 
 Sensor_t * sensorInit(byte pin_, double min_value_, double max_value_,double min_voltage_, double max_voltage_);
-Sensor_t * sensorInitPullUp(byte pin_, double min_value_, double max_value_,double min_voltage_, double max_voltage_);
 double sensorGetReading(Sensor_t *target);
 void sensorAct(Sensor_t *target);
