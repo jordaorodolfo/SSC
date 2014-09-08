@@ -43,6 +43,7 @@ Motor_t * motor;
 Led_t * motor_enable_led;
 Sensor_t * motor_speed_sensor;
 Sensor_t * motor_current_sensor;
+Sensor_t * height_sensor;
 Switch_t * motor_above_current_switch;
 Switch_t * motor_stall_current_switch;
 //------------------------------------------------------------
@@ -118,6 +119,9 @@ inline void sendData()
     Serial.print(sensorGetReading(motor_speed_sensor));
     Serial.print(';');
     Serial.print(sensorGetReading(motor_current_sensor));
+    Serial.print(';');
+    Serial.print(sensorGetReading(height_sensor));
+    Serial.print(';');
     break;
   case false:
     Serial.print('0');
@@ -133,13 +137,14 @@ void setup(void)
   motor_enable_led = ledInit(13,0,0,true);
   motor_speed_sensor = sensorInit(0,-9100.0/51.0,9100.0/51.0,0.180,3.820);
   motor_current_sensor = sensorInit(1,-2.6659,2.6659,0.180,3.820);
+  height_sensor = sensorInit(3,8,2000,0.0,5.0);
   motor_above_current_switch = switchInit(8);
   motor_stall_current_switch = switchInit(7);
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
   motor_speed_sensor->voltage_drift_linear = 0.0016849384;
-  motor_speed_sensor->voltage_drift_const = 2.7551359119;
+  motor_speed_sensor->voltage_drift_const = -2.7551359119;
   //motor_current_sensor->voltage_drift_const = 8;
   //motor_current_sensor->voltage_drift_linear = 8/1023;
   //----------

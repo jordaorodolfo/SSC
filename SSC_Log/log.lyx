@@ -1795,6 +1795,16 @@ E_{2}(s) & =\frac{1}{s}\left[1-\frac{N_{h}(s)}{D_{h}(s)}\right]\left[1-\frac{N_{
 
 \end_inset
 
+these can be evaluated via the residue theorem of compelx analysis; and
+ if so desired, evaluated numerically via an iterative procedure about the
+ control gains.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
 These can be simplified by the use of a partial fraction expansion.
  First, 
 \begin_inset Formula $D_{h}$
@@ -1888,6 +1898,11 @@ hence,
 
 doing the same for the remaining parenthesis and for the controller contribution
 :
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
