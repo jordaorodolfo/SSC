@@ -16,7 +16,22 @@ def partialDiff(expr,variable):
 @parallel(verbose=True,timeout=60)
 def parSimp(a):
     return a.full_simplify()
+
+def cubicRoots(func):
+  from sage.symbolic.expression_conversions import PolynomialConverter
+  s = var('s')
+  print(func(s))
+  p = PolynomialConverter(func(s), ring=CC['s'])
+  # coefs = [pol.coefficient({s:i}) for i in range(degree(p))]
+  return p.roots()
 #------------------------------------------------------
+
+#--------------------
+# global utils
+#--------------------
+verbose=True
+C_USE_DATA=True
+#--------------------
 
 #------------------------------------------------------
 # Latex Replacements
@@ -44,59 +59,8 @@ replacements = {'D[0]\\left(\\theta_{1}\\right)\\left(t\\right)':'\\dot\\theta_1
 #------------------------------------------------------
 
 #------------------------------------------------------
-# Measurements
-#------------------------------------------------------
-if C_USE_DATA:
-    if verbose:
-        print('----------inputing data----------')
-    data = {L[1]:0.127,
-            L[2]:0.265,
-            L[3]:0.265,
-            a[1]:0.006,
-            a[2]:0.006,
-            d['x']:0.116,
-            d['y']:0.033,
-            c['x']:0.116,
-            c['y']:0.033,
-            d[1]:0.005,
-            d[2]:0.035,
-            d[3]:0.027,
-            d[4]:0.027,
-            mL[1]:0.15,
-            mL[2]:0.20,
-            mL[3]:0.20,
-            mP[1]:0,
-            mP[2]:0,
-            mP[3]:0,
-            mP[4]:0,
-            mP[5]:0,
-            mP[6]:0,
-            rL[1]:0.016,
-            rL[2]:0.016,
-            rL[3]:0.016,
-            rP[1]:0,
-            rP[2]:0,
-            rP[3]:0,
-            rP[4]:0,
-            rP[5]:0,
-            rP[6]:0,
-            rC[1]:0.40,
-            rC[2]:0.60,
-            mC[1]:0.8,
-            mC[2]:1.0,
-            g_0:9.8665}
-#------------------------------------------------------
-
-
-#------------------------------------------------------
 # variables definitions
 #------------------------------------------------------
-#--------------------
-# global utils
-#--------------------
-verbose=True
-C_USE_DATA=True
-#--------------------
 if verbose:
    print('----------defining variables----------')
 x = var('x')
@@ -146,6 +110,57 @@ IP = {i:var('I_P_{}'.format(i)) for i in range(1,len(cmP)+1)}
 IL = {i:var('I_L_{}'.format(i)) for i in range(1,len(cmL)+1)}
 IC = {i:var('I_C_{}'.format(i)) for i in range(1,len(cmP)+1)}
 #------------------------------------------------------
+
+#------------------------------------------------------
+# Measurements
+#------------------------------------------------------
+if C_USE_DATA:
+    if verbose:
+        print('----------inputing data----------')
+    data = {L[1]:0.127,
+            L[2]:0.265,
+            L[3]:0.265,
+            a[1]:0.006,
+            a[2]:0.006,
+            d['x']:0.116,
+            d['y']:0.033,
+            c['x']:0.116,
+            c['y']:0.033,
+            d[1]:0.005,
+            d[2]:0.035,
+            d[3]:0.027,
+            d[4]:0.027,
+            mL[1]:0.15,
+            mL[2]:0.20,
+            mL[3]:0.20,
+            mP[1]:0,
+            mP[2]:0,
+            mP[3]:0,
+            mP[4]:0,
+            mP[5]:0,
+            mP[6]:0,
+            rL[1]:0.016,
+            rL[2]:0.016,
+            rL[3]:0.016,
+            rP[1]:0,
+            rP[2]:0,
+            rP[3]:0,
+            rP[4]:0,
+            rP[5]:0,
+            rP[6]:0,
+            rC[1]:0.40,
+            rC[2]:0.60,
+            mC[1]:0.8,
+            mC[2]:1.0,
+            g_0:9.8665}
+for i in range(1,len(cmL)+1):
+  data[IL[i]] = data[mL[i]]*data[rL[i]]**2
+for i in range(1,len(cmP)+1):
+  data[IP[i]] = data[mP[i]]*data[rP[i]]**2
+for i in range(1,len(cmC)+1):
+  data[IC[i]] = data[mC[i]]*data[rC[i]]**2
+#------------------------------------------------------
+
 
 #------------------------------------------------------
 # Functions of the system
@@ -249,9 +264,12 @@ if verbose:
   print('----------computing transfer functions----------')
 s = var('s')
 K_p, T_i = var('K_p, T_i')
-C(s) = K_p*(1+1/T_i/s)
-G(s) = (input_matrix[0,0]*s*(s-model_matrix[0,0]))/(s**3-(model_matrix[0,0]+model_matrix[1,1])*s**2+(model_matrix[0,0]*model_matrix[1,1]-model_matrix[0,1]-model_matrix[1,2])*s+(model_matrix[0,0]*model_matrix[1,2]))
-H(s) = simplify(C(s)*G(s)/(1+C(s)*G(s)))
+NC(s) = K_p*(T_i*s+1)
+DC(s) = T_i*s
+NG(s) = (input_matrix[0,0]*s*(s-model_matrix[0,0]))
+DG(s) = (s**3-(model_matrix[0,0]+model_matrix[1,1])*s**2+(model_matrix[0,0]*model_matrix[1,1]-model_matrix[0,1]-model_matrix[1,2])*s+(model_matrix[0,0]*model_matrix[1,2]))
+NH(s) = NG(s)*NC(s)
+DH(s) = NG(s)*NC(s) + DG(s)*DC(s)
 #------------------------------------------------------
 
 #------------------------------------------------------
@@ -259,9 +277,8 @@ H(s) = simplify(C(s)*G(s)/(1+C(s)*G(s)))
 #------------------------------------------------------
 if verbose:
   print('----------computing optimal gain----------')
-sigma = var('sigma')
-E_t(s) = -1/s**2*((1-H(s))*(1-H(-s))+sigma**2*C(s)*C(-s))
-# integrate(E_t(s),(s,-i*infinity,i*infinity))
+roots1 = cubicRoots(DG(s))
+roots2 = cubicRoots(DG(-s))
 #--------------------------
 # construct linear system for optimization
 #--------------------------
@@ -286,21 +303,21 @@ E_t(s) = -1/s**2*((1-H(s))*(1-H(-s))+sigma**2*C(s)*C(-s))
 #------------------------------------------------------
 if verbose:
   print('----------writing output----------')
-with open('./Log_Report/dyn_lin_a_latex.tex','w') as archive:
+with open('./Log_Report/lin_a.tex','w') as archive:
   string = formatLatex(latex(lin_a),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
   #   archive.write(string[100000:])
   # else:
   archive.write(string)
-with open('./Log_Report/dyn_lin_c_latex.tex','w') as archive:
+with open('./Log_Report/lin_c.tex','w') as archive:
   string = formatLatex(latex(lin_c),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
   #   archive.write(string[100000:])
   # else:
   archive.write(string)
-with open('./Log_Report/dyn_lin_d_latex.tex','w') as archive:
+with open('./Log_Report/lin_d.tex','w') as archive:
   string = formatLatex(latex(lin_d),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
@@ -312,5 +329,5 @@ with open('./Log_Report/dyn_lin_d_latex.tex','w') as archive:
 #------------------------------------------------------
 # debugging
 #------------------------------------------------------
-
+print(roots1,roots2)
 #------------------------------------------------------
