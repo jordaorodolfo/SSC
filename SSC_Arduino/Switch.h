@@ -11,4 +11,5 @@ typedef struct Switch
 } Switch_t;
 
 Switch_t * switchInit(byte pin);
+Switch_t * switchInitPullUp(byte pin);
 void switchAct(Switch_t * target);
