@@ -44,14 +44,14 @@ Led_t * motor_enable_led;
 Sensor_t * motor_speed_sensor;
 Sensor_t * motor_current_sensor;
 Sensor_t * height_sensor;
-Switch_t * motor_above_current_switch;
+
 Switch_t * motor_stall_current_switch;
 //------------------------------------------------------------
 // error detection algorithm
 //------------------------------------------------------------
 #define FLAG_CHECK_FOR_ERROR
 #ifdef FLAG_CHECK_FOR_ERROR
-#define C_ERROR_CHECK_TOLERANCE 500
+#define C_ERROR_CHECK_TOLERANCE 150
 unsigned int error_timer;
 #endif
 //------------------------------------------------------------
@@ -66,24 +66,17 @@ inline void errorDetection()
     switch(motor_stall_current_switch->reading)
     {
     case true:
-      motor->master_enable = false;
+      error_timer++;
       break;
     case false:
-      switch(motor_above_current_switch->reading)
-      {
-      case true:
-        error_timer++;
-        break;
-      case false:
-        error_timer = 0;
-        break;
-      }
-      switch(error_timer)
-      {
-      case C_ERROR_CHECK_TOLERANCE:
-        motor->master_enable = false;
-        break;
-      }
+      error_timer = 0;
+      break;
+    }
+    switch(error_timer)
+    {
+    case C_ERROR_CHECK_TOLERANCE:
+      motor->master_enable = false;
+      break;
     }
     break;
   }
@@ -104,7 +97,7 @@ inline void sendData()
   {
   case true:
     Serial.print("1;");
-    switch(motor_above_current_switch->reading)
+    switch(motor_stall_current_switch->reading)
     {
     case true:
       Serial.print("1");
@@ -122,6 +115,8 @@ inline void sendData()
     Serial.print(';');
     Serial.print(sensorGetReading(height_sensor));
     Serial.print(';');
+    Serial.print(error_timer);
+    Serial.print(';');
     break;
   case false:
     Serial.print('0');
@@ -137,12 +132,13 @@ void setup(void)
   motor_enable_led = ledInit(13,0,0,true);
   motor_speed_sensor = sensorInit(0,-9100.0/51.0,9100.0/51.0,0.180,3.820);
   motor_current_sensor = sensorInit(1,-2.6659,2.6659,0.180,3.820);
-  height_sensor = sensorInit(3,8,2000,0.0,5.0);
+  height_sensor = sensorInit(3,10,90,0.5,4.50);
   motor_stall_current_switch = switchInitPullUp(7);
   //----------
   //check this drift experimentally to make the reading accurate
   //----------
   motor_speed_sensor->voltage_drift_linear = 0.0016849384;
+
   motor_speed_sensor->voltage_drift_const = -2.7551359119;
   //motor_current_sensor->voltage_drift_const = 8;
   //motor_current_sensor->voltage_drift_linear = 8/1023;
@@ -175,7 +171,7 @@ void loop(void)
   ledAct(motor_enable_led);
   sensorAct(motor_speed_sensor);
   sensorAct(motor_current_sensor);
-  switchAct(motor_above_current_switch);
+  sensorAct(height_sensor);
   switchAct(motor_stall_current_switch);
   motorAct(motor);
   //-------------------------------------------------
@@ -220,3 +216,6 @@ void serialEvent()
   }
   //-------------------------------------------------
 }
+
+
+
