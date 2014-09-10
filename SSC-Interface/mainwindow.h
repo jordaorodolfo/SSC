@@ -57,6 +57,8 @@ private slots:
 
     void on_actionDefault_Values_triggered();
 
+    void on_actionHeight_triggered();
+
 signals:
     void sendArduino(QString);
 

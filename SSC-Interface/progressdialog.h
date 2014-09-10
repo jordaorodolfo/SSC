@@ -23,6 +23,7 @@ private slots:
 public slots:
     void recordValue(double);
     void recordValue(QString);
+    void saveValues();
 
 private:
     Ui::progressDialog *ui;

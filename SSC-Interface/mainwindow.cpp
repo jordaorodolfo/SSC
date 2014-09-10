@@ -192,6 +192,7 @@ void MainWindow::serialRecieved()
                     emit motorOutputCW(false);
                     emit motorReferenceCW(false);
                     emit motorStalling(false);
+                    emit systemHeight("");
                     break;
                 }
                 //---------------------
@@ -284,4 +285,12 @@ void MainWindow::on_actionDefault_Values_triggered()
     int_vars[0] = sampling_size;
     double_vars[0] = min_height;
     double_vars[1] = max_height;
+}
+
+void MainWindow::on_actionHeight_triggered()
+{
+    progressDialog * heightRecord = new progressDialog(this,sampling_size,"Height record");
+    QObject::connect(this,SIGNAL(systemHeight(QString)),heightRecord,SLOT(recordValue(QString)));
+    heightRecord->show();
+
 }

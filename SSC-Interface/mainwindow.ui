@@ -288,7 +288,7 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>LeftToolBarArea</enum>
+    <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -300,7 +300,7 @@
      <x>0</x>
      <y>0</y>
      <width>509</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuRecord">
@@ -309,6 +309,7 @@
     </property>
     <addaction name="actionOutput_Rpm"/>
     <addaction name="actionOutput_Frequency"/>
+    <addaction name="actionHeight"/>
    </widget>
    <widget class="QMenu" name="menuVariables">
     <property name="title">
@@ -404,6 +405,11 @@
   <action name="actionDefault_Values">
    <property name="text">
     <string>Default Values</string>
+   </property>
+  </action>
+  <action name="actionHeight">
+   <property name="text">
+    <string>Height</string>
    </property>
   </action>
  </widget>
