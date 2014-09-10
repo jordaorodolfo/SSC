@@ -12,7 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     sampling_size = 50;
-    G_TARA = 0;
+    min_height = 0;
+    max_height = 100;
+    int_vars.append(sampling_size);
+    double_vars.append(min_height);
+    double_vars.append(max_height);
     serial = new QSerialPort(this);
     QObject::connect(this,SIGNAL(sendArduino(QString)),this,SLOT(sendArduinoData(QString)));
     QObject::connect(this,SIGNAL(sendArduino()),this,SLOT(sendArduinoData()));
@@ -29,9 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this,SIGNAL(motorReferenceReciproFreq(QString)),ui->refReciproFreqlineEdit,SLOT(setText(QString)));
     QObject::connect(this,SIGNAL(motorReferenceRPM(QString)),ui->referenceRpm,SLOT(setText(QString)));
     QObject::connect(this,SIGNAL(motorOutputReciproFreq(QString)),ui->outputReciproFreqlineEdit,SLOT(setText(QString)));
-    QObject::connect(this,SIGNAL(motorOutputCurrent(QString)),ui->motorOutputCurrentLineEdit,SLOT(setText(QString)));
-    QObject::connect(this,SIGNAL(systemHeight(QString)),ui->lineEditHeight,SLOT(setText(QString)));
-    QObject::connect(this,SIGNAL(setTARA(QString)),this,SLOT(actionSetTARA(QString)));
+    QObject::connect(this,SIGNAL(systemHeight(QString)),this,SLOT(processHeight(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -173,7 +175,7 @@ void MainWindow::serialRecieved()
                     //what is the error?
                     emit motorRPMError(qAbs(arduino_input_list[3].toDouble()-arduino_input_list[2].toDouble()));
                     //what is the height?
-                    emit systemHeight(QString::number(arduino_input_list[5].toInt()-G_TARA));
+                    emit systemHeight(arduino_input_list[5]);
                     break;
                 case '0':
                     emit motorEnable(false);
@@ -262,24 +264,33 @@ void MainWindow::on_actionOutput_Frequency_triggered()
     freqRecord->show();
 }
 
-void MainWindow::on_pushButtonHeightTARA_clicked()
-{
-    emit setTARA(ui->lineEditHeight->text());
-}
-
-void MainWindow::actionSetTARA(QString value)
-{
-    G_TARA = value.toInt();
-}
-
-void MainWindow::actionSetTARA(int value)
-{
-    G_TARA = value;
-}
-
 void MainWindow::on_actionEditVariables_triggered()
 {
-    VariableEditor * var_edit = new VariableEditor(this,G_TARA);
-    QObject::connect(var_edit,SIGNAL(setTARA(QString)),this,SLOT(actionSetTARA(QString)));
+    VariableEditor * var_edit = new VariableEditor(this,int_vars,double_vars);
+    QObject::connect(var_edit,SIGNAL(s_setVars(QList<int>,QList<double>)),this,SLOT(setVars(QList<int>,QList<double>)));
     var_edit->show();
+}
+
+void MainWindow::setVars(QList<int> int_vars_, QList<double> double_vars_)
+{
+    sampling_size = int_vars[0];
+    min_height = double_vars[0];
+    max_height = double_vars[1];
+    int_vars = int_vars_;
+    double_vars = double_vars_;
+}
+
+void MainWindow::processHeight(QString value)
+{
+    ui->lineEditHeight->setText(QString::number((max_height - min_height)*value.toDouble()/100 + min_height));
+}
+
+void MainWindow::on_actionDefault_Values_triggered()
+{
+    sampling_size = 50;
+    min_height = 0;
+    max_height = 100;
+    int_vars[0] = sampling_size;
+    double_vars[0] = min_height;
+    double_vars[1] = max_height;
 }

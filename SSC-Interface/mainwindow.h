@@ -52,13 +52,13 @@ private slots:
 
     void on_actionOutput_Frequency_triggered();
 
-    void on_pushButtonHeightTARA_clicked();
-
-    void actionSetTARA(QString);
-
-    void actionSetTARA(int);
-
     void on_actionEditVariables_triggered();
+
+    void setVars(QList<int> int_vars_, QList<double> double_vars_);
+
+    void processHeight(QString);
+
+    void on_actionDefault_Values_triggered();
 
 signals:
     void sendArduino(QString);
@@ -97,8 +97,6 @@ signals:
 
     void statusMessage(QString);
 
-    void setTARA(QString);
-
 private:
     Ui::MainWindow *ui;
     QSerialPort *serial;
@@ -120,7 +118,8 @@ private:
     //--------------------------------------
     // for the height control
     //--------------------------------------
-    int G_TARA;
+    int min_height;
+    int max_height;
     //--------------------------------------
 
     //--------------------------------------
@@ -128,6 +127,13 @@ private:
     //--------------------------------------
     //bool self_tuning_mode;
     //QVector<int> self_tuning_args;
+    //--------------------------------------
+
+    //--------------------------------------
+    // internal control
+    //--------------------------------------
+    QList<int> int_vars;
+    QList<double> double_vars;
     //--------------------------------------
 };
 
