@@ -18,7 +18,22 @@ def partialDiff(expr,variable):
 @parallel(verbose=True,timeout=Integer(60))
 def parSimp(a):
     return a.full_simplify()
+
+def cubicRoots(func):
+  from sage.symbolic.expression_conversions import PolynomialConverter
+  s = var('s')
+  print(func(s))
+  p = PolynomialConverter(func(s), ring=CC['s'])
+  # coefs = [pol.coefficient({s:i}) for i in range(degree(p))]
+  return p.roots()
 #------------------------------------------------------
+
+#--------------------
+# global utils
+#--------------------
+verbose=True
+C_USE_DATA=True
+#--------------------
 
 #------------------------------------------------------
 # Latex Replacements
@@ -46,59 +61,8 @@ replacements = {'D[0]\\left(\\theta_{1}\\right)\\left(t\\right)':'\\dot\\theta_1
 #------------------------------------------------------
 
 #------------------------------------------------------
-# Measurements
-#------------------------------------------------------
-if C_USE_DATA:
-    if verbose:
-        print('----------inputing data----------')
-    data = {L[Integer(1)]:RealNumber('0.127'),
-            L[Integer(2)]:RealNumber('0.265'),
-            L[Integer(3)]:RealNumber('0.265'),
-            a[Integer(1)]:RealNumber('0.006'),
-            a[Integer(2)]:RealNumber('0.006'),
-            d['x']:RealNumber('0.116'),
-            d['y']:RealNumber('0.033'),
-            c['x']:RealNumber('0.116'),
-            c['y']:RealNumber('0.033'),
-            d[Integer(1)]:RealNumber('0.005'),
-            d[Integer(2)]:RealNumber('0.035'),
-            d[Integer(3)]:RealNumber('0.027'),
-            d[Integer(4)]:RealNumber('0.027'),
-            mL[Integer(1)]:RealNumber('0.15'),
-            mL[Integer(2)]:RealNumber('0.20'),
-            mL[Integer(3)]:RealNumber('0.20'),
-            mP[Integer(1)]:Integer(0),
-            mP[Integer(2)]:Integer(0),
-            mP[Integer(3)]:Integer(0),
-            mP[Integer(4)]:Integer(0),
-            mP[Integer(5)]:Integer(0),
-            mP[Integer(6)]:Integer(0),
-            rL[Integer(1)]:RealNumber('0.016'),
-            rL[Integer(2)]:RealNumber('0.016'),
-            rL[Integer(3)]:RealNumber('0.016'),
-            rP[Integer(1)]:Integer(0),
-            rP[Integer(2)]:Integer(0),
-            rP[Integer(3)]:Integer(0),
-            rP[Integer(4)]:Integer(0),
-            rP[Integer(5)]:Integer(0),
-            rP[Integer(6)]:Integer(0),
-            rC[Integer(1)]:RealNumber('0.40'),
-            rC[Integer(2)]:RealNumber('0.60'),
-            mC[Integer(1)]:RealNumber('0.8'),
-            mC[Integer(2)]:RealNumber('1.0'),
-            g_0:RealNumber('9.8665')}
-#------------------------------------------------------
-
-
-#------------------------------------------------------
 # variables definitions
 #------------------------------------------------------
-#--------------------
-# global utils
-#--------------------
-verbose=True
-C_USE_DATA=True
-#--------------------
 if verbose:
    print('----------defining variables----------')
 x = var('x')
@@ -148,6 +112,57 @@ IP = {i:var('I_P_{}'.format(i)) for i in range(Integer(1),len(cmP)+Integer(1))}
 IL = {i:var('I_L_{}'.format(i)) for i in range(Integer(1),len(cmL)+Integer(1))}
 IC = {i:var('I_C_{}'.format(i)) for i in range(Integer(1),len(cmP)+Integer(1))}
 #------------------------------------------------------
+
+#------------------------------------------------------
+# Measurements
+#------------------------------------------------------
+if C_USE_DATA:
+    if verbose:
+        print('----------inputing data----------')
+    data = {L[Integer(1)]:RealNumber('0.127'),
+            L[Integer(2)]:RealNumber('0.265'),
+            L[Integer(3)]:RealNumber('0.265'),
+            a[Integer(1)]:RealNumber('0.006'),
+            a[Integer(2)]:RealNumber('0.006'),
+            d['x']:RealNumber('0.116'),
+            d['y']:RealNumber('0.033'),
+            c['x']:RealNumber('0.116'),
+            c['y']:RealNumber('0.033'),
+            d[Integer(1)]:RealNumber('0.005'),
+            d[Integer(2)]:RealNumber('0.035'),
+            d[Integer(3)]:RealNumber('0.027'),
+            d[Integer(4)]:RealNumber('0.027'),
+            mL[Integer(1)]:RealNumber('0.15'),
+            mL[Integer(2)]:RealNumber('0.20'),
+            mL[Integer(3)]:RealNumber('0.20'),
+            mP[Integer(1)]:Integer(0),
+            mP[Integer(2)]:Integer(0),
+            mP[Integer(3)]:Integer(0),
+            mP[Integer(4)]:Integer(0),
+            mP[Integer(5)]:Integer(0),
+            mP[Integer(6)]:Integer(0),
+            rL[Integer(1)]:RealNumber('0.016'),
+            rL[Integer(2)]:RealNumber('0.016'),
+            rL[Integer(3)]:RealNumber('0.016'),
+            rP[Integer(1)]:Integer(0),
+            rP[Integer(2)]:Integer(0),
+            rP[Integer(3)]:Integer(0),
+            rP[Integer(4)]:Integer(0),
+            rP[Integer(5)]:Integer(0),
+            rP[Integer(6)]:Integer(0),
+            rC[Integer(1)]:RealNumber('0.40'),
+            rC[Integer(2)]:RealNumber('0.60'),
+            mC[Integer(1)]:RealNumber('0.8'),
+            mC[Integer(2)]:RealNumber('1.0'),
+            g_0:RealNumber('9.8665')}
+for i in range(Integer(1),len(cmL)+Integer(1)):
+  data[IL[i]] = data[mL[i]]*data[rL[i]]**Integer(2)
+for i in range(Integer(1),len(cmP)+Integer(1)):
+  data[IP[i]] = data[mP[i]]*data[rP[i]]**Integer(2)
+for i in range(Integer(1),len(cmC)+Integer(1)):
+  data[IC[i]] = data[mC[i]]*data[rC[i]]**Integer(2)
+#------------------------------------------------------
+
 
 #------------------------------------------------------
 # Functions of the system
@@ -251,9 +266,12 @@ if verbose:
   print('----------computing transfer functions----------')
 s = var('s')
 K_p, T_i = var('K_p, T_i')
-__tmp__=var("s"); C = symbolic_expression(K_p*(Integer(1)+Integer(1)/T_i/s)).function(s)
-__tmp__=var("s"); G = symbolic_expression((input_matrix[Integer(0),Integer(0)]*s*(s-model_matrix[Integer(0),Integer(0)]))/(s**Integer(3)-(model_matrix[Integer(0),Integer(0)]+model_matrix[Integer(1),Integer(1)])*s**Integer(2)+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(1)]-model_matrix[Integer(0),Integer(1)]-model_matrix[Integer(1),Integer(2)])*s+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(2)]))).function(s)
-__tmp__=var("s"); H = symbolic_expression(simplify(C(s)*G(s)/(Integer(1)+C(s)*G(s)))).function(s)
+__tmp__=var("s"); NC = symbolic_expression(K_p*(T_i*s+Integer(1))).function(s)
+__tmp__=var("s"); DC = symbolic_expression(T_i*s).function(s)
+__tmp__=var("s"); NG = symbolic_expression((input_matrix[Integer(0),Integer(0)]*s*(s-model_matrix[Integer(0),Integer(0)]))).function(s)
+__tmp__=var("s"); DG = symbolic_expression((s**Integer(3)-(model_matrix[Integer(0),Integer(0)]+model_matrix[Integer(1),Integer(1)])*s**Integer(2)+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(1)]-model_matrix[Integer(0),Integer(1)]-model_matrix[Integer(1),Integer(2)])*s+(model_matrix[Integer(0),Integer(0)]*model_matrix[Integer(1),Integer(2)]))).function(s)
+__tmp__=var("s"); NH = symbolic_expression(NG(s)*NC(s)).function(s)
+__tmp__=var("s"); DH = symbolic_expression(NG(s)*NC(s) + DG(s)*DC(s)).function(s)
 #------------------------------------------------------
 
 #------------------------------------------------------
@@ -261,9 +279,8 @@ __tmp__=var("s"); H = symbolic_expression(simplify(C(s)*G(s)/(Integer(1)+C(s)*G(
 #------------------------------------------------------
 if verbose:
   print('----------computing optimal gain----------')
-sigma = var('sigma')
-__tmp__=var("s"); E_t = symbolic_expression(-Integer(1)/s**Integer(2)*((Integer(1)-H(s))*(Integer(1)-H(-s))+sigma**Integer(2)*C(s)*C(-s))).function(s)
-# integrate(E_t(s),(s,-i*infinity,i*infinity))
+roots1 = cubicRoots(DG(s))
+roots2 = cubicRoots(DG(-s))
 #--------------------------
 # construct linear system for optimization
 #--------------------------
@@ -288,21 +305,21 @@ __tmp__=var("s"); E_t = symbolic_expression(-Integer(1)/s**Integer(2)*((Integer(
 #------------------------------------------------------
 if verbose:
   print('----------writing output----------')
-with open('./Log_Report/dyn_lin_a_latex.tex','w') as archive:
+with open('./Log_Report/lin_a.tex','w') as archive:
   string = formatLatex(latex(lin_a),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
   #   archive.write(string[100000:])
   # else:
   archive.write(string)
-with open('./Log_Report/dyn_lin_c_latex.tex','w') as archive:
+with open('./Log_Report/lin_c.tex','w') as archive:
   string = formatLatex(latex(lin_c),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
   #   archive.write(string[100000:])
   # else:
   archive.write(string)
-with open('./Log_Report/dyn_lin_d_latex.tex','w') as archive:
+with open('./Log_Report/lin_d.tex','w') as archive:
   string = formatLatex(latex(lin_d),replacements)
   # if len(string) > 100000:
   #   archive.write(string[:100000]+'\n')
@@ -314,5 +331,5 @@ with open('./Log_Report/dyn_lin_d_latex.tex','w') as archive:
 #------------------------------------------------------
 # debugging
 #------------------------------------------------------
-
+print(roots1,roots2)
 #------------------------------------------------------
