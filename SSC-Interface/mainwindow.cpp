@@ -264,9 +264,9 @@ void MainWindow::on_actionEditVariables_triggered()
 
 void MainWindow::setVars(QList<int> int_vars_, QList<double> double_vars_)
 {
-    sampling_size = int_vars[0];
-    min_height = double_vars[0];
-    max_height = double_vars[1];
+    sampling_size = int_vars_[0];
+    min_height = double_vars_[0];
+    max_height = double_vars_[1];
     int_vars = int_vars_;
     double_vars = double_vars_;
 }
