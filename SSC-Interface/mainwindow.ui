@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>509</width>
-    <height>555</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -307,9 +307,7 @@
     <property name="title">
      <string>Record</string>
     </property>
-    <addaction name="actionError"/>
     <addaction name="actionOutput_Rpm"/>
-    <addaction name="actionOutput_Current"/>
     <addaction name="actionOutput_Frequency"/>
    </widget>
    <widget class="QMenu" name="menuVariables">

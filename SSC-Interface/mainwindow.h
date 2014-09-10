@@ -40,11 +40,8 @@ private slots:
 
     void on_motorDisableButton_clicked();
 
-    void on_actionError_triggered();
 
     void on_actionOutput_Rpm_triggered();
-
-    void on_actionOutput_Current_triggered();
 
     void on_inputReciproFreqpushButton_clicked();
 
@@ -87,11 +84,7 @@ signals:
 
     void motorOutputReciproFreq(QString);
 
-    void motorOutputCurrent(QString);
-
     void systemHeight(QString);
-
-    void motorRPMError(double);
 
     void statusMessage(QString,int);
 

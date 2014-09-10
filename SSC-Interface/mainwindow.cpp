@@ -112,6 +112,7 @@ void MainWindow::connectArduino()
 
 void MainWindow::serialRecieved()
 {
+    uint index = 0;
     switch(serial->isOpen())
     {
     case true:
@@ -135,8 +136,9 @@ void MainWindow::serialRecieved()
                     arduino_input_list = arduino_input_buffer.split(';');
                     //motor enabled?
                     emit motorEnable(true);
+                    index++;
                     //motor stalling?
-                    if(arduino_input_list[1][0] == '1')
+                    if(arduino_input_list[index][0] == '1')
                     {
                         emit motorStalling(true);
                     }
@@ -144,44 +146,47 @@ void MainWindow::serialRecieved()
                     {
                         emit motorStalling(false);
                     }
+                    index++;
                     //what the reference RPM?
-                    if(arduino_input_list[2][0] == '-')
+                    if(arduino_input_list[index][0] == '-')
                     {
                         emit motorReferenceCW(true);
-                        emit motorReferenceRPM(arduino_input_list[2].remove(0,1));
-                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].remove(0,1).toDouble()/60));
+                        emit motorReferenceRPM(arduino_input_list[index].remove(0,1));
+                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[index].remove(0,1).toDouble()/60));
                     }
                     else
                     {
                         emit motorReferenceCW(false);
-                        emit motorReferenceRPM(arduino_input_list[2]);
-                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[2].toDouble()/60));
+                        emit motorReferenceRPM(arduino_input_list[index]);
+                        emit motorReferenceReciproFreq(QString::number(arduino_input_list[index].toDouble()/60));
                     }
+                    index++;
                     //what is the output RPM?
-                    if(arduino_input_list[3][0] == '-')
+                    if(arduino_input_list[index][0] == '-')
                     {
                         emit motorOutputCW(true);
-                        emit motorOutputRPM(arduino_input_list[3].remove(0,1));
-                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].remove(0,1).toDouble()/60));
+                        emit motorOutputRPM(arduino_input_list[index].remove(0,1));
+                        emit motorOutputReciproFreq(QString::number(arduino_input_list[index].remove(0,1).toDouble()/60));
                     }
                     else
                     {
                         emit motorOutputCW(false);
-                        emit motorOutputRPM(arduino_input_list[3]);
-                        emit motorOutputReciproFreq(QString::number(arduino_input_list[3].toDouble()/60));
+                        emit motorOutputRPM(arduino_input_list[index]);
+                        emit motorOutputReciproFreq(QString::number(arduino_input_list[index].toDouble()/60));
                     }
+                    index++;
                     //what is the current?
-                    emit motorOutputCurrent(arduino_input_list[4]);
-                    //what is the error?
-                    emit motorRPMError(qAbs(arduino_input_list[3].toDouble()-arduino_input_list[2].toDouble()));
+//                    emit motorOutputCurrent(arduino_input_list[index]);
+//                    index++;
+//                    //what is the error?
+//                    emit motorRPMError(qAbs(arduino_input_list[3].toDouble()-arduino_input_list[2].toDouble()));
                     //what is the height?
-                    emit systemHeight(arduino_input_list[5]);
+                    emit systemHeight(arduino_input_list[index]);
                     break;
                 case '0':
                     emit motorEnable(false);
                     emit motorOutputRPM("");
                     emit motorReferenceRPM("");
-                    emit motorOutputCurrent("");
                     emit motorOutputReciproFreq("");
                     emit motorReferenceReciproFreq("");
                     emit motorOutputCW(false);
@@ -225,25 +230,11 @@ void MainWindow::on_motorDisableButton_clicked()
     emit sendArduino("D");
 }
 
-void MainWindow::on_actionError_triggered()
-{
-    progressDialog * errorRecord = new progressDialog(this,sampling_size,"Error record");
-    QObject::connect(this,SIGNAL(motorRPMError(double)),errorRecord,SLOT(recordValue(double)));
-    errorRecord->show();
-}
-
 void MainWindow::on_actionOutput_Rpm_triggered()
 {
     progressDialog * rpmRecord = new progressDialog(this,sampling_size,"Rpm record");
     QObject::connect(this,SIGNAL(motorOutputRPM(QString)),rpmRecord,SLOT(recordValue(QString)));
     rpmRecord->show();
-}
-
-void MainWindow::on_actionOutput_Current_triggered()
-{
-    progressDialog * currentRecord = new progressDialog(this,sampling_size,"Current record");
-    QObject::connect(this,SIGNAL(motorOutputCurrent(QString)),currentRecord,SLOT(recordValue(QString)));
-    currentRecord->show();
 }
 
 void MainWindow::on_inputReciproFreqpushButton_clicked()
