@@ -61,6 +61,7 @@ public slots:
      * correct recordValue(double).
      */
     void recordValue(QString);
+    void saveValues();
 
 private:
     Ui::progressDialog *ui;
