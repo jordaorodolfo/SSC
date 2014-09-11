@@ -93,6 +93,6 @@ void ledAct(Led_t * target)
         analogWrite(target->pin_RGB[2],target->RGB[2]);
         break;
       }
-    break; 
+    break;
   }
 }

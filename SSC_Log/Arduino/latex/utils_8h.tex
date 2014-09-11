@@ -1,0 +1,118 @@
+\hypertarget{utils_8h}{\subsection{utils.\+h File Reference}
+\label{utils_8h}\index{utils.\+h@{utils.\+h}}
+}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{utils_8h_a68b6b744cfea34b29965cf22d3d11955}{double\+Map} (double, double, double, double, double)
+\item 
+double \hyperlink{utils_8h_a4e8356c07c6e26eead0e26c53beed421}{vector\+Dot} (unsigned int, double $\ast$, double $\ast$)
+\item 
+double \hyperlink{utils_8h_a27a791931935bde7a6bfa34dfc6e660e}{vector\+Sum} (unsigned int, double $\ast$)
+\item 
+double \hyperlink{utils_8h_a06b19ad66efcdd78de739a9629ae0740}{linear\+Reg\+Ang\+Coef} (unsigned int, double $\ast$, double $\ast$)
+\item 
+double \hyperlink{utils_8h_aa73ce600844c90d4603bbdd02ba0284b}{linear\+Reg\+Lin\+Coef} (unsigned int, double $\ast$, double $\ast$)
+\item 
+double $\ast$ \hyperlink{utils_8h_a6083ff6d456eca8df4b044e33cb67942}{linear\+Reg} (unsigned int, double $\ast$, double $\ast$)
+\item 
+double \hyperlink{utils_8h_a6ae2940dab6404aa79cac2ae837f7d0d}{vector\+Mean} (unsigned int, double $\ast$)
+\item 
+void \hyperlink{utils_8h_a89d427051f4ef993abe7d8aa84e8df82}{print\+Double} (double, unsigned int)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+header containing useful functions.
+
+As the project progressed, many of these functions were not used anymore, but they were kept here in case they are needed later on. Most of them consists of useful mathematical operations. 
+
+\subsubsection{Function Documentation}
+\hypertarget{utils_8h_a68b6b744cfea34b29965cf22d3d11955}{\index{utils.\+h@{utils.\+h}!double\+Map@{double\+Map}}
+\index{double\+Map@{double\+Map}!utils.\+h@{utils.\+h}}
+\paragraph[{double\+Map}]{\setlength{\rightskip}{0pt plus 5cm}double double\+Map (
+\begin{DoxyParamCaption}
+\item[{double}]{, }
+\item[{double}]{, }
+\item[{double}]{, }
+\item[{double}]{, }
+\item[{double}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a68b6b744cfea34b29965cf22d3d11955}
+arduino built-\/in map for double.
+
+Similiar to the arduino built-\/in function map, working in the same way but accepting double as inputs and return a double as result. \hypertarget{utils_8h_a6083ff6d456eca8df4b044e33cb67942}{\index{utils.\+h@{utils.\+h}!linear\+Reg@{linear\+Reg}}
+\index{linear\+Reg@{linear\+Reg}!utils.\+h@{utils.\+h}}
+\paragraph[{linear\+Reg}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ linear\+Reg (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a6083ff6d456eca8df4b044e33cb67942}
+separate linear regression
+
+Takes the length of two double vectors along themselves and calculte the linear regression of the data, returning a two-\/dimensional vector of the trend and coefficient as a result. \hypertarget{utils_8h_a06b19ad66efcdd78de739a9629ae0740}{\index{utils.\+h@{utils.\+h}!linear\+Reg\+Ang\+Coef@{linear\+Reg\+Ang\+Coef}}
+\index{linear\+Reg\+Ang\+Coef@{linear\+Reg\+Ang\+Coef}!utils.\+h@{utils.\+h}}
+\paragraph[{linear\+Reg\+Ang\+Coef}]{\setlength{\rightskip}{0pt plus 5cm}double linear\+Reg\+Ang\+Coef (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a06b19ad66efcdd78de739a9629ae0740}
+separate linear regression trend
+
+Takes the length of two double vectors along themselves and calculte the linear regression trend of the data. \hypertarget{utils_8h_aa73ce600844c90d4603bbdd02ba0284b}{\index{utils.\+h@{utils.\+h}!linear\+Reg\+Lin\+Coef@{linear\+Reg\+Lin\+Coef}}
+\index{linear\+Reg\+Lin\+Coef@{linear\+Reg\+Lin\+Coef}!utils.\+h@{utils.\+h}}
+\paragraph[{linear\+Reg\+Lin\+Coef}]{\setlength{\rightskip}{0pt plus 5cm}double linear\+Reg\+Lin\+Coef (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_aa73ce600844c90d4603bbdd02ba0284b}
+separate linear regression coefficient
+
+Takes the length of two double vectors along themselves and calculte the linear regression coefficient of the data. \hypertarget{utils_8h_a89d427051f4ef993abe7d8aa84e8df82}{\index{utils.\+h@{utils.\+h}!print\+Double@{print\+Double}}
+\index{print\+Double@{print\+Double}!utils.\+h@{utils.\+h}}
+\paragraph[{print\+Double}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Double (
+\begin{DoxyParamCaption}
+\item[{double}]{, }
+\item[{unsigned}]{int}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a89d427051f4ef993abe7d8aa84e8df82}
+print in Arduino in a double format.
+
+meant to be more malleable than the standard Serial.\+print of the Arduino platform, by inputting the desired double to be printed and the decimal cases which should also be printed. \hypertarget{utils_8h_a4e8356c07c6e26eead0e26c53beed421}{\index{utils.\+h@{utils.\+h}!vector\+Dot@{vector\+Dot}}
+\index{vector\+Dot@{vector\+Dot}!utils.\+h@{utils.\+h}}
+\paragraph[{vector\+Dot}]{\setlength{\rightskip}{0pt plus 5cm}double vector\+Dot (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a4e8356c07c6e26eead0e26c53beed421}
+dot product for vector.
+
+takes two double vectors and their length (they must be equal, hence only one is needed), and compute their euclidian dot product, return a double. \hypertarget{utils_8h_a6ae2940dab6404aa79cac2ae837f7d0d}{\index{utils.\+h@{utils.\+h}!vector\+Mean@{vector\+Mean}}
+\index{vector\+Mean@{vector\+Mean}!utils.\+h@{utils.\+h}}
+\paragraph[{vector\+Mean}]{\setlength{\rightskip}{0pt plus 5cm}double vector\+Mean (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a6ae2940dab6404aa79cac2ae837f7d0d}
+arithmetic mean of a vector
+
+Takes the lenght of a vector along the vector itself and return the mean of its elements. \hypertarget{utils_8h_a27a791931935bde7a6bfa34dfc6e660e}{\index{utils.\+h@{utils.\+h}!vector\+Sum@{vector\+Sum}}
+\index{vector\+Sum@{vector\+Sum}!utils.\+h@{utils.\+h}}
+\paragraph[{vector\+Sum}]{\setlength{\rightskip}{0pt plus 5cm}double vector\+Sum (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{int, }
+\item[{double $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{utils_8h_a27a791931935bde7a6bfa34dfc6e660e}
+sum the elements of a vector.
+
+Takes a double vector and its length and return the sum of its elements as a double. 

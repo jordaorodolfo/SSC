@@ -4,9 +4,6 @@
 \begin_header
 \textclass report
 \begin_preamble
-%-------------------------------------
-% tikz
-%-------------------------------------
 \usepackage[acronym]{glossaries}
 \newacronym{LSR}{LSR}{least squares regression}
 \newacronym{SISO}{SISO}{Single-input-single-output}
@@ -14,37 +11,11 @@
 \newacronym{ISE}{ISE}{Integral Square error}
 \newacronym[longplural=ordinary differential equations]{ODE}{ODE}{ordinary differential equation}
 \newacronym[longplural=Algebraic Ricatti Equations]{ARE}{ARE}{Algebraic Ricatti equation}
-%-------------------------------------
 
 %-------------------------------------
 % tikz
 %-------------------------------------
 \usepackage{tikz}
-%-------------------------------------
-
-%-------------------------------------
-% breqn
-%-------------------------------------
-\usepackage{breqn}
-% Add support for automatic equation breaking
-\gdef\wrap@breqn@environ#1#2{
-    \expandafter\let\csname breqn@oldbegin@#1\expandafter\endcsname\csname #1\endcsname
-    \expandafter\let\csname breqn@oldend@#1\expandafter\endcsname\csname end#1\endcsname
-    \expandafter\gdef\csname breqn@begin@#1\endcsname{%
-        \expandafter\let\csname #1\expandafter\endcsname\csname breqn@oldbegin@#1\endcsname%
-        \begin{#2}%
-    }
-    \expandafter\gdef\csname breqn@end@#1\endcsname{%
-        \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@oldend@#1\endcsname%
-        \end{#2}%
-        \expandafter\let\csname #1\expandafter\endcsname\csname breqn@begin@#1\endcsname%
-        \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@end@#1\endcsname%
-    }
-    \expandafter\let\csname #1\expandafter\endcsname\csname breqn@begin@#1\endcsname
-    \expandafter\let\csname end#1\expandafter\endcsname\csname breqn@end@#1\endcsname
-}
-\wrap@breqn@environ{equation}{dmath}
-\wrap@breqn@environ{equation*}{dmath*}
 %-------------------------------------
 
 \usepackage{algpseudocode}
@@ -168,38 +139,6 @@ Rodolfo Jordao
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-listofalgorithms
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FloatList figure
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FloatList table
 
 \end_inset
 
@@ -1140,7 +1079,7 @@ seeing that
 \begin_inset Formula 
 \[
 \tau=\left.\nabla\tau\right|_{x=x_{0}}\left[\begin{array}{c}
-\theta-\theta_{0}\\
+\theta-\theta_{o}\\
 \omega\\
 \dot{\omega}
 \end{array}\right]
@@ -1511,7 +1450,7 @@ y_{m}^{*} & =-d_{{3}}\sqrt{1-{\frac{{a_{{1}}}^{2}}{\left(L_{{2}}+d_{{3}}\right)^
 \end_layout
 
 \begin_layout Subsection
-Optimal gain calculation
+Optimal gain calculation (Not finished)
 \end_layout
 
 \begin_layout Standard
@@ -1800,6 +1739,19 @@ these can be evaluated via the residue theorem of compelx analysis; and
  control gains.
 \end_layout
 
+\begin_layout Remark
+Since the author did not have equipment and availability to take apart the
+ whole apparatus and measure all the dynamical parameters to a good extent,
+ for them to be used in a analytical way.
+ This development made holds for a future re-analysis, especially the dynamical
+ equations of motion.
+ I hope that a analytical solution be sought and achieved in the future
+ of this project.
+ As for now, I've used a expert tune feature in the ESCON controller software
+ to achieve good control features; as the speed is already marveously controlled
+ by ESCON chip.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Comment
 status open
@@ -1907,6 +1859,14 @@ doing the same for the remaining parenthesis and for the controller contribution
 
 \begin_layout Section
 Algorithms for Tuning
+\end_layout
+
+\begin_layout Remark
+Like the optimal gains, the author ended not using the self-tuning algorithms
+ developed.
+ Although the mathematics was finished and showed capabilities in some tests;
+ the arduino reliability is low in this aspect and sole dependece on any
+ of the algorihtms developed is not possible with the current hardware.
 \end_layout
 
 \begin_layout Subsection
@@ -2891,20 +2851,13 @@ reference "fig:ring:draw"
 \begin_inset Float figure
 wide false
 sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
 status collapsed
 
 \begin_layout Plain Layout
-
-% 
-\backslash
-includegraphics[width=0.9
-\backslash
-textwidth]{../CAD/axis}
-\end_layout
+\align center
+\begin_inset Graphics
+	filename axis.pdf
+	width 60col%
 
 \end_inset
 
@@ -2940,20 +2893,13 @@ name "fig:axis:draw"
 \begin_inset Float figure
 wide false
 sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
 status collapsed
 
 \begin_layout Plain Layout
-
-% 
-\backslash
-includegraphics[width=0.9
-\backslash
-columnwidth]{../CAD/ring}
-\end_layout
+\align center
+\begin_inset Graphics
+	filename ring.pdf
+	width 60col%
 
 \end_inset
 
@@ -2985,129 +2931,34 @@ name "fig:ring:draw"
 
 \end_layout
 
+\begin_layout Standard
+The CAD program used in the design was the solid edge proprietary software,
+ by siemens.
+\end_layout
+
 \begin_layout Section
-Stall detection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:stall:detection"
-
-\end_inset
-
-
+Arduino programming
 \end_layout
 
 \begin_layout Standard
-The implementation is based by the LRS test and will make a check upon the
- error of the system is the trend is equilibrium or rising.
- The pseudo code is give in Alg.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "alg:stall:detection"
-
-\end_inset
-
- while the implentation is given in Sec.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "chap:arduino:source"
-
-\end_inset
-
-.
+The choice was a modular approach so that the next person in the project
+ can work with what was done without having to look the entire code again
+ and understand each line.
+ To accomplish modularity, the semi-complete C/C++ capabilities of the arduino
+ platform were used; abstraction of the hardware components such as engine,
+ sensor etc were encapsulated into new data structures and respective allocating
+ fucntions; in the same manner as a class design would be done.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float algorithm
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset listings
-lstparams "language=Pascal"
-inline false
-status collapsed
-
-\begin_layout Plain Layout
-
-Program Stall_detection
-\end_layout
-
-\begin_layout Plain Layout
-
-Var error_memory[1..n] : double
-\end_layout
-
-\begin_layout Plain Layout
-
-If trend of error_memory > 0 Then
-\end_layout
-
-\begin_layout Plain Layout
-
-	If average of error_memory > error_tolerance Then
-\end_layout
-
-\begin_layout Plain Layout
-
-		stop motor
-\end_layout
-
-\begin_layout Plain Layout
-
-Else
-\end_layout
-
-\begin_layout Plain Layout
-
-	Rerun Stall_detection after sampling
-\end_layout
-
-\begin_layout Plain Layout
-
-End
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Error Algorithm.
- 
-\begin_inset CommandInset label
-LatexCommand label
-name "alg:stall:detection"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-care must also be taken to re-initialize the error memory whenever a new
- command is issued or a the motor is disabled/enabled.
- If not, any test may give wrong predictions.
+For better purposes, the doxygen documentating package was used along the
+ arduino developement, so a nice latex manual is produced and can be found
+ within the project's digital premises.
+ Although the doxygen did not document the main .ino source; it is commented
+ and documented in the same way as all the other files; adding to the fact
+ that all variables have a reasonable self-explanatory name; it is safe
+ to say that the comments in the .ino file are enough to complete understanding
+ of the code.
 \end_layout
 
 \begin_layout Section
@@ -3115,242 +2966,15 @@ Computer Interface
 \end_layout
 
 \begin_layout Standard
-The Graphical Interface is build upon the Qt framework for easy deployment.
- A quick picture if it can be seen in Fig.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:interface"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-includegraphics[width=0.6
-\backslash
-columnwidth]{../implementation/Interface/screenshot}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Controller Prototype interface.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:interface"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "log"
-options "default"
-
-\end_inset
-
- 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-bibliographystyle{plain}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\start_of_appendix
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%dummy comment inserted by tex2lyx to ensure that this paragraph is not
- empty
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-chapter{Sagemath Source Code}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-label{sec:sagemath}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-lstinputlisting[language=Python]{/home/rjordao/Dropbox/SSC_Placement/model.sage}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-chapter{Qt Source Code}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-section{Header file}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-lstinputlisting[language={C++}]{/home/rjordao/Dropbox/SSC_Placement/implementati
-on/Interface/mainwindow.h}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-section{Source file}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-lstinputlisting[language={C++}]{/home/rjordao/Dropbox/SSC_Placement/implementati
-on/Interface/mainwindow.cpp}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-chapter{Arduino Source Code
-\backslash
-label{chap:arduino:source}}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% 
-\backslash
-lstinputlisting[language={C++}]{../implementation/Arduino/principal/principal.ino}
-\end_layout
-
-\end_inset
-
-
+The Graphical Interface is build upon the Qt framework to strike a balance
+ between deployment and speed.
+ Like the arduino source dode, the doxygen package was used to produced
+ a documentation as good as possible without requiring a future tinkerer
+ to understand the entire code.
+ Of course, this tinkerer is invited to do so and might greatly upgrade
+ the software by doing it.
+ But as a prototype setup probably the current features, alogn the already
+ built-in ESCON features, are more than enough.
 \end_layout
 
 \begin_layout Chapter

@@ -1,0 +1,82 @@
+\hypertarget{_sensor_8h}{\subsection{Sensor.\+h File Reference}
+\label{_sensor_8h}\index{Sensor.\+h@{Sensor.\+h}}
+}
+{\ttfamily \#include $<$Arduino.\+h$>$}\\*
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_sensor}{Sensor}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_sensor}{Sensor} \hyperlink{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}{Sensor\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}{Sensor\+\_\+t} $\ast$ \hyperlink{_sensor_8h_aee169220a2b3783d4d7d3d74b77e4cd1}{sensor\+Init} (byte pin\+\_\+, double min\+\_\+value\+\_\+, double max\+\_\+value\+\_\+, double min\+\_\+voltage\+\_\+, double max\+\_\+voltage\+\_\+)
+\item 
+double \hyperlink{_sensor_8h_af3097cb449f3a44f8e6957f01d0b0a8c}{sensor\+Get\+Reading} (\hyperlink{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}{Sensor\+\_\+t} $\ast$target)
+\item 
+\hypertarget{_sensor_8h_a15cdf3aceb1b522035dc562d71b5ba09}{void \hyperlink{_sensor_8h_a15cdf3aceb1b522035dc562d71b5ba09}{sensor\+Act} (\hyperlink{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}{Sensor\+\_\+t} $\ast$target)}\label{_sensor_8h_a15cdf3aceb1b522035dc562d71b5ba09}
+
+\begin{DoxyCompactList}\small\item\em The standard acting function for sensor, more of a general placeholder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{struct_sensor}{Sensor} abstraction header.
+
+This header file contains the sensor abstraction and its corresponding functions; such as acting, initialization and reading calculation.
+
+A function is necessary for the reading interpretation as the arduino does not output the its reading directly, but rather the read voltage. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}{\index{Sensor.\+h@{Sensor.\+h}!Sensor\+\_\+t@{Sensor\+\_\+t}}
+\index{Sensor\+\_\+t@{Sensor\+\_\+t}!Sensor.\+h@{Sensor.\+h}}
+\paragraph[{Sensor\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Sensor}
+ {\bf Sensor\+\_\+t}}}\label{_sensor_8h_a96a1bd503528c7d9bc056442f46c1248}
+\hyperlink{struct_sensor}{Sensor} pseudo-\/class abstraction.
+
+The implementation consists the usual {\itshape pin} to indicate the input of the arduino, {\itshape reading} internal variable for the voltage output, and some maximum and minimum settings for better value intepretation.
+
+There is also {\itshape voltage\+\_\+drift\+\_\+const} and {\itshape voltage\+\_\+drift\+\_\+linear} for fine tune of the readings; but experience showed that the arduino is not relaible even with these in the best way tuned. 
+
+\subsubsection{Function Documentation}
+\hypertarget{_sensor_8h_af3097cb449f3a44f8e6957f01d0b0a8c}{\index{Sensor.\+h@{Sensor.\+h}!sensor\+Get\+Reading@{sensor\+Get\+Reading}}
+\index{sensor\+Get\+Reading@{sensor\+Get\+Reading}!Sensor.\+h@{Sensor.\+h}}
+\paragraph[{sensor\+Get\+Reading}]{\setlength{\rightskip}{0pt plus 5cm}double sensor\+Get\+Reading (
+\begin{DoxyParamCaption}
+\item[{{\bf Sensor\+\_\+t} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}}\label{_sensor_8h_af3097cb449f3a44f8e6957f01d0b0a8c}
+interpretable reading fucntion.
+
+based upon the structure's internal variables of maximu mand variables, return the expected (in ideal situations) reading of the sensor. This is the preferred way of getting information from the sensors, rather than directly acessing the reading internal variable and converting it to some value; this is a particular case of what this function does. \hypertarget{_sensor_8h_aee169220a2b3783d4d7d3d74b77e4cd1}{\index{Sensor.\+h@{Sensor.\+h}!sensor\+Init@{sensor\+Init}}
+\index{sensor\+Init@{sensor\+Init}!Sensor.\+h@{Sensor.\+h}}
+\paragraph[{sensor\+Init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sensor\+\_\+t}$\ast$ sensor\+Init (
+\begin{DoxyParamCaption}
+\item[{byte}]{pin\+\_\+, }
+\item[{double}]{min\+\_\+value\+\_\+, }
+\item[{double}]{max\+\_\+value\+\_\+, }
+\item[{double}]{min\+\_\+voltage\+\_\+, }
+\item[{double}]{max\+\_\+voltage\+\_\+}
+\end{DoxyParamCaption}
+)}}\label{_sensor_8h_aee169220a2b3783d4d7d3d74b77e4cd1}
+\hyperlink{struct_sensor}{Sensor} abstraction initialization.
+
+The arguments required for the abstraction allocation are essential for the true reading calculation. Note that the fine tune paramenters are set by direct acces; not given in one pseudo-\/class initialization.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pin\+\_\+} & Arduino sensor P\+I\+N. \\
+\hline
+\mbox{\tt in}  & {\em min\+\_\+value\+\_\+} & minimum value the readings can assume. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+value\+\_\+} & maximum value the readings can assume. \\
+\hline
+\mbox{\tt in}  & {\em min\+\_\+voltage\+\_\+} & the voltage read by the Arduino when the value is at the minimum. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+voltage\+\_\+} & the voltage read by the Arduino when the value is at the maximum. \\
+\hline
+\end{DoxyParams}

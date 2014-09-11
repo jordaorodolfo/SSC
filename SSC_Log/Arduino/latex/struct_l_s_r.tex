@@ -1,0 +1,54 @@
+\hypertarget{struct_l_s_r}{\subsection{L\+S\+R Struct Reference}
+\label{struct_l_s_r}\index{L\+S\+R@{L\+S\+R}}
+}
+
+
+{\ttfamily \#include $<$L\+S\+R.\+h$>$}
+
+\subsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_l_s_r_a62054673f9ef1f1fedc9642feb1df2c0}{unsigned long \hyperlink{struct_l_s_r_a62054673f9ef1f1fedc9642feb1df2c0}{n}}\label{struct_l_s_r_a62054673f9ef1f1fedc9642feb1df2c0}
+
+\begin{DoxyCompactList}\small\item\em internal sampling size. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{struct_l_s_r_ae625e50c2d72528752732fde73696e9c}{cut\+\_\+index}
+\item 
+\hypertarget{struct_l_s_r_afdc197570c735e7e9eab5ee065500090}{double \hyperlink{struct_l_s_r_afdc197570c735e7e9eab5ee065500090}{sx}}\label{struct_l_s_r_afdc197570c735e7e9eab5ee065500090}
+
+\begin{DoxyCompactList}\small\item\em sum if all X values. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_a969933eb4ae8b2e39e355bf35e44fe42}{double \hyperlink{struct_l_s_r_a969933eb4ae8b2e39e355bf35e44fe42}{sy}}\label{struct_l_s_r_a969933eb4ae8b2e39e355bf35e44fe42}
+
+\begin{DoxyCompactList}\small\item\em sum of all Y values. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_ade5139504701944a91ebee91d7df8de2}{double \hyperlink{struct_l_s_r_ade5139504701944a91ebee91d7df8de2}{sxx}}\label{struct_l_s_r_ade5139504701944a91ebee91d7df8de2}
+
+\begin{DoxyCompactList}\small\item\em sum of all X values squared. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_a466bed83db1df94f12bd0dba5385d518}{double \hyperlink{struct_l_s_r_a466bed83db1df94f12bd0dba5385d518}{sxy}}\label{struct_l_s_r_a466bed83db1df94f12bd0dba5385d518}
+
+\begin{DoxyCompactList}\small\item\em sum of the product of all the X and Y values. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_a16a2f579191db59d0a637f17b67172ce}{double \hyperlink{struct_l_s_r_a16a2f579191db59d0a637f17b67172ce}{trend}}\label{struct_l_s_r_a16a2f579191db59d0a637f17b67172ce}
+
+\begin{DoxyCompactList}\small\item\em the trend calculated for the sample. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_a3d261056ca3667cbc21f0cd453d2d13e}{double \hyperlink{struct_l_s_r_a3d261056ca3667cbc21f0cd453d2d13e}{constant}}\label{struct_l_s_r_a3d261056ca3667cbc21f0cd453d2d13e}
+
+\begin{DoxyCompactList}\small\item\em the constant calculated for the sample. \end{DoxyCompactList}\item 
+\hypertarget{struct_l_s_r_a5e5db1686d3b03c302cdc89056d2f323}{double \hyperlink{struct_l_s_r_a5e5db1686d3b03c302cdc89056d2f323}{Den}}\label{struct_l_s_r_a5e5db1686d3b03c302cdc89056d2f323}
+
+\begin{DoxyCompactList}\small\item\em A denominator internal variable for the calculations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+pseudo-\/class abstraction for the least squares algorithm.
+
+The implementation does not use a vector, rather, it uses single variables to keep track of the necessary sums and smapling size; thus, keep in mind that the internal variables may overflow eventually for a huge sample. 
+
+\subsubsection{Field Documentation}
+\hypertarget{struct_l_s_r_ae625e50c2d72528752732fde73696e9c}{\index{L\+S\+R@{L\+S\+R}!cut\+\_\+index@{cut\+\_\+index}}
+\index{cut\+\_\+index@{cut\+\_\+index}!L\+S\+R@{L\+S\+R}}
+\paragraph[{cut\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long cut\+\_\+index}}\label{struct_l_s_r_ae625e50c2d72528752732fde73696e9c}
+true sampling size.
+
+When the internal sampling size reaches the index; the abstraction performs the necessary calculations to store the trend and constant into its internal varibles, which can be acessed at any time. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_l_s_r_8h}{L\+S\+R.\+h}\end{DoxyCompactItemize}

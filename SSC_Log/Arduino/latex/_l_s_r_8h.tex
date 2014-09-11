@@ -1,0 +1,130 @@
+\hypertarget{_l_s_r_8h}{\subsection{L\+S\+R.\+h File Reference}
+\label{_l_s_r_8h}\index{L\+S\+R.\+h@{L\+S\+R.\+h}}
+}
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_l_s_r}{L\+S\+R}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_l_s_r}{L\+S\+R} \hyperlink{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{L\+S\+R\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{L\+S\+R\+\_\+t} $\ast$ \hyperlink{_l_s_r_8h_a4668024259a8aab21e7d21c1ccf2e633}{init\+L\+S\+R} (unsigned long cut\+\_\+index\+\_\+)
+\item 
+void \hyperlink{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}{add\+Value\+Pair\+L\+S\+R} (\hyperlink{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{L\+S\+R\+\_\+t} $\ast$target, double x, double y)
+\item 
+void \hyperlink{_l_s_r_8h_a1a9b77c2931b680085a7f5a100026d20}{add\+Value\+L\+S\+R} (\hyperlink{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{L\+S\+R\+\_\+t} $\ast$target, double y)
+\item 
+double \hyperlink{_l_s_r_8h_a216e7920d9eb0b0a64f082de72fce05a}{get\+Trend\+L\+S\+R} (\hyperlink{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{L\+S\+R\+\_\+t} $\ast$target)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Least Squares Regression.
+
+This header file contains the \hyperlink{struct_l_s_r}{L\+S\+R} algorithm abstraction and its corresponding functions; such as calculating the trend and axis intersection and adding a new value to the list. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}{\index{L\+S\+R.\+h@{L\+S\+R.\+h}!L\+S\+R\+\_\+t@{L\+S\+R\+\_\+t}}
+\index{L\+S\+R\+\_\+t@{L\+S\+R\+\_\+t}!L\+S\+R.\+h@{L\+S\+R.\+h}}
+\paragraph[{L\+S\+R\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf L\+S\+R}  {\bf L\+S\+R\+\_\+t}}}\label{_l_s_r_8h_a169830022747d0fabc6441fc976b4dcf}
+pseudo-\/class abstraction for the least squares algorithm.
+
+The implementation does not use a vector, rather, it uses single variables to keep track of the necessary sums and smapling size; thus, keep in mind that the internal variables may overflow eventually for a huge sample. 
+
+\subsubsection{Function Documentation}
+\hypertarget{_l_s_r_8h_a1a9b77c2931b680085a7f5a100026d20}{\index{L\+S\+R.\+h@{L\+S\+R.\+h}!add\+Value\+L\+S\+R@{add\+Value\+L\+S\+R}}
+\index{add\+Value\+L\+S\+R@{add\+Value\+L\+S\+R}!L\+S\+R.\+h@{L\+S\+R.\+h}}
+\paragraph[{add\+Value\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Value\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{{\bf L\+S\+R\+\_\+t} $\ast$}]{target, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}}\label{_l_s_r_8h_a1a9b77c2931b680085a7f5a100026d20}
+adds a new value pair to {\itshape target} assuming that X is the current index.
+
+This functions behaves exactly in the same manner as \hyperlink{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}{add\+Value\+Pair\+L\+S\+R()}, except that the {\itshape y} corresponding X value is assumed to be the integer representing the y index in the list, e.\+g. if the sample size is 6, the next y index would be 7.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em target} & abstraction to me modified. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}{add\+Value\+Pair\+L\+S\+R(\+L\+S\+R\+\_\+t $\ast$target, double x, double y)} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em y} & an Y value for the algorithm calculation. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}{\index{L\+S\+R.\+h@{L\+S\+R.\+h}!add\+Value\+Pair\+L\+S\+R@{add\+Value\+Pair\+L\+S\+R}}
+\index{add\+Value\+Pair\+L\+S\+R@{add\+Value\+Pair\+L\+S\+R}!L\+S\+R.\+h@{L\+S\+R.\+h}}
+\paragraph[{add\+Value\+Pair\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Value\+Pair\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{{\bf L\+S\+R\+\_\+t} $\ast$}]{target, }
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}}\label{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}
+adds a new value pair to {\itshape target} of type \hyperlink{struct_l_s_r}{L\+S\+R}.
+
+By giving {\itshape x} and {\itshape y} values, all the internal calculations and necessary updates within the least squares algorithm are taken case of. If the sample size has reached the cutting index; this algorithm calculates the trend and the constant of the linear regression.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{struct_l_s_r}{L\+S\+R} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em target} & abstraction to me modified. \\
+\hline
+\mbox{\tt in}  & {\em x} & an X value for the algorithm. \\
+\hline
+\mbox{\tt in}  & {\em y} & an X corresponding Y value for the algorithm. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_l_s_r_8h_a216e7920d9eb0b0a64f082de72fce05a}{\index{L\+S\+R.\+h@{L\+S\+R.\+h}!get\+Trend\+L\+S\+R@{get\+Trend\+L\+S\+R}}
+\index{get\+Trend\+L\+S\+R@{get\+Trend\+L\+S\+R}!L\+S\+R.\+h@{L\+S\+R.\+h}}
+\paragraph[{get\+Trend\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Trend\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{{\bf L\+S\+R\+\_\+t} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}}\label{_l_s_r_8h_a216e7920d9eb0b0a64f082de72fce05a}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\hyperlink{deprecated__deprecated000001}{Deprecated}]Can be safely removed, but does not add any size to the code simple function to return the calculated trend.\end{DoxyRefDesc}
+
+
+Deprecated since the internal variables can be accessed directly; exists as a reminiscent of a previous class-\/driven implementation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em target} & abstraction to me modified. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\hypertarget{_l_s_r_8h_a4668024259a8aab21e7d21c1ccf2e633}{\index{L\+S\+R.\+h@{L\+S\+R.\+h}!init\+L\+S\+R@{init\+L\+S\+R}}
+\index{init\+L\+S\+R@{init\+L\+S\+R}!L\+S\+R.\+h@{L\+S\+R.\+h}}
+\paragraph[{init\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf L\+S\+R\+\_\+t}$\ast$ init\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{cut\+\_\+index\+\_\+}
+\end{DoxyParamCaption}
+)}}\label{_l_s_r_8h_a4668024259a8aab21e7d21c1ccf2e633}
+\hyperlink{struct_l_s_r}{L\+S\+R} pseudo-\/class initialization.
+
+by giving {\itshape cut\+\_\+index} to the funciton; an empty \hyperlink{struct_l_s_r}{L\+S\+R} is allocated within memory and returned. If later the cutting index need to be changed, this can be done by directly acessing the structure internal variables; no harm is done o the calculations in this matter.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cut\+\_\+index\+\_\+} & Initial cutting index; can be changed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_l_s_r}{L\+S\+R} 
+\end{DoxyReturn}

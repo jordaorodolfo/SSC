@@ -1,0 +1,40 @@
+\hypertarget{struct_motor}{\subsection{Motor Struct Reference}
+\label{struct_motor}\index{Motor@{Motor}}
+}
+
+
+{\ttfamily \#include $<$Motor.\+h$>$}
+
+\subsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_motor_a9f878eebf9fd39151c3b280ef419b613}{byte \hyperlink{struct_motor_a9f878eebf9fd39151c3b280ef419b613}{pin\+\_\+rpm}}\label{struct_motor_a9f878eebf9fd39151c3b280ef419b613}
+
+\begin{DoxyCompactList}\small\item\em Arduino pin for the P\+M\+W output. \end{DoxyCompactList}\item 
+\hypertarget{struct_motor_ac5dd8a7e927385fe94901006430c728a}{byte \hyperlink{struct_motor_ac5dd8a7e927385fe94901006430c728a}{pin\+\_\+master\+\_\+enable}}\label{struct_motor_ac5dd8a7e927385fe94901006430c728a}
+
+\begin{DoxyCompactList}\small\item\em Arduino pin for the enable/disable control. \end{DoxyCompactList}\item 
+\hypertarget{struct_motor_a8e744cce5b217526ef96872c1d01e9dc}{long \hyperlink{struct_motor_a8e744cce5b217526ef96872c1d01e9dc}{max\+\_\+rpm}}\label{struct_motor_a8e744cce5b217526ef96872c1d01e9dc}
+
+\begin{DoxyCompactList}\small\item\em a variable representing the max R\+P\+M the motor can achieve. \end{DoxyCompactList}\item 
+\hypertarget{struct_motor_ad1981c2d8b92ac445457f155c5a55604}{long \hyperlink{struct_motor_ad1981c2d8b92ac445457f155c5a55604}{min\+\_\+rpm}}\label{struct_motor_ad1981c2d8b92ac445457f155c5a55604}
+
+\begin{DoxyCompactList}\small\item\em a variable representing the min R\+P\+M the motor can achieve. This can be negative for orientation. \end{DoxyCompactList}\item 
+\hypertarget{struct_motor_a018fb09622ed6ea50c42a667b18b37d3}{long \hyperlink{struct_motor_a018fb09622ed6ea50c42a667b18b37d3}{current\+\_\+rpm}}\label{struct_motor_a018fb09622ed6ea50c42a667b18b37d3}
+
+\begin{DoxyCompactList}\small\item\em a varaible representing the desired speed for the motor. \end{DoxyCompactList}\item 
+\hypertarget{struct_motor_af14714be1f64a2dbe756a16c7f9b2e60}{boolean \hyperlink{struct_motor_af14714be1f64a2dbe756a16c7f9b2e60}{master\+\_\+enable}}\label{struct_motor_af14714be1f64a2dbe756a16c7f9b2e60}
+
+\begin{DoxyCompactList}\small\item\em internal variable controlling the enabled and disabled state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+pseudo-\/class abstraction for motors.
+
+The implementation consists the usual {\itshape pin\+\_\+rpm} to indicate the P\+W\+M output of the arduino, another pin to control the enable/disable state and R\+P\+M control variables.
+
+The {\itshape max\+\_\+rpm} and {\itshape min\+\_\+rpm} variables are necessary to make the arduino corretly process and act on the desired R\+P\+M, {\itshape current\+\_\+rpm}. Note that the last variable is N\+O\+T the speed reading, but the reference speed. These variables and set in the initialization and can be changed by direct acess if needed later. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_motor_8h}{Motor.\+h}\end{DoxyCompactItemize}

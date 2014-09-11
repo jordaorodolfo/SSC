@@ -1,0 +1,90 @@
+\hypertarget{_motor_8h}{\subsection{Motor.\+h File Reference}
+\label{_motor_8h}\index{Motor.\+h@{Motor.\+h}}
+}
+{\ttfamily \#include $<$Arduino.\+h$>$}\\*
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_motor}{Motor}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_motor}{Motor} \hyperlink{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}{Motor\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}{Motor\+\_\+t} $\ast$ \hyperlink{_motor_8h_ac7ff026d858c887d5d40186898b21dd9}{motor\+Init} (byte pin\+\_\+rpm\+\_\+, byte pin\+\_\+master\+\_\+enable\+\_\+, long max\+\_\+rpm\+\_\+, long min\+\_\+rpm\+\_\+)
+\item 
+void \hyperlink{_motor_8h_a9156dbd3adc4b791a4abe2466a3fca43}{motor\+Set\+Rpm} (\hyperlink{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}{Motor\+\_\+t} $\ast$target, long rmp)
+\item 
+void \hyperlink{_motor_8h_a3f969a458553d146803feb8cd78b18ea}{motor\+Act} (\hyperlink{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}{Motor\+\_\+t} $\ast$target)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{struct_motor}{Motor} abstraction header
+
+This header file contains the motor abstraction and its corresponding functions; such as acting, switching and initialization. Since the abstraction is a data structure, there is no need for private access methods; these changes are made by directly acessing the structure variables. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}{\index{Motor.\+h@{Motor.\+h}!Motor\+\_\+t@{Motor\+\_\+t}}
+\index{Motor\+\_\+t@{Motor\+\_\+t}!Motor.\+h@{Motor.\+h}}
+\paragraph[{Motor\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Motor}
+ {\bf Motor\+\_\+t}}}\label{_motor_8h_ae58869bb0522ba3ea1ab6b13c65ef2a9}
+pseudo-\/class abstraction for motors.
+
+The implementation consists the usual {\itshape pin\+\_\+rpm} to indicate the P\+W\+M output of the arduino, another pin to control the enable/disable state and R\+P\+M control variables.
+
+The {\itshape max\+\_\+rpm} and {\itshape min\+\_\+rpm} variables are necessary to make the arduino corretly process and act on the desired R\+P\+M, {\itshape current\+\_\+rpm}. Note that the last variable is N\+O\+T the speed reading, but the reference speed. These variables and set in the initialization and can be changed by direct acess if needed later. 
+
+\subsubsection{Function Documentation}
+\hypertarget{_motor_8h_a3f969a458553d146803feb8cd78b18ea}{\index{Motor.\+h@{Motor.\+h}!motor\+Act@{motor\+Act}}
+\index{motor\+Act@{motor\+Act}!Motor.\+h@{Motor.\+h}}
+\paragraph[{motor\+Act}]{\setlength{\rightskip}{0pt plus 5cm}void motor\+Act (
+\begin{DoxyParamCaption}
+\item[{{\bf Motor\+\_\+t} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}}\label{_motor_8h_a3f969a458553d146803feb8cd78b18ea}
+\hyperlink{struct_motor}{Motor} abstraction standard acting
+
+Takes care of the enable/disable state control and automatically sets the correct voltage P\+W\+M based upon the {\itshape min\+\_\+rpm} and {\itshape max\+\_\+rpm} pseudo-\/class variables.
+
+However an important assumption is made\+: the minimum R\+P\+M occurs at 10\% of the admissable voltage apply while the maximum occurs at 90\%. If that is not the case, the internal implementation needs to be changed. This is true for the E\+S\+C\+O\+N 50/5 controller. \hypertarget{_motor_8h_ac7ff026d858c887d5d40186898b21dd9}{\index{Motor.\+h@{Motor.\+h}!motor\+Init@{motor\+Init}}
+\index{motor\+Init@{motor\+Init}!Motor.\+h@{Motor.\+h}}
+\paragraph[{motor\+Init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Motor\+\_\+t}$\ast$ motor\+Init (
+\begin{DoxyParamCaption}
+\item[{byte}]{pin\+\_\+rpm\+\_\+, }
+\item[{byte}]{pin\+\_\+master\+\_\+enable\+\_\+, }
+\item[{long}]{max\+\_\+rpm\+\_\+, }
+\item[{long}]{min\+\_\+rpm\+\_\+}
+\end{DoxyParamCaption}
+)}}\label{_motor_8h_ac7ff026d858c887d5d40186898b21dd9}
+\hyperlink{struct_motor}{Motor} abstraction initialization.
+
+For initialization, control and internal calculations; along the necessary pins the maximum and minimum achievable R\+P\+Ms should be supplied.
+
+For example, in the S\+S\+C prototype; the motor could achieve 178 rpm C\+C\+W, hence being positive and 178 rpm C\+W, being then negative. This setup initialization would be the pin rpms with {\itshape min\+\_\+rpm\+\_\+=-\/178} and {\itshape max\+\_\+rpm\+\_\+=178}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pin\+\_\+rpm\+\_\+} & Arduino P\+I\+N for the P\+W\+M output. \\
+\hline
+\mbox{\tt in}  & {\em pin\+\_\+master\+\_\+enable\+\_\+} & Arduino P\+I\+N for the enable/disable control. \\
+\hline
+\mbox{\tt in}  & {\em max\+\_\+rpm\+\_\+} & Maximum R\+P\+M achievable. \\
+\hline
+\mbox{\tt in}  & {\em min\+\_\+rpm\+\_\+} & Minimum R\+P\+M achievable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_motor_8h_a9156dbd3adc4b791a4abe2466a3fca43}{\index{Motor.\+h@{Motor.\+h}!motor\+Set\+Rpm@{motor\+Set\+Rpm}}
+\index{motor\+Set\+Rpm@{motor\+Set\+Rpm}!Motor.\+h@{Motor.\+h}}
+\paragraph[{motor\+Set\+Rpm}]{\setlength{\rightskip}{0pt plus 5cm}void motor\+Set\+Rpm (
+\begin{DoxyParamCaption}
+\item[{{\bf Motor\+\_\+t} $\ast$}]{target, }
+\item[{long}]{rmp}
+\end{DoxyParamCaption}
+)}}\label{_motor_8h_a9156dbd3adc4b791a4abe2466a3fca43}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\hyperlink{deprecated__deprecated000002}{Deprecated}]The motor is not a class anymore. Direct change can be made and this code can be safely removed. \end{DoxyRefDesc}

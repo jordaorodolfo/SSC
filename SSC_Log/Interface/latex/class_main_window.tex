@@ -1,0 +1,200 @@
+\hypertarget{class_main_window}{\section{Main\+Window Class Reference}
+\label{class_main_window}\index{Main\+Window@{Main\+Window}}
+}
+
+
+The \hyperlink{class_main_window}{Main\+Window} class. Actually is the heart of the interface. All the methods which deal with the arduino itself are coded in the source code of this class.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+Inheritance diagram for Main\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main_window}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_main_window_aa0fc566d545a96cb559b8592605b042f}{serial\+Recieved} ()
+\begin{DoxyCompactList}\small\item\em fucntion that is executed everytime a serial message is recieved. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_ae7adeab38af0ac01546badd6baf64270}{send\+Arduino\+Data} (Q\+String)
+\begin{DoxyCompactList}\small\item\em send data to arduino via serial bus. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a4c5237443e9322aa767ef8c307bd2603}{void \hyperlink{class_main_window_a4c5237443e9322aa767ef8c307bd2603}{send\+Arduino\+Data} ()}\label{class_main_window_a4c5237443e9322aa767ef8c307bd2603}
+
+\begin{DoxyCompactList}\small\item\em similar to \hyperlink{class_main_window_ae7adeab38af0ac01546badd6baf64270}{send\+Arduino\+Data(\+Q\+String)}, but sends a null string and act the stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_main_window_ab981601bdb64879cd197fb6a6f950e0d}{send\+Arduino} (Q\+String)
+\begin{DoxyCompactList}\small\item\em send Arduino string. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a5235e26460c2ceee33c224a9d73e6b07}{send\+Arduino} ()
+\begin{DoxyCompactList}\small\item\em equivalent to the string counterpart. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_ad00460208b40c79747484b516d1781ce}{void \hyperlink{class_main_window_ad00460208b40c79747484b516d1781ce}{serial\+Recieved\+Processed} ()}\label{class_main_window_ad00460208b40c79747484b516d1781ce}
+
+\begin{DoxyCompactList}\small\item\em signal that indicates that the incoming serial stream has been processed. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_aa3339440163a91fb4a142c18e3c0bd28}{void \hyperlink{class_main_window_aa3339440163a91fb4a142c18e3c0bd28}{serial\+Sent} ()}\label{class_main_window_aa3339440163a91fb4a142c18e3c0bd28}
+
+\begin{DoxyCompactList}\small\item\em signal that indicates that the outgoung serial stream has been processed. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_aac28c5eee22c78e3d3100aa3a0b3926f}{void \hyperlink{class_main_window_aac28c5eee22c78e3d3100aa3a0b3926f}{arduino\+Connection} (bool)}\label{class_main_window_aac28c5eee22c78e3d3100aa3a0b3926f}
+
+\begin{DoxyCompactList}\small\item\em signals that the arduino is connected or not. mainly for G\+U\+I purposes. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_acfedf6f2c7df900495eac711ec3d1f38}{void \hyperlink{class_main_window_acfedf6f2c7df900495eac711ec3d1f38}{motor\+Enable} (bool)}\label{class_main_window_acfedf6f2c7df900495eac711ec3d1f38}
+
+\begin{DoxyCompactList}\small\item\em signals that motor is enabled or not. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a4ae4250857ad51ba9ee370c7cb5aba10}{void \hyperlink{class_main_window_a4ae4250857ad51ba9ee370c7cb5aba10}{motor\+Output\+C\+W} (bool)}\label{class_main_window_a4ae4250857ad51ba9ee370c7cb5aba10}
+
+\begin{DoxyCompactList}\small\item\em signals that the motor is turning C\+W or C\+C\+W. mainly for G\+U\+I purposes. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_aa6ffd0e450f99c7c5a7e6f3c0cbc426d}{motor\+Reference\+C\+W} (bool)
+\begin{DoxyCompactList}\small\item\em same idea as motor\+Output\+C\+W. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a56fcae02f5626144c7fd8c84cebcf616}{void \hyperlink{class_main_window_a56fcae02f5626144c7fd8c84cebcf616}{motor\+Stalling} (bool)}\label{class_main_window_a56fcae02f5626144c7fd8c84cebcf616}
+
+\begin{DoxyCompactList}\small\item\em signals if the motor is in intermittent operation. mainly for G\+U\+I purposes. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_aa452712ecfff8368afbb85d733d0c462}{void \hyperlink{class_main_window_aa452712ecfff8368afbb85d733d0c462}{motor\+Output\+R\+P\+M} (Q\+String)}\label{class_main_window_aa452712ecfff8368afbb85d733d0c462}
+
+\begin{DoxyCompactList}\small\item\em used to show a G\+U\+I representation of the arduino output R\+P\+M. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a95fb9d48208417324b0e1cb6a1f046c8}{void \hyperlink{class_main_window_a95fb9d48208417324b0e1cb6a1f046c8}{motor\+Reference\+R\+P\+M} (Q\+String)}\label{class_main_window_a95fb9d48208417324b0e1cb6a1f046c8}
+
+\begin{DoxyCompactList}\small\item\em used to show a G\+U\+I representation of the arduino reference R\+P\+M. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a6c2597367d4174eb49edf2b8f2ecee54}{motor\+Reference\+Recipro\+Freq} (Q\+String)
+\begin{DoxyCompactList}\small\item\em simple conversions to frequency. mainly for G\+U\+I purposes. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a58e84e8e07511b10f54d838f9b7738a9}{motor\+Output\+Recipro\+Freq} (Q\+String)
+\begin{DoxyCompactList}\small\item\em same idea as \hyperlink{class_main_window_a6c2597367d4174eb49edf2b8f2ecee54}{motor\+Reference\+Recipro\+Freq(\+Q\+String)}. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_ae183b93234b45eec5f45ec2d25aceade}{void \hyperlink{class_main_window_ae183b93234b45eec5f45ec2d25aceade}{system\+Height} (Q\+String)}\label{class_main_window_ae183b93234b45eec5f45ec2d25aceade}
+
+\begin{DoxyCompactList}\small\item\em signals the system height given by the arduino serial stream. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a9394ce562d6dc149df191ec48d1d7d3c}{void \hyperlink{class_main_window_a9394ce562d6dc149df191ec48d1d7d3c}{status\+Message} (Q\+String, int)}\label{class_main_window_a9394ce562d6dc149df191ec48d1d7d3c}
+
+\begin{DoxyCompactList}\small\item\em signal used to show a message into the main windows status bar, with a timer. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_a3ab48045303237d00e9767873f811134}{void \hyperlink{class_main_window_a3ab48045303237d00e9767873f811134}{status\+Message} (Q\+String)}\label{class_main_window_a3ab48045303237d00e9767873f811134}
+
+\begin{DoxyCompactList}\small\item\em same as \hyperlink{class_main_window_a9394ce562d6dc149df191ec48d1d7d3c}{status\+Message(\+Q\+String,int)}, without timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{\hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window} (Q\+Widget $\ast$parent=0)}\label{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}
+
+\begin{DoxyCompactList}\small\item\em default cosntructor \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a58ed5f08ac0868e866564505ca86ff24}{connect\+Arduino} ()
+\begin{DoxyCompactList}\small\item\em the funtion wich tries to connect to and arduino. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_main_window}{Main\+Window} class. Actually is the heart of the interface. All the methods which deal with the arduino itself are coded in the source code of this class. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_main_window_a58ed5f08ac0868e866564505ca86ff24}{\index{Main\+Window@{Main\+Window}!connect\+Arduino@{connect\+Arduino}}
+\index{connect\+Arduino@{connect\+Arduino}!Main\+Window@{Main\+Window}}
+\subsubsection[{connect\+Arduino}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::connect\+Arduino (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a58ed5f08ac0868e866564505ca86ff24}
+
+
+the funtion wich tries to connect to and arduino. 
+
+This function tries to be as cross-\/platform possible, by iterating in the lsit given by the Qt\+Serial library and attempting connection with the first possibility it finds. There is a draw back to this approach\+: The assumption that only on arduino is connected to the machine.
+
+By calling the function the internal variable serial is manipulated in this respect. \hypertarget{class_main_window_a58e84e8e07511b10f54d838f9b7738a9}{\index{Main\+Window@{Main\+Window}!motor\+Output\+Recipro\+Freq@{motor\+Output\+Recipro\+Freq}}
+\index{motor\+Output\+Recipro\+Freq@{motor\+Output\+Recipro\+Freq}!Main\+Window@{Main\+Window}}
+\subsubsection[{motor\+Output\+Recipro\+Freq}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::motor\+Output\+Recipro\+Freq (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a58e84e8e07511b10f54d838f9b7738a9}
+
+
+same idea as \hyperlink{class_main_window_a6c2597367d4174eb49edf2b8f2ecee54}{motor\+Reference\+Recipro\+Freq(\+Q\+String)}. 
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_main_window_aa452712ecfff8368afbb85d733d0c462}{motor\+Output\+R\+P\+M(\+Q\+String)} 
+\end{DoxySeeAlso}
+\hypertarget{class_main_window_aa6ffd0e450f99c7c5a7e6f3c0cbc426d}{\index{Main\+Window@{Main\+Window}!motor\+Reference\+C\+W@{motor\+Reference\+C\+W}}
+\index{motor\+Reference\+C\+W@{motor\+Reference\+C\+W}!Main\+Window@{Main\+Window}}
+\subsubsection[{motor\+Reference\+C\+W}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::motor\+Reference\+C\+W (
+\begin{DoxyParamCaption}
+\item[{bool}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_aa6ffd0e450f99c7c5a7e6f3c0cbc426d}
+
+
+same idea as motor\+Output\+C\+W. 
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_main_window_a4ae4250857ad51ba9ee370c7cb5aba10}{motor\+Output\+C\+W(bool)} 
+\end{DoxySeeAlso}
+\hypertarget{class_main_window_a6c2597367d4174eb49edf2b8f2ecee54}{\index{Main\+Window@{Main\+Window}!motor\+Reference\+Recipro\+Freq@{motor\+Reference\+Recipro\+Freq}}
+\index{motor\+Reference\+Recipro\+Freq@{motor\+Reference\+Recipro\+Freq}!Main\+Window@{Main\+Window}}
+\subsubsection[{motor\+Reference\+Recipro\+Freq}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::motor\+Reference\+Recipro\+Freq (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a6c2597367d4174eb49edf2b8f2ecee54}
+
+
+simple conversions to frequency. mainly for G\+U\+I purposes. 
+
+\begin{DoxySeeAlso}{See also}
+motor\+Reference\+R\+P\+M(\+Qstring) 
+\end{DoxySeeAlso}
+\hypertarget{class_main_window_ab981601bdb64879cd197fb6a6f950e0d}{\index{Main\+Window@{Main\+Window}!send\+Arduino@{send\+Arduino}}
+\index{send\+Arduino@{send\+Arduino}!Main\+Window@{Main\+Window}}
+\subsubsection[{send\+Arduino}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::send\+Arduino (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_ab981601bdb64879cd197fb6a6f950e0d}
+
+
+send Arduino string. 
+
+The signal to send Arduino any commands and numbers within the string. If the arduino is not connect, however, a message is printed into the status bar telling that the arduino is not connected and no action takes place. \hypertarget{class_main_window_a5235e26460c2ceee33c224a9d73e6b07}{\index{Main\+Window@{Main\+Window}!send\+Arduino@{send\+Arduino}}
+\index{send\+Arduino@{send\+Arduino}!Main\+Window@{Main\+Window}}
+\subsubsection[{send\+Arduino}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::send\+Arduino (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a5235e26460c2ceee33c224a9d73e6b07}
+
+
+equivalent to the string counterpart. 
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_main_window_ab981601bdb64879cd197fb6a6f950e0d}{send\+Arduino(\+Q\+String)}; 
+\end{DoxySeeAlso}
+\hypertarget{class_main_window_ae7adeab38af0ac01546badd6baf64270}{\index{Main\+Window@{Main\+Window}!send\+Arduino\+Data@{send\+Arduino\+Data}}
+\index{send\+Arduino\+Data@{send\+Arduino\+Data}!Main\+Window@{Main\+Window}}
+\subsubsection[{send\+Arduino\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::send\+Arduino\+Data (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_main_window_ae7adeab38af0ac01546badd6baf64270}
+
+
+send data to arduino via serial bus. 
+
+Takes the string given in the slot and sends it in the correct form to the arduino via serial bus. The string can be any command that the arduino recognizes (invalid commands and chars are ignored by the arduino internal parser).
+
+If the serial is still being processes; the string is appended to the end of the outgoing stream. \hypertarget{class_main_window_aa0fc566d545a96cb559b8592605b042f}{\index{Main\+Window@{Main\+Window}!serial\+Recieved@{serial\+Recieved}}
+\index{serial\+Recieved@{serial\+Recieved}!Main\+Window@{Main\+Window}}
+\subsubsection[{serial\+Recieved}]{\setlength{\rightskip}{0pt plus 5cm}void Main\+Window\+::serial\+Recieved (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{class_main_window_aa0fc566d545a96cb559b8592605b042f}
+
+
+fucntion that is executed everytime a serial message is recieved. 
+
+This function processes all the serial data recieved by the Arduino. Since it does not behave like the arduino processing does, being faster in this respect; a internal buffer is necessary to gather all the data until a linefeed is issued. If this happens, the buffer is taken and processed according to the minimal standard adopted in the arduino\+:
+
+Enabled; Stalling; reference R\+P\+M; output R\+P\+M; output Height; 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mainwindow.\+h\item 
+mainwindow.\+cpp\end{DoxyCompactItemize}

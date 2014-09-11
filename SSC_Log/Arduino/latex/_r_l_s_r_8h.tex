@@ -1,0 +1,89 @@
+\hypertarget{_r_l_s_r_8h}{\subsection{R\+L\+S\+R.\+h File Reference}
+\label{_r_l_s_r_8h}\index{R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}}
+}
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_r_l_s_r}{R\+L\+S\+R}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_r_l_s_r}{R\+L\+S\+R} \hyperlink{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{R\+L\+S\+R\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{R\+L\+S\+R\+\_\+t} $\ast$ \hyperlink{_r_l_s_r_8h_a30908f6f9276a43687348312fcaf7c10}{init\+R\+L\+S\+R} ()
+\item 
+void \hyperlink{_r_l_s_r_8h_a470e4870bb0db6135613bb5de1cd9c05}{add\+Value\+Pair\+R\+L\+S\+R} (\hyperlink{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{R\+L\+S\+R\+\_\+t} $\ast$target, double x, double y)
+\item 
+void \hyperlink{_r_l_s_r_8h_a45ceedbfa474995fdfe99e269c033cb6}{add\+Value\+R\+L\+S\+R} (\hyperlink{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{R\+L\+S\+R\+\_\+t} $\ast$target, double y)
+\item 
+\hypertarget{_r_l_s_r_8h_adc178dff2bf3b4e52a77f196e15fae16}{double \hyperlink{_r_l_s_r_8h_adc178dff2bf3b4e52a77f196e15fae16}{get\+Trend\+R\+L\+S\+R} (\hyperlink{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{R\+L\+S\+R\+\_\+t} $\ast$target)}\label{_r_l_s_r_8h_adc178dff2bf3b4e52a77f196e15fae16}
+
+\begin{DoxyCompactList}\small\item\em deprecated since the pseudo-\/class trend can be accessed directly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Recursive least squares regression algorithm abstraction header/
+
+Except for the underlying algorithms, All the organization is the same as the \hyperlink{struct_l_s_r}{L\+S\+R} abstraction. The difference is that for each new added variable, a new trend and constant is calculated immediatly. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}{\index{R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}!R\+L\+S\+R\+\_\+t@{R\+L\+S\+R\+\_\+t}}
+\index{R\+L\+S\+R\+\_\+t@{R\+L\+S\+R\+\_\+t}!R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}}
+\paragraph[{R\+L\+S\+R\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf R\+L\+S\+R}  {\bf R\+L\+S\+R\+\_\+t}}}\label{_r_l_s_r_8h_ad3fa776303297f58bed6269dcfede4dc}
+Recursive least squares regression algorithm pseudo-\/class.
+
+In the same fashion as the \hyperlink{struct_l_s_r}{L\+S\+R} abstraction, this pseudo-\/class contains all the internal calculations variables necessary to better performance and variables representing the trend and constant after each sampling.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{struct_l_s_r}{L\+S\+R} 
+\end{DoxySeeAlso}
+
+
+\subsubsection{Function Documentation}
+\hypertarget{_r_l_s_r_8h_a470e4870bb0db6135613bb5de1cd9c05}{\index{R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}!add\+Value\+Pair\+R\+L\+S\+R@{add\+Value\+Pair\+R\+L\+S\+R}}
+\index{add\+Value\+Pair\+R\+L\+S\+R@{add\+Value\+Pair\+R\+L\+S\+R}!R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}}
+\paragraph[{add\+Value\+Pair\+R\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Value\+Pair\+R\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{{\bf R\+L\+S\+R\+\_\+t} $\ast$}]{target, }
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}}\label{_r_l_s_r_8h_a470e4870bb0db6135613bb5de1cd9c05}
+add a value pair to the \hyperlink{struct_r_l_s_r}{R\+L\+S\+R} abstraction algorithm.
+
+Works exactly like adding a pair to {\itshape \hyperlink{struct_l_s_r}{L\+S\+R}} abstraction, except that the new trend and constant are avialable right away.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{_l_s_r_8h_a0c28c3ab277599bde4410028233162a5}{add\+Value\+Pair\+L\+S\+R()} 
+\end{DoxySeeAlso}
+\hypertarget{_r_l_s_r_8h_a45ceedbfa474995fdfe99e269c033cb6}{\index{R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}!add\+Value\+R\+L\+S\+R@{add\+Value\+R\+L\+S\+R}}
+\index{add\+Value\+R\+L\+S\+R@{add\+Value\+R\+L\+S\+R}!R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}}
+\paragraph[{add\+Value\+R\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Value\+R\+L\+S\+R (
+\begin{DoxyParamCaption}
+\item[{{\bf R\+L\+S\+R\+\_\+t} $\ast$}]{target, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}}\label{_r_l_s_r_8h_a45ceedbfa474995fdfe99e269c033cb6}
+add a value to the \hyperlink{struct_r_l_s_r}{R\+L\+S\+R} algorithm assuming X value to be the current index.
+
+Works exactly like its \hyperlink{struct_l_s_r}{L\+S\+R} counterpart, except that the new trend and constant are avialable right away.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{_l_s_r_8h_a1a9b77c2931b680085a7f5a100026d20}{add\+Value\+L\+S\+R()} 
+\end{DoxySeeAlso}
+\hypertarget{_r_l_s_r_8h_a30908f6f9276a43687348312fcaf7c10}{\index{R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}!init\+R\+L\+S\+R@{init\+R\+L\+S\+R}}
+\index{init\+R\+L\+S\+R@{init\+R\+L\+S\+R}!R\+L\+S\+R.\+h@{R\+L\+S\+R.\+h}}
+\paragraph[{init\+R\+L\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf R\+L\+S\+R\+\_\+t}$\ast$ init\+R\+L\+S\+R (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_r_l_s_r_8h_a30908f6f9276a43687348312fcaf7c10}
+\hyperlink{struct_r_l_s_r}{R\+L\+S\+R} initialization procedure.
+
+Unlike \hyperlink{struct_l_s_r}{L\+S\+R}, no cutting index is necessary as every pair addition results in an automatic calculation of the trend and constant without having to redo all the \hyperlink{struct_l_s_r}{L\+S\+R} calculations.
+
+A note is needed in this respect\+: Just like the \hyperlink{struct_l_s_r}{L\+S\+R} suffers from msicalculation if the cutting index is really big, the recursive estimation eventually wears off and give wrong results as samplign size increases witout bounds. Of course, this can be corrected by manually reseting the sampling size to 0, Restarting the algorithm. 

@@ -3,7 +3,7 @@
 #define H_MOTOR
 #endif
 
-Motor_t * motorInit(byte pin_rpm_, unsigned int pin_master_enable_ ,long min_rpm_, long max_rpm_)
+Motor_t * motorInit(byte pin_rpm_, byte pin_master_enable_ ,long min_rpm_, long max_rpm_)
 {
   Motor_t * new_motor = (Motor_t*)malloc(sizeof(Motor_t));
   new_motor->pin_rpm = pin_rpm_;
@@ -34,5 +34,5 @@ void motorAct(Motor_t *target)
     digitalWrite(target->pin_master_enable,LOW);
     analogWrite(target->pin_rpm,map(0,target->min_rpm,target->max_rpm,25,230));
     break;
-  }  
+  }
 }

@@ -1,0 +1,104 @@
+\hypertarget{_led_8h}{\subsection{Led.\+h File Reference}
+\label{_led_8h}\index{Led.\+h@{Led.\+h}}
+}
+{\ttfamily \#include $<$Arduino.\+h$>$}\\*
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_led}{Led}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_led}{Led} \hyperlink{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}{Led\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}{Led\+\_\+t} $\ast$ \hyperlink{_led_8h_affe9be6e6a54a6608fa8805df34f0932}{led\+Init} (byte pin\+\_\+red, byte pin\+\_\+green, byte pin\+\_\+blue, boolean digital\+\_\+)
+\item 
+void \hyperlink{_led_8h_a6e7b427f3021a18f0af921bd1c33b06f}{led\+Set\+Color} (\hyperlink{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}{Led\+\_\+t} $\ast$target, byte red, byte green, byte blue)
+\item 
+void \hyperlink{_led_8h_afb0e9a6ca607572839334498acb500a3}{led\+Act} (\hyperlink{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}{Led\+\_\+t} $\ast$target)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+L\+E\+D abstraction definitions.
+
+This files contains both the pseudo-\/class function definitions and the structure which acts kile the surmounted class. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}{\index{Led.\+h@{Led.\+h}!Led\+\_\+t@{Led\+\_\+t}}
+\index{Led\+\_\+t@{Led\+\_\+t}!Led.\+h@{Led.\+h}}
+\paragraph[{Led\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Led}
+ {\bf Led\+\_\+t}}}\label{_led_8h_aa5dce606bff4cd7fee65ed3a13c71d82}
+pseudo-\/class as a structure for L\+E\+D abstraction.
+
+constitutes of {\itshape pin\+\_\+\+R\+G\+B} vector, giving the pins designed to make the led act in the desired R\+G\+B color, {\itshape R\+G\+B} vector containing the so-\/called numbers and {\itshape boolean} digital; which is used within the function of acting to discern between digital and analog L\+E\+Ds. 
+
+\subsubsection{Function Documentation}
+\hypertarget{_led_8h_afb0e9a6ca607572839334498acb500a3}{\index{Led.\+h@{Led.\+h}!led\+Act@{led\+Act}}
+\index{led\+Act@{led\+Act}!Led.\+h@{Led.\+h}}
+\paragraph[{led\+Act}]{\setlength{\rightskip}{0pt plus 5cm}void led\+Act (
+\begin{DoxyParamCaption}
+\item[{{\bf Led\+\_\+t} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}}\label{_led_8h_afb0e9a6ca607572839334498acb500a3}
+L\+E\+D abstraction acting function.
+
+If the L\+E\+D is digital, check if each of the R\+G\+B's in the target abstraction are greater than 127; if so, this color is set to H\+I\+G\+H. Else, just write each R\+G\+B color set directly into each color's analog pin.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em target} & The L\+E\+D abstraction to be acted. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_led_8h_affe9be6e6a54a6608fa8805df34f0932}{\index{Led.\+h@{Led.\+h}!led\+Init@{led\+Init}}
+\index{led\+Init@{led\+Init}!Led.\+h@{Led.\+h}}
+\paragraph[{led\+Init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Led\+\_\+t}$\ast$ led\+Init (
+\begin{DoxyParamCaption}
+\item[{byte}]{pin\+\_\+red, }
+\item[{byte}]{pin\+\_\+green, }
+\item[{byte}]{pin\+\_\+blue, }
+\item[{boolean}]{digital\+\_\+}
+\end{DoxyParamCaption}
+)}}\label{_led_8h_affe9be6e6a54a6608fa8805df34f0932}
+led\+Init L\+E\+D abstraction initialization.
+
+After giving the necessary pins and a flag to check if the L\+E\+D is digital or analog; space for it is allocated internally and a Led\+\_\+t type is returned to be used.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pin\+\_\+red} & The pin for the red I/\+O. \\
+\hline
+\mbox{\tt in}  & {\em pin\+\_\+blue} & The pin for the blue I/\+O. \\
+\hline
+\mbox{\tt in}  & {\em pin\+\_\+green} & The pin for the green I/\+O. \\
+\hline
+\mbox{\tt in}  & {\em digital\+\_\+} & Flag to be used internally for acting. \\
+\hline
+\end{DoxyParams}
+\hypertarget{_led_8h_a6e7b427f3021a18f0af921bd1c33b06f}{\index{Led.\+h@{Led.\+h}!led\+Set\+Color@{led\+Set\+Color}}
+\index{led\+Set\+Color@{led\+Set\+Color}!Led.\+h@{Led.\+h}}
+\paragraph[{led\+Set\+Color}]{\setlength{\rightskip}{0pt plus 5cm}void led\+Set\+Color (
+\begin{DoxyParamCaption}
+\item[{{\bf Led\+\_\+t} $\ast$}]{target, }
+\item[{byte}]{red, }
+\item[{byte}]{green, }
+\item[{byte}]{blue}
+\end{DoxyParamCaption}
+)}}\label{_led_8h_a6e7b427f3021a18f0af921bd1c33b06f}
+Change the color settings of the target by giving new R\+G\+B.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em target} & abstraction to me modified. \\
+\hline
+\mbox{\tt in}  & {\em red} & new red value. \\
+\hline
+\mbox{\tt in}  & {\em green} & new green value. \\
+\hline
+\mbox{\tt in}  & {\em blue} & new blue value. \\
+\hline
+\end{DoxyParams}

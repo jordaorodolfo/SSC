@@ -1,0 +1,83 @@
+\hypertarget{class_variable_editor}{\section{Variable\+Editor Class Reference}
+\label{class_variable_editor}\index{Variable\+Editor@{Variable\+Editor}}
+}
+
+
+The \hyperlink{class_variable_editor}{Variable\+Editor} class is a simple global internal variable editor.  
+
+
+
+
+{\ttfamily \#include $<$variableeditor.\+h$>$}
+
+Inheritance diagram for Variable\+Editor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_variable_editor}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_variable_editor_ad63cad542a41c66adf493666a531f1e3}{s\+\_\+set\+Vars} (Q\+List$<$ int $>$, Q\+List$<$ double $>$)
+\begin{DoxyCompactList}\small\item\em s\+\_\+set\+Vars signals the new variables to be set in the main window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_variable_editor_a06fa8d1cdccf80a0a9fc9a706380f5ef}{Variable\+Editor} (Q\+Widget $\ast$parent=0, Q\+List$<$ int $>$ int\+\_\+vars\+\_\+=Q\+List$<$ int $>$(), Q\+List$<$ double $>$ double\+\_\+vars\+\_\+=Q\+List$<$ double $>$())
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_variable_editor}{Variable\+Editor} contructor, needs a couple of parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_variable_editor}{Variable\+Editor} class is a simple global internal variable editor. 
+
+The goal is that the object created changes the global variables determined into the mainwindow such as sample size and height extrema. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_variable_editor_a06fa8d1cdccf80a0a9fc9a706380f5ef}{\index{Variable\+Editor@{Variable\+Editor}!Variable\+Editor@{Variable\+Editor}}
+\index{Variable\+Editor@{Variable\+Editor}!Variable\+Editor@{Variable\+Editor}}
+\subsubsection[{Variable\+Editor}]{\setlength{\rightskip}{0pt plus 5cm}Variable\+Editor\+::\+Variable\+Editor (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}, }
+\item[{Q\+List$<$ int $>$}]{int\+\_\+vars\+\_\+ = {\ttfamily QList$<$int$>$()}, }
+\item[{Q\+List$<$ double $>$}]{double\+\_\+vars\+\_\+ = {\ttfamily QList$<$double$>$()}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_variable_editor_a06fa8d1cdccf80a0a9fc9a706380f5ef}
+
+
+\hyperlink{class_variable_editor}{Variable\+Editor} contructor, needs a couple of parameters. 
+
+To make the variables appear in the correct way, they are passed as lists by the mainwindow object and then processed internally by this class.
+
+Although the numbering and rows managning is automatic, the row labels are not. If more global variables are defined and need to be managed, the source code must be modified accordingly, in this class and in the \hyperlink{class_main_window}{Main\+Window} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The usual G\+U\+I parent. Genrally the mainwindow. \\
+\hline
+{\em int\+\_\+vars\+\_\+} & the input list of integer variables. \\
+\hline
+{\em double\+\_\+vars\+\_\+} & the input list of double/float variables. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_variable_editor_ad63cad542a41c66adf493666a531f1e3}{\index{Variable\+Editor@{Variable\+Editor}!s\+\_\+set\+Vars@{s\+\_\+set\+Vars}}
+\index{s\+\_\+set\+Vars@{s\+\_\+set\+Vars}!Variable\+Editor@{Variable\+Editor}}
+\subsubsection[{s\+\_\+set\+Vars}]{\setlength{\rightskip}{0pt plus 5cm}void Variable\+Editor\+::s\+\_\+set\+Vars (
+\begin{DoxyParamCaption}
+\item[{Q\+List$<$ int $>$}]{, }
+\item[{Q\+List$<$ double $>$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_variable_editor_ad63cad542a41c66adf493666a531f1e3}
+
+
+s\+\_\+set\+Vars signals the new variables to be set in the main window. 
+
+The variable chaging is not entirelly general in the mainwindow class and if a new global variable is created and needs to be managed, as stated in \hyperlink{class_variable_editor_a06fa8d1cdccf80a0a9fc9a706380f5ef}{Variable\+Editor()} description;the correspondent source code of the \hyperlink{class_main_window}{Main\+Window} class also needs to be changed. Although it is a straighforward change. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+variableeditor.\+h\item 
+variableeditor.\+cpp\end{DoxyCompactItemize}

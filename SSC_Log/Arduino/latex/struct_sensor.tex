@@ -1,0 +1,46 @@
+\hypertarget{struct_sensor}{\subsection{Sensor Struct Reference}
+\label{struct_sensor}\index{Sensor@{Sensor}}
+}
+
+
+{\ttfamily \#include $<$Sensor.\+h$>$}
+
+\subsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct_sensor_ab17e87ffa7bbb8cac12a4ec11a52b5e2}{byte \hyperlink{struct_sensor_ab17e87ffa7bbb8cac12a4ec11a52b5e2}{pin}}\label{struct_sensor_ab17e87ffa7bbb8cac12a4ec11a52b5e2}
+
+\begin{DoxyCompactList}\small\item\em variable to indicate the output P\+I\+N for the sensor. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_a7077a0bfc0aa4fa5a4f40bd7bf5eaee0}{double \hyperlink{struct_sensor_a7077a0bfc0aa4fa5a4f40bd7bf5eaee0}{max\+\_\+value}}\label{struct_sensor_a7077a0bfc0aa4fa5a4f40bd7bf5eaee0}
+
+\begin{DoxyCompactList}\small\item\em internal variable to calculate corret measurements. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_ac1a2ce47c792f87353ccd89465413de5}{double \hyperlink{struct_sensor_ac1a2ce47c792f87353ccd89465413de5}{min\+\_\+value}}\label{struct_sensor_ac1a2ce47c792f87353ccd89465413de5}
+
+\begin{DoxyCompactList}\small\item\em internal variable to calculate corret measurements. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_aa13bbc67e23866bcb9a2a19a9e741087}{double \hyperlink{struct_sensor_aa13bbc67e23866bcb9a2a19a9e741087}{max\+\_\+voltage}}\label{struct_sensor_aa13bbc67e23866bcb9a2a19a9e741087}
+
+\begin{DoxyCompactList}\small\item\em internal variable to calculate corret measurements. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_a4df2ed1d0372c2b0b2227f3d2be14c84}{double \hyperlink{struct_sensor_a4df2ed1d0372c2b0b2227f3d2be14c84}{min\+\_\+voltage}}\label{struct_sensor_a4df2ed1d0372c2b0b2227f3d2be14c84}
+
+\begin{DoxyCompactList}\small\item\em internal variable to calculate corret measurements. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_a1b2bf343b68a94912d8d37a5e5310341}{double \hyperlink{struct_sensor_a1b2bf343b68a94912d8d37a5e5310341}{voltage\+\_\+drift\+\_\+linear}}\label{struct_sensor_a1b2bf343b68a94912d8d37a5e5310341}
+
+\begin{DoxyCompactList}\small\item\em internal variable to fine tune sensor readings. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_a17960d4f81c9c2ba5da80f01e9865f32}{double \hyperlink{struct_sensor_a17960d4f81c9c2ba5da80f01e9865f32}{voltage\+\_\+drift\+\_\+const}}\label{struct_sensor_a17960d4f81c9c2ba5da80f01e9865f32}
+
+\begin{DoxyCompactList}\small\item\em internal variable to fine tune sensor readings. \end{DoxyCompactList}\item 
+\hypertarget{struct_sensor_a38cfe187d7cb2e43a8618a162ad795f4}{double \hyperlink{struct_sensor_a38cfe187d7cb2e43a8618a162ad795f4}{reading}}\label{struct_sensor_a38cfe187d7cb2e43a8618a162ad795f4}
+
+\begin{DoxyCompactList}\small\item\em internal variable to store the pure arduino reading, for later processing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{struct_sensor}{Sensor} pseudo-\/class abstraction.
+
+The implementation consists the usual {\itshape pin} to indicate the input of the arduino, {\itshape reading} internal variable for the voltage output, and some maximum and minimum settings for better value intepretation.
+
+There is also {\itshape voltage\+\_\+drift\+\_\+const} and {\itshape voltage\+\_\+drift\+\_\+linear} for fine tune of the readings; but experience showed that the arduino is not relaible even with these in the best way tuned. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_sensor_8h}{Sensor.\+h}\end{DoxyCompactItemize}

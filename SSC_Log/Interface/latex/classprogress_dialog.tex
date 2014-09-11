@@ -1,0 +1,111 @@
+\hypertarget{classprogress_dialog}{\section{progress\+Dialog Class Reference}
+\label{classprogress_dialog}\index{progress\+Dialog@{progress\+Dialog}}
+}
+
+
+The \hyperlink{classprogress_dialog}{progress\+Dialog} class is a simple progress bar for value recording.  
+
+
+
+
+{\ttfamily \#include $<$progressdialog.\+h$>$}
+
+Inheritance diagram for progress\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classprogress_dialog}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classprogress_dialog_ac6b3d582453f56d5f86758bbef380e52}{record\+Value} (double)
+\begin{DoxyCompactList}\small\item\em tkae a double value and add it to the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classprogress_dialog_acf8d15fdaea84dd2cfb07305aa973776}{record\+Value} (Q\+String)
+\begin{DoxyCompactList}\small\item\em record\+Value placeholder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classprogress_dialog_ab5054e13998ff01af0fa74c5703365d0}{set\+Progress} (int)
+\begin{DoxyCompactList}\small\item\em simple G\+U\+I fucntion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classprogress_dialog_a95133b1accf321c0a30a9cd27605c907}{progress\+Dialog} (Q\+Widget $\ast$parent=0, int dim\+\_\+=50, Q\+String tracked=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em \hyperlink{classprogress_dialog}{progress\+Dialog} constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classprogress_dialog}{progress\+Dialog} class is a simple progress bar for value recording. 
+
+This class manages both the gui representing the value recording and the recording itself, by storing the samples internally. The sample size is given in the class construction.
+
+The recording itself happens via slots from the mainwindow to one instance of this class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classprogress_dialog_a95133b1accf321c0a30a9cd27605c907}{\index{progress\+Dialog@{progress\+Dialog}!progress\+Dialog@{progress\+Dialog}}
+\index{progress\+Dialog@{progress\+Dialog}!progress\+Dialog@{progress\+Dialog}}
+\subsubsection[{progress\+Dialog}]{\setlength{\rightskip}{0pt plus 5cm}progress\+Dialog\+::progress\+Dialog (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}, }
+\item[{int}]{dim\+\_\+ = {\ttfamily 50}, }
+\item[{Q\+String}]{tracked = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{classprogress_dialog_a95133b1accf321c0a30a9cd27605c907}
+
+
+\hyperlink{classprogress_dialog}{progress\+Dialog} constructor. 
+
+The constructor must recieve the sample size which it will record so that the sample size can be tracked and managed internally. The name of the title should also be given for aesthetics.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & generally the main window. \\
+\hline
+{\em dim\+\_\+} & the samplign size that the object will manage. \\
+\hline
+{\em tracked} & the actual title of the G\+U\+I. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classprogress_dialog_ac6b3d582453f56d5f86758bbef380e52}{\index{progress\+Dialog@{progress\+Dialog}!record\+Value@{record\+Value}}
+\index{record\+Value@{record\+Value}!progress\+Dialog@{progress\+Dialog}}
+\subsubsection[{record\+Value}]{\setlength{\rightskip}{0pt plus 5cm}void progress\+Dialog\+::record\+Value (
+\begin{DoxyParamCaption}
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classprogress_dialog_ac6b3d582453f56d5f86758bbef380e52}
+
+
+tkae a double value and add it to the stack. 
+
+take the double given in the signal and add it to the internal sampel stack, managing the G\+U\+I and internal variables automatically. When the stack reaches the desired sample size, a finished signal is emited and a prompt for save is given. \hypertarget{classprogress_dialog_acf8d15fdaea84dd2cfb07305aa973776}{\index{progress\+Dialog@{progress\+Dialog}!record\+Value@{record\+Value}}
+\index{record\+Value@{record\+Value}!progress\+Dialog@{progress\+Dialog}}
+\subsubsection[{record\+Value}]{\setlength{\rightskip}{0pt plus 5cm}void progress\+Dialog\+::record\+Value (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classprogress_dialog_acf8d15fdaea84dd2cfb07305aa973776}
+
+
+record\+Value placeholder. 
+
+This signal is a placeholder for the record\+Value signal, which tries to convert the string to double format and the calls the correct \hyperlink{classprogress_dialog_ac6b3d582453f56d5f86758bbef380e52}{record\+Value(double)}. \hypertarget{classprogress_dialog_ab5054e13998ff01af0fa74c5703365d0}{\index{progress\+Dialog@{progress\+Dialog}!set\+Progress@{set\+Progress}}
+\index{set\+Progress@{set\+Progress}!progress\+Dialog@{progress\+Dialog}}
+\subsubsection[{set\+Progress}]{\setlength{\rightskip}{0pt plus 5cm}void progress\+Dialog\+::set\+Progress (
+\begin{DoxyParamCaption}
+\item[{int}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{classprogress_dialog_ab5054e13998ff01af0fa74c5703365d0}
+
+
+simple G\+U\+I fucntion. 
+
+This takes an int and represent it accordingly into the progress bar, making it show another percentage. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+progressdialog.\+h\item 
+progressdialog.\+cpp\end{DoxyCompactItemize}

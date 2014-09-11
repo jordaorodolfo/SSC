@@ -1,0 +1,69 @@
+\hypertarget{_switch_8h}{\subsection{Switch.\+h File Reference}
+\label{_switch_8h}\index{Switch.\+h@{Switch.\+h}}
+}
+{\ttfamily \#include $<$Arduino.\+h$>$}\\*
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_switch}{Switch}
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_switch}{Switch} \hyperlink{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}{Switch\+\_\+t}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}{Switch\+\_\+t} $\ast$ \hyperlink{_switch_8h_afd0e50b953ee25c1be550a1e6794e8a3}{switch\+Init} (byte pin)
+\item 
+\hyperlink{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}{Switch\+\_\+t} $\ast$ \hyperlink{_switch_8h_ada096931bfbc75c4ce7f13ebd06ed30e}{switch\+Init\+Pull\+Up} (byte pin)
+\item 
+void \hyperlink{_switch_8h_a1444c3efe44742abfa8e5d3a4e2f1e3a}{switch\+Act} (\hyperlink{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}{Switch\+\_\+t} $\ast$target)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{struct_switch}{Switch} abstraction header.
+
+This header file contains the switch abstraction and its corresponding functions; such as acting.
+
+To change the switch state, the boolean variable which represents it must be directly changed to the desired state. 
+
+\subsubsection{Typedef Documentation}
+\hypertarget{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}{\index{Switch.\+h@{Switch.\+h}!Switch\+\_\+t@{Switch\+\_\+t}}
+\index{Switch\+\_\+t@{Switch\+\_\+t}!Switch.\+h@{Switch.\+h}}
+\paragraph[{Switch\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Switch}  {\bf Switch\+\_\+t}}}\label{_switch_8h_ac1e8116c0505cabccf753de5d5de038b}
+\hyperlink{struct_switch}{Switch} pseudo-\/class abstraction.
+
+implements the usual pin abstraction along with the boolean reading. The pullup works as a flag which should only be given at the initialization and not changed later. 
+
+\subsubsection{Function Documentation}
+\hypertarget{_switch_8h_a1444c3efe44742abfa8e5d3a4e2f1e3a}{\index{Switch.\+h@{Switch.\+h}!switch\+Act@{switch\+Act}}
+\index{switch\+Act@{switch\+Act}!Switch.\+h@{Switch.\+h}}
+\paragraph[{switch\+Act}]{\setlength{\rightskip}{0pt plus 5cm}void switch\+Act (
+\begin{DoxyParamCaption}
+\item[{{\bf Switch\+\_\+t} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}}\label{_switch_8h_a1444c3efe44742abfa8e5d3a4e2f1e3a}
+\hyperlink{struct_switch}{Switch} acting function.
+
+Takes note of the structure internal variables and acts accordingly. The internal behaviour is different if the switch is initialized normally or as pull-\/up, but the end result is given as the same by the function. \hypertarget{_switch_8h_afd0e50b953ee25c1be550a1e6794e8a3}{\index{Switch.\+h@{Switch.\+h}!switch\+Init@{switch\+Init}}
+\index{switch\+Init@{switch\+Init}!Switch.\+h@{Switch.\+h}}
+\paragraph[{switch\+Init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Switch\+\_\+t}$\ast$ switch\+Init (
+\begin{DoxyParamCaption}
+\item[{byte}]{pin}
+\end{DoxyParamCaption}
+)}}\label{_switch_8h_afd0e50b953ee25c1be550a1e6794e8a3}
+\hyperlink{struct_switch}{Switch} abstraction normal initialization.
+
+This allocates memory for the pseudo-\/class and sets its necessayr internal variables. along with the flags for further acting. \hypertarget{_switch_8h_ada096931bfbc75c4ce7f13ebd06ed30e}{\index{Switch.\+h@{Switch.\+h}!switch\+Init\+Pull\+Up@{switch\+Init\+Pull\+Up}}
+\index{switch\+Init\+Pull\+Up@{switch\+Init\+Pull\+Up}!Switch.\+h@{Switch.\+h}}
+\paragraph[{switch\+Init\+Pull\+Up}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Switch\+\_\+t}$\ast$ switch\+Init\+Pull\+Up (
+\begin{DoxyParamCaption}
+\item[{byte}]{pin}
+\end{DoxyParamCaption}
+)}}\label{_switch_8h_ada096931bfbc75c4ce7f13ebd06ed30e}
+\hyperlink{struct_switch}{Switch} abstraction pull-\/up initialization.
+
+This allocates memory for the pseudo-\/class and sets its necessary internal variables. along with the flags for further acting. 

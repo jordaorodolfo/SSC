@@ -49,4 +49,3 @@ double getTrendLSR(LSR_t *target)
 {
   return target->trend;
 }
-
