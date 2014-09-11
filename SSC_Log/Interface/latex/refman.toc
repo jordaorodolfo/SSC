@@ -1,0 +1,33 @@
+\contentsline {chapter}{\numberline {1}Interface}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Hierarchical Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Class Hierarchy}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}Class Documentation}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Csv\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Writer Class Reference}{7}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{7}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Main\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Window Class Reference}{7}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{9}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Member Function Documentation}{9}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}connect\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Arduino}{9}{subsubsection.4.2.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}motor\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Output\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Recipro\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Freq}{9}{subsubsection.4.2.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.3}motor\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Reference\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}C\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}W}{9}{subsubsection.4.2.2.3}
+\contentsline {subsubsection}{\numberline {4.2.2.4}motor\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Reference\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Recipro\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Freq}{9}{subsubsection.4.2.2.4}
+\contentsline {subsubsection}{\numberline {4.2.2.5}send\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Arduino}{9}{subsubsection.4.2.2.5}
+\contentsline {subsubsection}{\numberline {4.2.2.6}send\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Arduino}{9}{subsubsection.4.2.2.6}
+\contentsline {subsubsection}{\numberline {4.2.2.7}send\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Arduino\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Data}{10}{subsubsection.4.2.2.7}
+\contentsline {subsubsection}{\numberline {4.2.2.8}serial\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Recieved}{10}{subsubsection.4.2.2.8}
+\contentsline {section}{\numberline {4.3}progress\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{10}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{11}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Constructor \& Destructor Documentation}{11}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}progress\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Dialog}{11}{subsubsection.4.3.2.1}
+\contentsline {subsection}{\numberline {4.3.3}Member Function Documentation}{11}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}record\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Value}{11}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}record\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Value}{11}{subsubsection.4.3.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3.3}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Progress}{11}{subsubsection.4.3.3.3}
+\contentsline {section}{\numberline {4.4}Variable\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Editor Class Reference}{11}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{12}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Constructor \& Destructor Documentation}{12}{subsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.2.1}Variable\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Editor}{12}{subsubsection.4.4.2.1}
+\contentsline {subsection}{\numberline {4.4.3}Member Function Documentation}{12}{subsection.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.3.1}s\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vars}{12}{subsubsection.4.4.3.1}
